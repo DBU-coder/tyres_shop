@@ -1,0 +1,356 @@
+[
+  {
+    "model": "shop.category",
+    "pk": 1,
+    "fields": {
+      "name": "Tyres",
+      "slug": "tyres"
+    }
+  },
+  {
+    "model": "shop.category",
+    "pk": 2,
+    "fields": {
+      "name": "Wheels",
+      "slug": "wheels"
+    }
+  },
+  {
+    "model": "shop.gallery",
+    "pk": 1,
+    "fields": {
+      "image": "images/products/tyre/1/tigar_205-55-16.png",
+      "content_type": 14,
+      "object_id": 1
+    }
+  },
+  {
+    "model": "shop.gallery",
+    "pk": 2,
+    "fields": {
+      "image": "images/products/tyre/2/continental.png",
+      "content_type": 14,
+      "object_id": 2
+    }
+  },
+  {
+    "model": "shop.gallery",
+    "pk": 3,
+    "fields": {
+      "image": "images/products/tyre/3/goodyear.png",
+      "content_type": 14,
+      "object_id": 3
+    }
+  },
+  {
+    "model": "shop.gallery",
+    "pk": 4,
+    "fields": {
+      "image": "images/products/tyre/4/313599762.jpg",
+      "content_type": 14,
+      "object_id": 4
+    }
+  },
+  {
+    "model": "shop.gallery",
+    "pk": 5,
+    "fields": {
+      "image": "images/products/tyre/5/michelin.jpg",
+      "content_type": 14,
+      "object_id": 5
+    }
+  },
+  {
+    "model": "shop.gallery",
+    "pk": 6,
+    "fields": {
+      "image": "images/products/wheel/1/bbs.jpg",
+      "content_type": 13,
+      "object_id": 1
+    }
+  },
+  {
+    "model": "shop.gallery",
+    "pk": 7,
+    "fields": {
+      "image": "images/products/wheel/2/iveco2.jpg",
+      "content_type": 13,
+      "object_id": 2
+    }
+  },
+  {
+    "model": "shop.gallery",
+    "pk": 8,
+    "fields": {
+      "image": "images/products/wheel/2/iveco1.jpg",
+      "content_type": 13,
+      "object_id": 2
+    }
+  },
+  {
+    "model": "shop.gallery",
+    "pk": 9,
+    "fields": {
+      "image": "images/products/wheel/3/logan.jpg",
+      "content_type": 13,
+      "object_id": 3
+    }
+  },
+  {
+    "model": "shop.gallery",
+    "pk": 10,
+    "fields": {
+      "image": "images/products/wheel/4/zorat.jpg",
+      "content_type": 13,
+      "object_id": 4
+    }
+  },
+  {
+    "model": "shop.tyre",
+    "pk": 1,
+    "fields": {
+      "sku": "355209729",
+      "name": "Tigar 205/55R16 94H Winter XL",
+      "slug": "tigar-205-55-r16-96-h",
+      "brand": "Tigar",
+      "country": "Serbia",
+      "description": "DECADES OF EXPERIENCE BEHIND IT\r\nA modern tyre brand developed to meet its consumers and clients requirements according to the latest market trends. TIGAR brand offers you reliable products and services.",
+      "price": 2486,
+      "stripe_product_price_id": "price_1NaJLJDwLVHq0eNswRk2AQ6E",
+      "status": 1,
+      "stock_qty": 20,
+      "created": "2023-08-01T14:14:32.538Z",
+      "updated": "2023-08-01T14:14:32.538Z",
+      "category": 1,
+      "vehicle_type": 2,
+      "profile": "55.0",
+      "season": 3,
+      "diameter": "R16",
+      "width": 205,
+      "load_index": 96,
+      "speed_index": "H",
+      "spikes": false,
+      "weight": "8.6"
+    }
+  },
+  {
+    "model": "shop.tyre",
+    "pk": 2,
+    "fields": {
+      "sku": "44373256",
+      "name": "Continental ContiEcoContact 5 165/60 R15 77H",
+      "slug": "continental-165-60-r15-77-h",
+      "brand": "Continental",
+      "country": "Germany",
+      "description": "Since its foundation in Hanover, Germany in 1871, Continental has been developing pioneering technologies and services for sustainable and connected mobility of people and their goods. From a small factory in Hanover the company has developed into one of the global players in the automotive industry, which is now operating in 58 countries and markets. Continental is the oldest independent and also one of the largest tire manufacturers in the world. Over the past 150 years, the company has set standards in the tire industry with its pioneering spirit and innovative strength. Time and again, it was Continental’s engineers who, with their ground-breaking inventions, ensured that tires became safer, more efficient, and sustainable. Meanwhile Continental is connecting its tires and their sensors to the cloud and offering its customers completely new, smart and digital tire solutions and services.",
+      "price": 1545,
+      "stripe_product_price_id": "price_1NaJblDwLVHq0eNsrQDwUIyu",
+      "status": 1,
+      "stock_qty": 16,
+      "created": "2023-08-01T14:31:31.897Z",
+      "updated": "2023-08-01T14:31:31.897Z",
+      "category": 1,
+      "vehicle_type": 2,
+      "profile": "60.0",
+      "season": 2,
+      "diameter": "R15",
+      "width": 165,
+      "load_index": 77,
+      "speed_index": "H",
+      "spikes": false,
+      "weight": null
+    }
+  },
+  {
+    "model": "shop.tyre",
+    "pk": 3,
+    "fields": {
+      "sku": "355201425",
+      "name": "Goodyear 205/55R16 91H Ultra Grip Performance Gen-1 AO",
+      "slug": "goodyear-205-55-r16-91-h",
+      "brand": "Goodyear",
+      "country": "USA",
+      "description": "",
+      "price": 4183,
+      "stripe_product_price_id": "price_1NaJiEDwLVHq0eNsdHpJOR5r",
+      "status": 1,
+      "stock_qty": 42,
+      "created": "2023-08-01T14:38:13.732Z",
+      "updated": "2023-08-01T14:40:37.864Z",
+      "category": 1,
+      "vehicle_type": 2,
+      "profile": "55.0",
+      "season": 3,
+      "diameter": "R16",
+      "width": 205,
+      "load_index": 91,
+      "speed_index": "H",
+      "spikes": false,
+      "weight": "8.9"
+    }
+  },
+  {
+    "model": "shop.tyre",
+    "pk": 4,
+    "fields": {
+      "sku": "367312776",
+      "name": "Goodyear 255/70R18 116Q Wrangler DuraTrac XL LR FP",
+      "slug": "goodyear-255-70-r18-116-q",
+      "brand": "Goodyear",
+      "country": "USA",
+      "description": "Goodyear Tire & Rubber Company, a major U.S. manufacturer of tires and related products for passenger cars, trucks, buses, and other vehicles. Headquarters are in Akron, Ohio. Founded as a rubber company by Charles and Frank Seiberling in 1898, Goodyear based its products on the tire designs of Paul Litchfield.",
+      "price": 6921,
+      "stripe_product_price_id": "price_1NaLZwDwLVHq0eNsooz5AcsX",
+      "status": 1,
+      "stock_qty": 8,
+      "created": "2023-08-01T16:37:47.139Z",
+      "updated": "2023-08-01T16:37:47.139Z",
+      "category": 1,
+      "vehicle_type": 3,
+      "profile": "70.0",
+      "season": 1,
+      "diameter": "R18",
+      "width": 255,
+      "load_index": 116,
+      "speed_index": "Q",
+      "spikes": false,
+      "weight": "19.0"
+    }
+  },
+  {
+    "model": "shop.tyre",
+    "pk": 5,
+    "fields": {
+      "sku": "370754742",
+      "name": "Michelin 325/40R22 114Y Pilot Sport 4 SUV",
+      "slug": "michelin-325-40-r22-114-y",
+      "brand": "Michelin",
+      "country": "France",
+      "description": "The Michelin Group is a global company headquartered in Clermont-Ferrand, France. Founded in 1889, the Michelin Group provides tyres to over 170 countries. The Michelin Group makes tyres locally for your specific needs and road conditions in one of our 69 production facilities around the world.",
+      "price": 22640,
+      "stripe_product_price_id": "price_1NaLqwDwLVHq0eNsdF96SbdJ",
+      "status": 1,
+      "stock_qty": 4,
+      "created": "2023-08-01T16:55:20.621Z",
+      "updated": "2023-08-01T16:55:20.621Z",
+      "category": 1,
+      "vehicle_type": 2,
+      "profile": "40.0",
+      "season": 2,
+      "diameter": "R22",
+      "width": 325,
+      "load_index": 114,
+      "speed_index": "Y",
+      "spikes": false,
+      "weight": "18.0"
+    }
+  },
+  {
+    "model": "shop.wheel",
+    "pk": 1,
+    "fields": {
+      "sku": "268327011",
+      "name": "BBS FI-R satin black R20 W11,5 PCD5x130 ET62 DIA71,6 ID_3_7606",
+      "slug": "bbs-fi-r-20-115-5x130-62-716-satin-black",
+      "brand": "BBS",
+      "country": "Germany",
+      "description": "The BBS wheel line is technology from the world of motor racing that can improve the quality of your own driving experience. The BBS World Headquarters is located in the Blackforest region of Germany in the town of Schiltach. With over 30 years of success in motorsports, BBS can lay claim to be the wheel of champions.",
+      "price": 113610,
+      "stripe_product_price_id": "price_1NaM0ODwLVHq0eNs7i5uoWgs",
+      "status": 1,
+      "stock_qty": 5,
+      "created": "2023-08-01T17:05:07.513Z",
+      "updated": "2023-08-01T17:05:07.513Z",
+      "category": 2,
+      "model": "FI-R",
+      "et": 62,
+      "diameter": 20,
+      "pcd": "5x130",
+      "width": "11.50",
+      "type": 1,
+      "dia": "71.60",
+      "color": "satin black"
+    }
+  },
+  {
+    "model": "shop.wheel",
+    "pk": 2,
+    "fields": {
+      "sku": "388698396",
+      "name": "IVECO TurboDaily 5.5х16\"",
+      "slug": "iveco-turbodaily-16-55-grey",
+      "brand": "IVECO",
+      "country": "Italia",
+      "description": "",
+      "price": 1778,
+      "stripe_product_price_id": "price_1NaMAXDwLVHq0eNstkChtvkU",
+      "status": 1,
+      "stock_qty": 23,
+      "created": "2023-08-01T17:15:36.361Z",
+      "updated": "2023-08-01T17:15:36.361Z",
+      "category": 2,
+      "model": "TurboDaily",
+      "et": null,
+      "diameter": 16,
+      "pcd": null,
+      "width": "70.00",
+      "type": 2,
+      "dia": "5.50",
+      "color": "grey"
+    }
+  },
+  {
+    "model": "shop.wheel",
+    "pk": 3,
+    "fields": {
+      "sku": "117888001",
+      "name": "DK DACIA Logan Black R14 W5,5 PCD4x100 ET43 DIA60",
+      "slug": "dk-dacia-logan-14-55-4x100-43-60-black",
+      "brand": "DK",
+      "country": "Slovenia",
+      "description": "",
+      "price": 1587,
+      "stripe_product_price_id": "price_1NaMF0DwLVHq0eNsnL0WJrND",
+      "status": 1,
+      "stock_qty": 5,
+      "created": "2023-08-01T17:20:13.567Z",
+      "updated": "2023-08-01T17:20:13.567Z",
+      "category": 2,
+      "model": "Dacia Logan",
+      "et": 43,
+      "diameter": 14,
+      "pcd": "4x100",
+      "width": "5.50",
+      "type": 2,
+      "dia": "60.00",
+      "color": "black"
+    }
+  },
+  {
+    "model": "shop.wheel",
+    "pk": 4,
+    "fields": {
+      "sku": "15811386",
+      "name": "ZORAT WHEELS 4408 R14 W6 PCD4X100 ET38 DIA67.1 MK-P",
+      "slug": "zorat-wheels-4408-14-6-4x100-38-671-mk-p",
+      "brand": "ZORAT WHEELS",
+      "country": "",
+      "description": "",
+      "price": 2977,
+      "stripe_product_price_id": "price_1NaMJ7DwLVHq0eNsepv6wMow",
+      "status": 2,
+      "stock_qty": 12,
+      "created": "2023-08-01T17:24:27.920Z",
+      "updated": "2023-08-01T17:24:27.921Z",
+      "category": 2,
+      "model": "4408",
+      "et": 38,
+      "diameter": 14,
+      "pcd": "4x100",
+      "width": "6.00",
+      "type": 1,
+      "dia": "67.10",
+      "color": "MK-P"
+    }
+  }
+]
