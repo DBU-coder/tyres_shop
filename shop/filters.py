@@ -19,6 +19,9 @@ class BaseFilter(filters.FilterSet):
         label='Brands',
         widget=forms.CheckboxSelectMultiple(attrs={'class': 'form-check-input'})
     )
+    diameter = filters.MultipleChoiceFilter(
+        widget=forms.CheckboxSelectMultiple(attrs={'class': 'form-check-input'})
+    )
     ordering = filters.ChoiceFilter(
         label='Sort by:',
         choices=ORDERING_CHOICES,
@@ -30,10 +33,12 @@ class BaseFilter(filters.FilterSet):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         model = self.queryset.model
-        self.filters['brand'].extra['choices'] = [(brand, brand) for brand in
-                                                  sorted(model.objects.values_list('brand', flat=True).distinct())]
-        self.filters['diameter'].extra['choices'] = [(d, f'R {d}') for d in
-                                                     sorted(model.objects.values_list('diameter', flat=True).distinct())]
+        self.filters['brand'].extra['choices'] = [
+            (brand, brand) for brand in sorted(model.objects.values_list('brand', flat=True).distinct())
+        ]
+        self.filters['diameter'].extra['choices'] = [
+            (d, f'R {d}') for d in sorted(model.objects.values_list('diameter', flat=True).distinct())
+        ]
 
     def filter_by_order(self, queryset, name, value):
         return queryset.order_by(value)
@@ -50,13 +55,10 @@ class TyreFilter(BaseFilter):
         empty_label='All tyres',
         widget=forms.RadioSelect(attrs={'class': 'form-check-input'})
     )
-    diameter = filters.MultipleChoiceFilter(
-        widget=forms.CheckboxSelectMultiple(attrs={'class': 'form-check-input'})
-    )
 
     class Meta:
         model = Tyre
-        fields = ['price', 'brand', 'vehicle_type', 'season']
+        fields = ['vehicle_type', 'season']
 
 
 class WheelFilter(BaseFilter):
@@ -64,12 +66,7 @@ class WheelFilter(BaseFilter):
         choices=Wheel.TYPE_CHOICES,
         widget=LinkWidget(attrs={'class': 'list-unstyled mb-0 categories-list'})
     )
-    diameter = filters.MultipleChoiceFilter(
-        widget=forms.CheckboxSelectMultiple(attrs={'class': 'form-check-input'})
-    )
 
     class Meta:
         model = Wheel
-        fields = ['price', 'brand', 'diameter', 'type']
-
-
+        fields = ['type']
