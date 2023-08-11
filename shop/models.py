@@ -95,7 +95,6 @@ class BaseProduct(models.Model):
 
     class Meta:
         abstract = True
-        ordering = ['-updated', 'name']
 
     sku = models.CharField(max_length=10, unique=True)
     name = models.CharField(max_length=100, unique=True)
@@ -150,7 +149,7 @@ class Tyre(BaseProduct):
     )
 
     SEASON_CHOICES = (
-        (1, 'All'),
+        (1, 'All season'),
         (2, 'Summer'),
         (3, 'Winter'),
     )
@@ -158,7 +157,7 @@ class Tyre(BaseProduct):
     vehicle_type = models.PositiveSmallIntegerField('Vehicle type', choices=VEHICLE_CHOICES)
     profile = models.DecimalField(max_digits=4, decimal_places=1)
     season = models.PositiveSmallIntegerField(choices=SEASON_CHOICES)
-    diameter = models.CharField(max_length=5)
+    diameter = models.PositiveSmallIntegerField()
     width = models.PositiveSmallIntegerField()
     load_index = models.PositiveSmallIntegerField(blank=True)
     speed_index = models.CharField(max_length=3, blank=True)
@@ -170,7 +169,7 @@ class Tyre(BaseProduct):
 
 
 class Wheel(BaseProduct):
-    CHOICES = (
+    TYPE_CHOICES = (
         (1, 'Alloy'),
         (2, 'Steel'),
     )
@@ -180,7 +179,7 @@ class Wheel(BaseProduct):
     diameter = models.PositiveSmallIntegerField()
     pcd = models.CharField(max_length=20, blank=True, null=True)
     width = models.DecimalField(max_digits=4, decimal_places=2)
-    type = models.PositiveSmallIntegerField(choices=CHOICES)
+    type = models.PositiveSmallIntegerField(choices=TYPE_CHOICES)
     dia = models.DecimalField(max_digits=4, decimal_places=2, blank=True, null=True)
     color = models.CharField(max_length=50, blank=True, null=True)
 

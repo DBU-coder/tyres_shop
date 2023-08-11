@@ -49,6 +49,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.github',
 
+    'django_filters',
+
     'shop.apps.ShopConfig',
     'customers.apps.CustomersConfig',
     'cart.apps.CartConfig',

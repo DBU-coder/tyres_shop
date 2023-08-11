@@ -1,9 +1,10 @@
 from django.db.models import Avg
-from django.http import JsonResponse
-from django.template.loader import render_to_string
 from django.views.generic import DetailView, ListView, TemplateView
 
+from enhanced_cbv.views import ListFilteredView
+
 from cart.forms import AddToCartForm
+from shop.filters import TyreFilter, WheelFilter
 from shop.models import *
 
 
@@ -21,7 +22,7 @@ class IndexListView(ListView):
         return HomepageProduct.objects.get_products('tyre', 'wheel')
 
 
-class CategoryProductsListView(ListView):
+class CategoryProductsListView(ListFilteredView):
     CT_MODELS_MODEL_CLASS = {
         'tyres': Tyre,
         'wheels': Wheel
@@ -30,19 +31,26 @@ class CategoryProductsListView(ListView):
     context_object_name = 'products'
     template_name = 'shop/category_products.html'
 
+    def get_filter_set(self):
+        if self.kwargs['cat_name'] == 'tyres':
+            return TyreFilter
+        return WheelFilter
+
     def get_context_data(self, **kwargs):
+        category = Category.objects.get(slug=self.kwargs.get('cat_name'))
         context = super().get_context_data(**kwargs)
-        context['order_field'] = self.order_field
+        # context['order_field'] = self.order_field
         context['paginate_by'] = self.paginate_by
-        context['title'] = f'Category | {self.kwargs.get("cat_name").title()}'
+        context['category'] = category
+        context['title'] = f'Category | {category.name}'
         return context
 
-    def get_queryset(self):
+    def get_base_queryset(self):
         ct_model = self.kwargs.get('cat_name')
-        self.order_field = self.request.GET.get('order_by', 'id')
+        # self.order_field = self.request.GET.get('order_by', 'id')
         product_model = self.CT_MODELS_MODEL_CLASS[ct_model]
-        queryset = product_model.objects.annotate(avg_rating=Avg('ratings__value')).order_by(self.order_field)
-        print(self.order_field)
+        queryset = product_model.objects.annotate(avg_rating=Avg('ratings__value'))
+        # print(self.order_field)
         print(queryset)
         return queryset
 
