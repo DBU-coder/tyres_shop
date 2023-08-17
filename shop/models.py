@@ -5,6 +5,7 @@ from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelatio
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.urls import reverse
+from django.utils import timezone
 
 from django_resized import ResizedImageField
 
@@ -23,14 +24,17 @@ def user_directory_path(instance, filename):
 class HomepageProductsManager:
 
     @staticmethod
-    def get_products(*args):
+    def get_new_products(*args):
         products = []
         content_type_models = ContentType.objects.filter(model__in=args)
         for ct_model in content_type_models:
             # TODO: Сделать фильтрацию по новинкам и популярным.
-            model_products = ct_model.model_class().objects.all().order_by('-created')[:4]
+            model_products = ct_model.model_class().objects.all().order_by('-created')[:10]
             products.extend(model_products)
         return products
+
+    def get_popular_products(*args):
+        pass
 
 
 class HomepageProduct:
@@ -168,10 +172,20 @@ class Wheel(BaseProduct):
         return f'Wheel: {self.name}'
 
 
-class Product(models.Model):
+class ProductStatistic(models.Model):
     content_type = models.ForeignKey(ContentType,
                                      on_delete=models.CASCADE,
                                      limit_choices_to={'model__in': ('tyre', 'wheel')}
                                      )
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
+    date = models.DateField(default=timezone.now)
+    sales_quantity = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        indexes = [
+            models.Index(fields=["content_type", "object_id"]),
+        ]
+
+    def __str__(self):
+        return self.content_object.name

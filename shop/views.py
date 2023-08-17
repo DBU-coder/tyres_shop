@@ -8,18 +8,14 @@ from shop.filters import TyreFilter, WheelFilter
 from shop.models import *
 
 
-class IndexListView(ListView):
+class IndexTemplateView(TemplateView):
     template_name = 'shop/index.html'
-    model = HomepageProduct
-    context_object_name = 'latest_products'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Shop | Homepage'
+        context['new_products'] = HomepageProduct.objects.get_new_products('tyre', 'wheel')
         return context
-
-    def get_queryset(self):
-        return HomepageProduct.objects.get_products('tyre', 'wheel')
 
 
 class CategoryProductsListView(ListFilteredView):

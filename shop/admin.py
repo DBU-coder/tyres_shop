@@ -32,4 +32,10 @@ class WheelAdmin(admin.ModelAdmin):
     inlines = [GalleryInline]
 
 
+@admin.register(ProductStatistic)
+class ProductStatisticAdmin(admin.ModelAdmin):
+    list_display = ('__str__', 'date', 'sales_quantity')
+    search_fields = ('__str__',)
+
+
 admin.site.register(Category)
