@@ -39,7 +39,6 @@ class CategoryProductsListView(ListFilteredView):
     def get_context_data(self, **kwargs):
         category = Category.objects.get(slug=self.kwargs.get('cat_name'))
         context = super().get_context_data(**kwargs)
-        # context['order_field'] = self.order_field
         context['paginate_by'] = self.paginate_by
         context['category'] = category
         context['title'] = f'Category | {category.name}'
@@ -47,11 +46,8 @@ class CategoryProductsListView(ListFilteredView):
 
     def get_base_queryset(self):
         ct_model = self.kwargs.get('cat_name')
-        # self.order_field = self.request.GET.get('order_by', 'id')
         product_model = self.CT_MODELS_MODEL_CLASS[ct_model]
         queryset = product_model.objects.annotate(avg_rating=Avg('ratings__value'))
-        # print(self.order_field)
-        print(queryset)
         return queryset
 
     def get_paginate_by(self, queryset):

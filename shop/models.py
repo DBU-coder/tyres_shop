@@ -6,6 +6,8 @@ from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.urls import reverse
 
+from django_resized import ResizedImageField
+
 from orders.models import OrderItem
 from ratings.models import Rating
 
@@ -49,9 +51,11 @@ class Category(models.Model):
 class Gallery(models.Model):
     """ Table for upload multiple images"""
 
-    _MAX_WIDTH = 300
-
-    image = models.ImageField(upload_to=user_directory_path, default='static/assets/images/errors-images/no-image.png')
+    image = ResizedImageField(
+        size=[300, 400],
+        crop=['middle', 'center'],
+        upload_to=user_directory_path,
+    )
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
@@ -60,29 +64,6 @@ class Gallery(models.Model):
         indexes = [
             models.Index(fields=["content_type", "object_id"]),
         ]
-
-    # def save(self, *args, **kwargs):
-    #     # Сначала - обычное сохранение
-    #     super().save(*args, **kwargs)
-    #     filepath = self.image.path
-    #     width = self.logo.width
-    #     height = self.logo.height
-    #
-    #     max_size = max(width, height)
-    #
-    #     # Может, и не надо ничего менять?
-    #     if max_size > _MAX_SIZE:
-    #         # Надо, Федя, надо
-    #         image = Image.open(filename)
-    #         # resize - безопасная функция, она создаёт новый объект, а не
-    #         # вносит изменения в исходный, поэтому так
-    #         image = image.resize(
-    #             (round(width / max_size * _MAX_SIZE),  # Сохраняем пропорции
-    #              round(height / max_size * _MAX_SIZE)),
-    #             Image.ANTIALIAS
-    #         )
-    #         # И не забыть сохраниться
-    #         image.save(filename)
 
 
 class BaseProduct(models.Model):
