@@ -43,7 +43,7 @@
     <div class="header-wrapper">
         <div class="top-menu border-bottom">
             <div class="container">
-                <nav class="navbar navbar-expand">
+                <nav class="navbar navbar-expand" aria-label="Top menu">
                     <div class="shiping-title text-uppercase font-13 d-none d-sm-flex">Welcome to our eTrans store!
                     </div>
                     <ul class="navbar-nav ms-auto d-none d-lg-flex">
@@ -146,7 +146,7 @@
                     </div>
                     <div class="col-4 col-md-auto order-2 order-md-4">
                         <div class="top-cart-icons float-end">
-                            <nav class="navbar navbar-expand">
+                            <nav class="navbar navbar-expand" aria-label="User menu">
                                 <ul class="navbar-nav ms-auto">
                                     {% if user.is_authenticated %}
                                         <li class="nav-item"><a href="{% url 'customers:profile' user.id %}"

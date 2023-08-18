@@ -20,6 +20,7 @@ Order {{ order.id }} {{ block.super }}
     </li>
 </ul>
 <table>
+<caption>Order info</caption>
     <tr>
         <th>Created</th>
         <td>{{ order.created|date:'SHORT_DATETIME_FORMAT' }}</td>
@@ -48,7 +49,7 @@ Order {{ order.id }} {{ block.super }}
 <div class="module">
     <div class="tabular inline-related last-related">
         <table>
-            <h2>Items bought</h2>
+            <caption>Items bought</caption>
             <thead>
             <tr>
                 <th>No.#</th>

@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import *
+from customers.views import ProfileDetailView, CustomerUpdateView, CustomerChangePassword
 
 
 app_name = 'customers'

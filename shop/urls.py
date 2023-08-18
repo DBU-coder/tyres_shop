@@ -1,6 +1,7 @@
 from django.urls import path
 
-from shop.views import *
+from shop.views import (IndexTemplateView, CategoryProductsListView, DeliveryView,
+                        AboutView, ContactsView, ProductDetailView)
 
 
 app_name = 'shop'

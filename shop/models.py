@@ -101,7 +101,7 @@ class BaseProduct(models.Model):
     country = models.CharField(max_length=50, blank=True)
     description = models.TextField(blank=True)
     price = models.IntegerField()
-    stripe_product_price_id = models.CharField(max_length=128, null=True, blank=True)
+    stripe_product_price_id = models.CharField(max_length=128, blank=True)
     status = models.PositiveSmallIntegerField(default=0, choices=STATUS_CHOICES)
     stock_qty = models.IntegerField('Stock quantity', default=0)
     created = models.DateTimeField(auto_now_add=True)
@@ -176,11 +176,11 @@ class Wheel(BaseProduct):
     model = models.CharField(max_length=100, blank=True)
     et = models.PositiveSmallIntegerField(blank=True, null=True)
     diameter = models.PositiveSmallIntegerField()
-    pcd = models.CharField(max_length=20, blank=True, null=True)
+    pcd = models.CharField(max_length=20, blank=True)
     width = models.DecimalField(max_digits=4, decimal_places=2)
     type = models.PositiveSmallIntegerField(choices=TYPE_CHOICES)
     dia = models.DecimalField(max_digits=4, decimal_places=2, blank=True, null=True)
-    color = models.CharField(max_length=50, blank=True, null=True)
+    color = models.CharField(max_length=50, blank=True)
 
     def __str__(self):
         return f'Wheel: {self.name}'

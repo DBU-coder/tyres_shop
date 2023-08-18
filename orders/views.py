@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, ListView, DeleteView, TemplateView
+from django.views.generic import CreateView, ListView, TemplateView
 from django.contrib.admin.views.decorators import staff_member_required
 
 from cart.cart import Cart
@@ -42,7 +42,6 @@ class OrderCreateView(CreateView):
         # order_created.delay(order.id)
         return super().form_valid(form)
 
-# TODO: Сделать оплату сразу после отправки формы.
     def get_success_url(self):
         return reverse_lazy('orders:order_shipping', args=[self.object.id])
 
@@ -73,4 +72,3 @@ class OrderDetailsView(ListView):
 def admin_order_details(request, order_id):
     order = get_object_or_404(Order, id=order_id)
     return render(request, 'admin/orders/order/order_details.html', {'order': order})
-

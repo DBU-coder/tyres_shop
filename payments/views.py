@@ -2,7 +2,7 @@ from http import HTTPStatus
 
 from django.conf import settings
 from django.http import HttpResponseRedirect, HttpResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import get_object_or_404
 
 import stripe
 from django.urls import reverse
@@ -12,7 +12,6 @@ from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
 
-from cart.cart import Cart
 from orders.models import Order
 from shop.models import ProductStatistic
 
@@ -49,14 +48,13 @@ class StripeWebhookView(View):
         payload = request.body
         endpoint_secret = settings.STRIPE_WEBHOOK_SECRET
         sig_header = request.META["HTTP_STRIPE_SIGNATURE"]
-        event = None
 
         try:
             event = stripe.Webhook.construct_event(payload, sig_header, endpoint_secret)
-        except ValueError as e:
+        except ValueError:
             # Invalid payload
             return HttpResponse(status=HTTPStatus.BAD_REQUEST)
-        except stripe.error.SignatureVerificationError as e:
+        except stripe.error.SignatureVerificationError:
             # Invalid signature
             return HttpResponse(status=HTTPStatus.BAD_REQUEST)
 
@@ -77,7 +75,7 @@ class StripeWebhookView(View):
 
     def set_sales_quantity(self):
         for item in self.order.items.all():
-            obj, created = ProductStatistic.objects.get_or_create(
+            obj, _ = ProductStatistic.objects.get_or_create(
                 content_type=item.content_type,
                 object_id=item.object_id,
                 date=timezone.now(),

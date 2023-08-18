@@ -1,6 +1,6 @@
 from django.views.generic.detail import SingleObjectMixin
 
-from shop.models import *
+from shop.models import Tyre, Wheel, Category
 
 
 class CategoryDetailMixin(SingleObjectMixin):

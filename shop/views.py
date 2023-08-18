@@ -1,11 +1,11 @@
 from django.db.models import Avg
-from django.views.generic import DetailView, ListView, TemplateView
+from django.views.generic import DetailView, TemplateView
 
 from enhanced_cbv.views import ListFilteredView
 
 from cart.forms import AddToCartForm
 from shop.filters import TyreFilter, WheelFilter
-from shop.models import *
+from shop.models import HomepageProduct, Tyre, Wheel, Category
 
 
 class IndexTemplateView(TemplateView):

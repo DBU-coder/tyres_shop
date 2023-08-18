@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.contenttypes.admin import GenericTabularInline
 
-from .models import *
+from shop.models import Gallery, Tyre, Wheel, ProductStatistic, Category
 
 
 # For upload multiple images
