@@ -15,6 +15,7 @@ class IndexTemplateView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Shop | Homepage'
         context['new_products'] = HomepageProduct.objects.get_new_products('tyre', 'wheel')
+        context['popular_products'] = HomepageProduct.objects.get_popular_products(days=1)
         return context
 
 

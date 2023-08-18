@@ -4,6 +4,7 @@ from django.conf import settings
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
+from django.db.models import Sum
 from django.urls import reverse
 from django.utils import timezone
 
@@ -28,13 +29,25 @@ class HomepageProductsManager:
         products = []
         content_type_models = ContentType.objects.filter(model__in=args)
         for ct_model in content_type_models:
-            # TODO: Сделать фильтрацию по новинкам и популярным.
             model_products = ct_model.model_class().objects.all().order_by('-created')[:10]
             products.extend(model_products)
         return products
 
-    def get_popular_products(*args):
-        pass
+    @staticmethod
+    def get_popular_products(days=0):
+        popular = ProductStatistic.objects.filter(
+            date__range=[timezone.now() - timezone.timedelta(days=days), timezone.now()],
+        ).values(
+            'content_type', 'object_id'
+        ).annotate(
+            total_sales=Sum('sales_quantity')
+        ).order_by('-total_sales')
+        popular_products = []
+        for item in popular:
+            ct_model = ContentType.objects.get_for_id(item['content_type'])
+            product = ct_model.model_class().objects.get(pk=item['object_id'])
+            popular_products.append(product)
+        return popular_products
 
 
 class HomepageProduct:
@@ -189,4 +202,4 @@ class ProductStatistic(models.Model):
         ]
 
     def __str__(self):
-        return self.content_object.name
+        return f'{self.content_object.name} sales: {self.sales_quantity}'
