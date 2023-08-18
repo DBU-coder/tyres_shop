@@ -6,6 +6,7 @@ from django.shortcuts import render, get_object_or_404
 
 import stripe
 from django.urls import reverse
+from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
@@ -13,6 +14,7 @@ from django.views.generic import TemplateView
 
 from cart.cart import Cart
 from orders.models import Order
+from shop.models import ProductStatistic
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -41,6 +43,7 @@ class StripeWebhookView(View):
     """
     Stripe webhook view to handle checkout session completed event.
     """
+    order = None
 
     def post(self, request):
         payload = request.body
@@ -58,19 +61,30 @@ class StripeWebhookView(View):
             return HttpResponse(status=HTTPStatus.BAD_REQUEST)
 
         if event["type"] == "checkout.session.completed":
-            print("Payment successful")
             session = event.data.object
+
             self.set_order_paid(session)
+            self.set_sales_quantity()
         # Can handle other events here.
 
         return HttpResponse(status=HTTPStatus.OK)
 
-    @staticmethod
-    def set_order_paid(session):
+    def set_order_paid(self, session):
         order_id = session.metadata.order_id
-        order = get_object_or_404(Order, id=order_id)
-        order.paid = True
-        order.save()
+        self.order = get_object_or_404(Order, id=order_id)
+        self.order.paid = True
+        self.order.save()
+
+    def set_sales_quantity(self):
+        for item in self.order.items.all():
+            obj, created = ProductStatistic.objects.get_or_create(
+                content_type=item.content_type,
+                object_id=item.object_id,
+                date=timezone.now(),
+                defaults={'content_type': item.content_type, 'object_id': item.object_id, 'date': timezone.now()},
+            )
+            obj.sales_quantity += item.quantity
+            obj.save(update_fields=['sales_quantity'])
 
 
 class SuccessView(TemplateView):

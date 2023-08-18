@@ -97,6 +97,7 @@ class BaseProduct(models.Model):
     gallery = GenericRelation(Gallery, related_query_name='product')
     ratings = GenericRelation(Rating, related_query_name='product')
     order_items = GenericRelation(OrderItem, related_query_name='product')
+    statistics = GenericRelation('ProductStatistic', related_query_name='product')
 
     def get_absolute_url(self):
         return reverse('shop:product_detail', kwargs={'ct_model': self._meta.model_name, 'slug': self.slug})
