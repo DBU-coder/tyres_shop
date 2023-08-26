@@ -1,0 +1,36 @@
+version: "3.9"
+
+services:
+  stripe-cli:
+    image: stripe/stripe-cli
+    network_mode: host
+    container_name: stripe-cli
+    command: "listen --api-key ${STRIPE_SECRET_KEY} --forward-to localhost:8000/webhooks/stripe/"
+    env_file:
+      - .env
+
+  tyres_shop:
+    build: ./
+    container_name: shop
+    restart: always
+    command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - static_volume:/app/static/
+      - media_volume:/app/media/
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    env_file:
+      - .env
+
+  db:
+    image: postgres:15-alpine
+    restart: always
+    env_file:
+      - .env
+
+volumes:
+  static_volume:
+  media_volume:
