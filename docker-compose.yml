@@ -27,10 +27,14 @@ services:
 
   db:
     image: postgres:15-alpine
+    container_name: postgres_db
     restart: always
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
     env_file:
       - .env
 
 volumes:
   static_volume:
   media_volume:
+  postgres_data:
