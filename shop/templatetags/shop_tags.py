@@ -1,4 +1,5 @@
 from django import template
+from django.core.cache import cache
 from django.db.models import Avg, Count
 
 from shop.models import Category
@@ -14,24 +15,26 @@ register = template.Library()
 
 @register.simple_tag()
 def get_main_image(product):
-    gallery = product.gallery.first()
-    return gallery.image
+    first_gallery_obj = product.gallery.all()[0]
+    return first_gallery_obj.image
 
 
 @register.inclusion_tag('menu.html')
 def get_menu():
-    cats = Category.objects.all()
+    cats = cache.get('cats')
+    if not cats:
+        cats = Category.objects.all()
+        cache.set('cats', cats, 60 * 5)
     return {'menu': menu, 'cats': cats}
 
 
 @register.inclusion_tag('rating.html')
 def show_rating(product):
-    ratings = product.ratings.aggregate(avg_value=Avg('value',  default=0), users_count=Count('ip'))
     data = {
         'product_id': product.id,
         'product_model': product.model_name,
-        'rating': round(ratings['avg_value'], 1),
-        'users_count': ratings['users_count']
+        'rating': round(product.avg_rating, 1),
+        'users_count': product.users_count
     }
     return data
 

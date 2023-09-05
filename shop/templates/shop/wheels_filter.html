@@ -1,4 +1,6 @@
-    <div class="col-12 col-xl-3">
+{% load cache %}
+{% cache 600 wheels_filter %}
+<div class="col-12 col-xl-3">
                             <div class="btn-mobile-filter d-xl-none"><i class='bx bx-slider-alt'></i>
                             </div>
                             <div class="filter-sidebar d-none d-xl-flex">
@@ -65,3 +67,4 @@
                                 </div>
                             </div>
                         </div>
+{% endcache %}

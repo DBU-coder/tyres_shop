@@ -8,7 +8,7 @@
             <section class="py-3 border-bottom border-top d-none d-md-flex bg-light">
                 <div class="container">
                     <div class="page-breadcrumb d-flex align-items-center">
-                        <h3 class="breadcrumb-title pe-3">{{ category.name }}</h3>
+                        <h3 class="breadcrumb-title pe-3">{{ view.kwargs.cat_name|title }}</h3>
                         <div class="ms-auto">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb mb-0 p-0">
@@ -17,7 +17,7 @@
                                     </li>
                                     <li class="breadcrumb-item"><a href="#">Categories</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ category.name }}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ view.kwargs.cat_name|title }}</li>
                                 </ol>
                             </nav>
                         </div>
@@ -30,7 +30,7 @@
                 <div class="container">
                 <form>
                     <div class="row">
-                    {% if category.name == 'Tyres' %}
+                    {% if view.kwargs.cat_name == 'tyres' %}
                         {% include 'shop/tyres_filter.html' %}
                     {% else %}
                         {% include 'shop/wheels_filter.html' %}

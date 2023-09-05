@@ -1,5 +1,6 @@
 import django_filters as filters
 from django import forms
+from django.core.cache import cache
 from django_filters.widgets import LinkWidget, RangeWidget
 
 from shop.models import Tyre, Wheel
@@ -33,12 +34,22 @@ class BaseFilter(filters.FilterSet):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         model = self.queryset.model
-        self.filters['brand'].extra['choices'] = [
-            (brand, brand) for brand in sorted(model.objects.values_list('brand', flat=True).distinct())
-        ]
-        self.filters['diameter'].extra['choices'] = [
-            (d, f'R {d}') for d in sorted(model.objects.values_list('diameter', flat=True).distinct())
-        ]
+
+        brand_choices = cache.get('brand')
+        if not brand_choices:
+            brand_choices = [(brand, brand) for brand in sorted(
+                model.objects.values_list('brand', flat=True).distinct()
+            )]
+            cache.set('brand', brand_choices)
+        self.filters['brand'].extra['choices'] = brand_choices
+
+        diameter_choices = cache.get('diameter')
+        if not diameter_choices:
+            diameter_choices = [(d, f'R {d}') for d in sorted(
+                model.objects.values_list('diameter', flat=True).distinct()
+            )]
+            cache.set('diameter', diameter_choices)
+        self.filters['diameter'].extra['choices'] = diameter_choices
 
     def filter_by_order(self, queryset, name, value):
         return queryset.order_by(value)

@@ -9,7 +9,7 @@ services:
     env_file:
       - .env
 
-  tyres_shop:
+  app:
     build: ./
     container_name: shop
     restart: always
@@ -22,6 +22,7 @@ services:
       - "8000:8000"
     depends_on:
       - db
+      - redis
     env_file:
       - .env
 
@@ -33,6 +34,11 @@ services:
       - postgres_data:/var/lib/postgresql/data
     env_file:
       - .env
+
+  redis:
+    image: redis:alpine
+    container_name: redis
+    restart: always
 
 volumes:
   static_volume:

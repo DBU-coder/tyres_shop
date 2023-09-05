@@ -24,6 +24,7 @@ from payments.views import StripeWebhookView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("__debug__/", include("debug_toolbar.urls")),
     path('accounts/', include('allauth.urls')),  # Allauth
     path('shop/', include('shop.urls', namespace='shop')),
     path('customers/', include('customers.urls', namespace='customers')),

@@ -4,7 +4,7 @@ from django.conf import settings
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
-from django.db.models import Sum
+from django.db.models import Sum, Avg, Count
 from django.urls import reverse
 from django.utils import timezone
 
@@ -22,14 +22,15 @@ def user_directory_path(instance, filename):
     return f'images/products/{model_name}/{product_id}/{filename}'
 
 
-class HomepageProductsManager:
+class HomepageProductsManager(models.Manager):
 
     @staticmethod
     def get_new_products(*args):
         products = []
         content_type_models = ContentType.objects.filter(model__in=args)
         for ct_model in content_type_models:
-            model_products = ct_model.model_class().objects.all().order_by('-created')[:10]
+            model_products = ct_model.model_class().objects.select_related('category').prefetch_related('gallery')\
+                             .order_by('-created')[:10]
             products.extend(model_products)
         return products
 
@@ -46,7 +47,13 @@ class HomepageProductsManager:
         popular_products = []
         for item in popular:
             ct_model = ContentType.objects.get_for_id(item['content_type'])
-            product = ct_model.model_class().objects.get(pk=item['object_id'])
+            product = ct_model.model_class().objects.select_related('category').prefetch_related(
+                'ratings',
+                'gallery'
+            ).annotate(
+                avg_rating=Avg('ratings__value'),
+                users_count=Count('ratings__ip')
+            ).get(pk=item['object_id'])
             popular_products.append(product)
         return popular_products
 

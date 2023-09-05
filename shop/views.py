@@ -1,11 +1,11 @@
-from django.db.models import Avg
+from django.db.models import Avg, Count
 from django.views.generic import DetailView, TemplateView
 
 from enhanced_cbv.views import ListFilteredView
 
 from cart.forms import AddToCartForm
 from shop.filters import TyreFilter, WheelFilter
-from shop.models import HomepageProduct, Tyre, Wheel, Category
+from shop.models import HomepageProduct, Tyre, Wheel
 
 
 class IndexTemplateView(TemplateView):
@@ -34,17 +34,18 @@ class CategoryProductsListView(ListFilteredView):
         return WheelFilter
 
     def get_context_data(self, **kwargs):
-        category = Category.objects.get(slug=self.kwargs.get('cat_name'))
         context = super().get_context_data(**kwargs)
         context['paginate_by'] = self.paginate_by
-        context['category'] = category
-        context['title'] = f'Category | {category.name}'
+        context['title'] = f'Category | {self.kwargs.get("cat_name").title()}'
         return context
 
     def get_base_queryset(self):
         ct_model = self.kwargs.get('cat_name')
         product_model = self.CT_MODELS_MODEL_CLASS[ct_model]
-        queryset = product_model.objects.annotate(avg_rating=Avg('ratings__value'))
+        queryset = product_model.objects.select_related('category').prefetch_related('gallery', 'ratings').annotate(
+            avg_rating=Avg('ratings__value'),
+            users_count=Count('ratings__ip')
+        )
         return queryset
 
     def get_paginate_by(self, queryset):
@@ -62,6 +63,14 @@ class ProductDetailView(DetailView):
     def dispatch(self, request, *args, **kwargs):
         self.model = self.CT_MODELS_MODEL_CLASS[kwargs['ct_model']]
         return super().dispatch(request, *args, **kwargs)
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        queryset = queryset.select_related('category').prefetch_related('ratings', 'gallery').annotate(
+            avg_rating=Avg('ratings__value'),
+            users_count=Count('ratings__ip')
+        )
+        return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

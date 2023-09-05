@@ -1,5 +1,4 @@
 from django import forms
-from django.contrib.contenttypes.models import ContentType
 
 from .models import Order
 
@@ -21,4 +20,3 @@ class OrderCreateForm(forms.ModelForm):
                 'placeholder': 'user@example.com'
             }),
         }
-
