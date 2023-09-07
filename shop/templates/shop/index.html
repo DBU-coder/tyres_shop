@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static shop_tags cache %}
+{% load static shop_tags %}
 {% block content %}
     <!--start slider section-->
     <section class="slider-section">
@@ -175,7 +175,6 @@
             </section>
             <!--end pramotion-->
             <!--start Featured product-->
-            {% cache 600 featured_product %}
             <section class="py-4">
                 <div class="container">
                     <div class="d-flex align-items-center">
@@ -240,10 +239,8 @@
                     </div>
                 </div>
             </section>
-            {% endcache %}
             <!--end Featured product-->
             <!--start New Arrivals-->
-            {% cache 600 new_arrivals %}
             <section class="py-4">
                 <div class="container">
                     <div class="d-flex align-items-center">
@@ -304,7 +301,6 @@
                     </div>
                 </div>
             </section>
-            {% endcache %}
             <!--end New Arrivals-->
             <!--start Advertise banners-->
             <section class="py-4">

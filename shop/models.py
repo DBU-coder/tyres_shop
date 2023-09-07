@@ -37,6 +37,7 @@ class HomepageProductsManager(models.Manager):
     @staticmethod
     def get_popular_products(days=0):
         """Returns popular products in the given days range."""
+        # TODO: Оптимизировать. Слишком много запросов.
         popular = ProductStatistic.objects.filter(
             date__range=[timezone.now() - timezone.timedelta(days=days), timezone.now()],
         ).values(
