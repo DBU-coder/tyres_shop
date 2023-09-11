@@ -37,7 +37,6 @@ class HomepageProductsManager(models.Manager):
     @staticmethod
     def get_popular_products(days=0):
         """Returns popular products in the given days range."""
-        # TODO: Оптимизировать. Слишком много запросов.
         popular = ProductStatistic.objects.filter(
             date__range=[timezone.now() - timezone.timedelta(days=days), timezone.now()],
         ).values(
@@ -48,10 +47,7 @@ class HomepageProductsManager(models.Manager):
         popular_products = []
         for item in popular:
             ct_model = ContentType.objects.get_for_id(item['content_type'])
-            product = ct_model.model_class().objects.select_related('category').prefetch_related(
-                'ratings',
-                'gallery'
-            ).annotate(
+            product = ct_model.model_class().objects.select_related('category').annotate(
                 avg_rating=Avg('ratings__value'),
                 users_count=Count('ratings__ip')
             ).get(pk=item['object_id'])

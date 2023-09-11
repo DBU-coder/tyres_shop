@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static shop_tags %}
+{% block content %}
+    <!--start page wrapper -->
+    <div class="page-wrapper">
+        <div class="page-content">
+            <!--start breadcrumb-->
+            <section class="py-3 border-bottom border-top d-none d-md-flex bg-light">
+                <div class="container">
+                    <div class="page-breadcrumb d-flex align-items-center">
+                        <h3 class="breadcrumb-title pe-3">Search results</h3>
+                        <div class="ms-auto">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb mb-0 p-0">
+                                    <li class="breadcrumb-item"><a href="{% url 'shop:index' %}"><i
+                                            class="bx bx-home-alt"></i> Home</a>
+                                    </li>
+                                    <li class="breadcrumb-item active" aria-current="page">Search results</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!--end breadcrumb-->
+            <!--start shop area-->
+            <section class="py-4">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-xl-12">
+                            <div class="product-wrapper">
+                                <div class="product-grid" id="product-list">
+                                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-3">
+                                        {% for product in products %}
+                                            <div class="col">
+                                                <div class="card rounded-0 product-card">
+                                                    <div class="card-header bg-transparent border-bottom-0">
+                                                        <div class="d-flex align-items-center justify-content-end gap-3">
+                                                            <a href="javascript:;">
+                                                                <div class="product-compare"><span><i
+                                                                        class="bx bx-git-compare"></i> Compare</span>
+                                                                </div>
+                                                            </a>
+                                                            <a href="javascript:;">
+                                                                <div class="product-wishlist"><i
+                                                                        class="bx bx-heart"></i>
+                                                                </div>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    {% get_main_image product as image %}
+                                                    <img src="{{ image.url }}" class="card-img-top" alt="...">
+
+                                                    <div class="card-body">
+                                                        <div class="product-info">
+                                                            <a href="javascript:;">
+                                                                <p class="product-catergory font-13 mb-1">{{ product.category }}</p>
+                                                            </a>
+                                                            <a href="{{ product.get_absolute_url }}">
+                                                                <h6 class="product-name mb-2">{{ product.name }}</h6>
+                                                            </a>
+                                                            <div class="d-flex align-items-center">
+                                                                <div class="mb-1 product-price">
+                                                                    <span class="me-1 text-decoration-line-through">&#8372 99.00</span>
+                                                                    <span class="fs-5">&#8372 {{ product.price }}</span>
+                                                                </div>
+                                                                {% show_rating product %}
+                                                            </div>
+                                                            <div class="product-action mt-2">
+                                                                <div class="d-grid gap-2">
+                                                                    <a href="{% url 'cart:cart_add' product.model_name product.slug %}"
+                                                                       class="btn btn-dark btn-ecomm"> <i
+                                                                            class="bx bxs-cart-add"></i>Add to Cart</a>
+                                                                    <a href="javascript:;"
+                                                                       class="btn btn-light btn-ecomm"
+                                                                       data-bs-toggle="modal"
+                                                                       data-bs-target="#QuickViewProduct"><i
+                                                                            class="bx bx-zoom-in"></i>Quick View</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% empty %}
+                                            <p>No matches.</p>
+                                        {% endfor %}
+                                    </div>
+                                    <!--end row-->
+                                </div>
+                                <hr>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!--end row-->
+                </div>
+            </section>
+            <!--end shop area-->
+        </div>
+    </div>
+    <!--end page wrapper -->
+{% endblock content %}

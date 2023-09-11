@@ -1,10 +1,13 @@
+from itertools import chain
+
+from django.contrib.contenttypes.models import ContentType
 from django.db.models import Avg, Count
-from django.views.generic import DetailView, TemplateView
+from django.views.generic import DetailView, TemplateView, ListView
 
 from enhanced_cbv.views import ListFilteredView
 
 from cart.forms import AddToCartForm
-from shop.filters import TyreFilter, WheelFilter
+from shop.filters import TyreFilter, WheelFilter, BaseFilter
 from shop.models import HomepageProduct, Tyre, Wheel
 
 
@@ -17,6 +20,47 @@ class IndexTemplateView(TemplateView):
         context['new_products'] = HomepageProduct.objects.get_new_products('tyre', 'wheel')
         context['popular_products'] = HomepageProduct.objects.get_popular_products(days=7)
         return context
+
+
+class SearchView(ListView):
+    context_object_name = 'products'
+    template_name = 'shop/search_results.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Search result'
+        return context
+
+    def get_queryset(self, **kwargs):
+        category = self.request.GET.get('cat')
+        query = self.request.GET.get('q')
+        if not query:
+            return []
+        if category == 'all':
+            qs = [
+                Tyre.objects.filter(name__icontains=query).select_related('category').prefetch_related(
+                    'gallery',
+                    'ratings'
+                ).annotate(
+                    avg_rating=Avg('ratings__value'),
+                    users_count=Count('ratings__ip')
+                ).only('category', 'ratings', 'gallery', 'name', 'price', 'slug'),
+                Wheel.objects.filter(name__icontains=query).select_related('category').prefetch_related(
+                    'gallery',
+                    'ratings'
+                ).annotate(
+                    avg_rating=Avg('ratings__value'),
+                    users_count=Count('ratings__ip')
+                ).only('category', 'ratings', 'gallery', 'name', 'price', 'slug')
+            ]
+            queryset = list(chain(*qs))
+        else:
+            ct_model = ContentType.objects.get(model=category)
+            queryset = ct_model.model_class().objects.filter(name__icontains=query).select_related('category').prefetch_related('gallery', 'ratings').annotate(
+                avg_rating=Avg('ratings__value'),
+                users_count=Count('ratings__ip')
+            ).only('category', 'ratings', 'gallery', 'name', 'price', 'slug')
+        return queryset
 
 
 class CategoryProductsListView(ListFilteredView):
