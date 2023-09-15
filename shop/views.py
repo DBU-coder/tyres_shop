@@ -1,7 +1,7 @@
 from itertools import chain
 
 from django.contrib.contenttypes.models import ContentType
-from django.db.models import Avg, Count
+from django.db.models import Avg, Count, Q
 from django.views.generic import DetailView, TemplateView, ListView
 
 from enhanced_cbv.views import ListFilteredView
@@ -32,34 +32,32 @@ class SearchView(ListView):
         return context
 
     def get_queryset(self, **kwargs):
-        category = self.request.GET.get('cat')
-        query = self.request.GET.get('q')
-        if not query:
+        search_model = self.request.GET.get('cat')
+        search_query = self.request.GET.get('q')
+        if not search_query:
             return []
-        if category == 'all':
-            qs = [
-                Tyre.objects.filter(name__icontains=query).select_related('category').prefetch_related(
+        if search_model == 'all':
+            qs = [model.objects.filter(
+                Q(name__icontains=search_query) | Q(description__icontains=search_query)
+            ).select_related('category').prefetch_related(
                     'gallery',
                     'ratings'
-                ).annotate(
-                    avg_rating=Avg('ratings__value'),
-                    users_count=Count('ratings__ip')
-                ).only('category', 'ratings', 'gallery', 'name', 'price', 'slug'),
-                Wheel.objects.filter(name__icontains=query).select_related('category').prefetch_related(
-                    'gallery',
-                    'ratings'
-                ).annotate(
-                    avg_rating=Avg('ratings__value'),
-                    users_count=Count('ratings__ip')
-                ).only('category', 'ratings', 'gallery', 'name', 'price', 'slug')
-            ]
-            queryset = list(chain(*qs))
-        else:
-            ct_model = ContentType.objects.get(model=category)
-            queryset = ct_model.model_class().objects.filter(name__icontains=query).select_related('category').prefetch_related('gallery', 'ratings').annotate(
+            ).annotate(
                 avg_rating=Avg('ratings__value'),
                 users_count=Count('ratings__ip')
-            ).only('category', 'ratings', 'gallery', 'name', 'price', 'slug')
+            ).only('description', 'category', 'ratings', 'gallery', 'name', 'price', 'slug') for model in [Tyre, Wheel]]
+            queryset = list(chain(*qs))
+        else:
+            ct_model = ContentType.objects.get(model=search_model)
+            queryset = ct_model.model_class().objects.filter(
+                Q(name__icontains=search_query) | Q(description__icontains=search_query)
+            ).select_related('category').prefetch_related(
+                'gallery',
+                'ratings'
+            ).annotate(
+                avg_rating=Avg('ratings__value'),
+                users_count=Count('ratings__ip')
+            ).only('description', 'category', 'ratings', 'gallery', 'name', 'price', 'slug')
         return queryset
 
 

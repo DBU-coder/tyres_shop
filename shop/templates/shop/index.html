@@ -24,7 +24,7 @@
                                 </div>
                             </div>
                             <div class="col">
-                                <img src="{% static 'assets/images/slider/04.png' %}" class="img-fluid" alt="...">
+                                <img src="{% static 'assets/images/slider/slider01.png' %}" class="img-fluid" alt="...">
                             </div>
                         </div>
                     </div>
@@ -41,7 +41,7 @@
                                 </div>
                             </div>
                             <div class="col">
-                                <img src="{% static 'assets/images/slider/05.png' %}" class="img-fluid" alt="...">
+                                <img src="{% static 'assets/images/slider/slider02.png' %}" class="img-fluid" alt="...">
                             </div>
                         </div>
                     </div>
@@ -58,7 +58,7 @@
                                 </div>
                             </div>
                             <div class="col">
-                                <img src="{% static 'assets/images/slider/03.png' %}" class="img-fluid" alt="...">
+                                <img src="{% static 'assets/images/slider/slider03.png' %}" class="img-fluid" alt="...">
                             </div>
                         </div>
                     </div>
@@ -117,7 +117,7 @@
                 </div>
             </section>
             <!--end information-->
-            <!--start pramotion-->
+            <!--start promotion-->
             <section class="py-4">
                 <div class="container">
                     <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3">
@@ -125,13 +125,13 @@
                             <div class="card rounded-0 border shadow-none">
                                 <div class="row g-0 align-items-center">
                                     <div class="col">
-                                        <img src="assets/images/promo/01.png" class="img-fluid" alt=""/>
+                                        <img src="{% static 'assets/images/promo/tyre01.png' %}" class="img-fluid" alt=""/>
                                     </div>
                                     <div class="col">
                                         <div class="card-body">
-                                            <h5 class="card-title text-uppercase">Mens' Wear</h5>
-                                            <p class="card-text text-uppercase">Starting at $9</p>    <a
-                                                href="javascript:;" class="btn btn-dark btn-ecomm">SHOP NOW</a>
+                                            <h5 class="card-title text-uppercase">Tyres</h5>
+                                            <p class="card-text text-uppercase">Starting at &#8372 9</p>    <a
+                                                href="{% url 'shop:category_products' 'tyres' %}" class="btn btn-dark btn-ecomm">SHOP NOW</a>
                                         </div>
                                     </div>
                                 </div>
@@ -141,13 +141,13 @@
                             <div class="card rounded-0 border shadow-none">
                                 <div class="row g-0 align-items-center">
                                     <div class="col">
-                                        <img src="assets/images/promo/02.png" class="img-fluid" alt=""/>
+                                        <img src="{% static 'assets/images/promo/wheel01.png' %}" class="img-fluid" alt=""/>
                                     </div>
                                     <div class="col">
                                         <div class="card-body">
-                                            <h5 class="card-title text-uppercase">Womens' Wear</h5>
-                                            <p class="card-text text-uppercase">Starting at $9</p>    <a
-                                                href="javascript:;" class="btn btn-dark btn-ecomm">SHOP NOW</a>
+                                            <h5 class="card-title text-uppercase">Wheels</h5>
+                                            <p class="card-text text-uppercase">Starting at &#8372 9</p>    <a
+                                                href="{% url 'shop:category_products' 'wheels' %}" class="btn btn-dark btn-ecomm">SHOP NOW</a>
                                         </div>
                                     </div>
                                 </div>
@@ -157,13 +157,13 @@
                             <div class="card rounded-0 border shadow-none">
                                 <div class="row g-0 align-items-center">
                                     <div class="col">
-                                        <img src="assets/images/promo/03.png" class="img-fluid" alt=""/>
+                                        <img src="{% static 'assets/images/promo/tools.png' %}" class="img-fluid" alt=""/>
                                     </div>
                                     <div class="col">
                                         <div class="card-body">
-                                            <h5 class="card-title text-uppercase">Kids' Wear</h5>
-                                            <p class="card-text text-uppercase">Starting at $9</p>    <a
-                                                href="javascript:;" class="btn btn-dark btn-ecomm">SHOP NOW</a>
+                                            <h5 class="card-title text-uppercase">Tools</h5>
+                                            <p class="card-text text-uppercase">Starting at &#8372 9</p>    <a
+                                                href="#" class="btn btn-dark btn-ecomm">SHOP NOW</a>
                                         </div>
                                     </div>
                                 </div>
@@ -173,7 +173,7 @@
                     <!--end row-->
                 </div>
             </section>
-            <!--end pramotion-->
+            <!--end promotion-->
             <!--start Featured product-->
             <section class="py-4">
                 <div class="container">
@@ -309,7 +309,7 @@
                         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-2 row-cols-xl-4">
                             <div class="col d-flex">
                                 <div class="card rounded-0 w-100 border shadow-none">
-                                    <img src="assets/images/promo/04.png" class="card-img-top" alt="...">
+                                    <img src="{% static 'assets/images/promo/04.png' %}" class="card-img-top" alt="...">
                                     <div class="position-absolute top-0 end-0 m-3 product-discount"><span
                                             class="">-10%</span>
                                     </div>
@@ -330,12 +330,12 @@
                                         <p class="card-text">Buy Cosmetics products and get 30% off at all Cosmetics</p>
                                         <a href="javascript:;" class="btn btn-dark btn-ecomm">SHOP BY COSMETICS</a>
                                     </div>
-                                    <img src="assets/images/promo/08.png" class="card-img-top" alt="...">
+                                    <img src="{% static 'assets/images/promo/08.png' %}" class="card-img-top" alt="...">
                                 </div>
                             </div>
                             <div class="col d-flex">
                                 <div class="card rounded-0 w-100 border shadow-none">
-                                    <img src="assets/images/promo/06.png" class="card-img h-100" alt="...">
+                                    <img src="{% static 'assets/images/promo/06.png' %}" class="card-img h-100" alt="...">
                                     <div class="card-img-overlay text-center top-20">
                                         <div class="border border-white border-3 py-3 bg-dark-3">
                                             <h5 class="card-title text-white">Fashion Summer Sale</h5>
@@ -353,7 +353,7 @@
                                             class="">-50%</span>
                                     </div>
                                     <div class="card-body text-center">
-                                        <img src="assets/images/promo/07.png" class="card-img-top" alt="...">
+                                        <img src="{% static 'assets/images/promo/07.png' %}" class="card-img-top" alt="...">
                                         <h5 class="card-title fs-1 text-uppercase">Super Sale</h5>
                                         <p class="card-text text-uppercase fs-4 lh-1 mb-2">Up to 50% off</p>
                                         <p class="card-text">On All Electronic</p> <a href="javascript:;"
@@ -752,49 +752,42 @@
                             <div class="item border-end">
                                 <div class="p-4">
                                     <a href="javascript:;">
-                                        <img src="assets/images/brands/01.png" class="img-fluid" alt="...">
+                                        <img src="{% static 'assets/images/brands/logo01.png' %}" class="img-fluid" alt="...">
                                     </a>
                                 </div>
                             </div>
                             <div class="item border-end">
                                 <div class="p-4">
                                     <a href="javascript:;">
-                                        <img src="assets/images/brands/02.png" class="img-fluid" alt="...">
+                                        <img src="{% static 'assets/images/brands/logo02.png' %}" class="img-fluid" alt="...">
                                     </a>
                                 </div>
                             </div>
                             <div class="item border-end">
                                 <div class="p-4">
                                     <a href="javascript:;">
-                                        <img src="assets/images/brands/03.png" class="img-fluid" alt="...">
+                                        <img src="{% static 'assets/images/brands/logo03.png' %}" class="img-fluid" alt="...">
                                     </a>
                                 </div>
                             </div>
                             <div class="item border-end">
                                 <div class="p-4">
                                     <a href="javascript:;">
-                                        <img src="assets/images/brands/04.png" class="img-fluid" alt="...">
+                                        <img src="{% static 'assets/images/brands/logo04.png' %}" class="img-fluid" alt="...">
                                     </a>
                                 </div>
                             </div>
                             <div class="item border-end">
                                 <div class="p-4">
                                     <a href="javascript:;">
-                                        <img src="assets/images/brands/05.png" class="img-fluid" alt="...">
+                                        <img src="{% static 'assets/images/brands/logo05.png' %}" class="img-fluid" alt="...">
                                     </a>
                                 </div>
                             </div>
                             <div class="item border-end">
                                 <div class="p-4">
                                     <a href="javascript:;">
-                                        <img src="assets/images/brands/06.png" class="img-fluid" alt="...">
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="item border-end">
-                                <div class="p-4">
-                                    <a href="javascript:;">
-                                        <img src="assets/images/brands/07.png" class="img-fluid" alt="...">
+                                        <img src="{% static 'assets/images/brands/logo06.png' %}" class="img-fluid" alt="...">
                                     </a>
                                 </div>
                             </div>
