@@ -33,8 +33,8 @@ def show_rating(product):
     data = {
         'product_id': product.id,
         'product_model': product.model_name,
-        'rating': round(product.avg_rating, 1),
-        'users_count': product.users_count
+        'rating': round(product.avg_rating, 1) if product.avg_rating else 0,
+        'users_count': product.users_count if product.users_count else 0
     }
     return data
 

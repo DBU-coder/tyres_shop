@@ -12,8 +12,10 @@ django-enhanced-cbv @ git+https://github.com/rasca/django-enhanced-cbv@be0c93b4f
 django-environ==0.10.0
 django-filter==23.2
 django-resized==1.0.2
+gunicorn==21.2.0
 idna==3.4
 oauthlib==3.2.2
+packaging==23.1
 Pillow==9.5.0
 psycopg2==2.9.7
 pycparser==2.21

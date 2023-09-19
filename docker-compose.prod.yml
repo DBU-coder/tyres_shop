@@ -7,26 +7,27 @@ services:
     container_name: stripe-cli
     command: "listen --api-key ${STRIPE_SECRET_KEY} --forward-to localhost:8000/webhooks/stripe/"
     env_file:
-      - .env
+      - .env.prod
 
   app:
-    build: ./
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    command: bash -c "gunicorn tyres_shop.wsgi:application --bind 0.0.0.0:8000"
+    expose:
+      - 8000
     container_name: shop
     restart: always
-    command: bash -c "python manage.py runserver 0.0.0.0:8000"
     volumes:
-      - static_volume:/app/static/
-      - media_volume:/app/media/
-      - .:/app
-    ports:
-      - "8000:8000"
+      - static_volume:/app/staticfiles
+      - media_volume:/app/media
     depends_on:
       - db
       - redis
     environment:
-      - DJANGO_SETTINGS_MODULE=tyres_shop.settings.local
+      - DJANGO_SETTINGS_MODULE=tyres_shop.settings.production
     env_file:
-      - .env
+      - .env.prod
 
   db:
     image: postgres:15-alpine
@@ -35,14 +36,24 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     env_file:
-      - .env
+      - .env.prod
 
   redis:
     image: redis:alpine
     container_name: redis
     restart: always
 
+  nginx:
+    build: ./nginx
+    ports:
+      - "80:80"
+    volumes:
+      - static_volume:/app/staticfiles
+      - media_volume:/app/media
+    depends_on:
+      - app
+
 volumes:
+  postgres_data:
   static_volume:
   media_volume:
-  postgres_data:

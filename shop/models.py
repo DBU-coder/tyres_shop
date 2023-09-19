@@ -163,7 +163,7 @@ class Tyre(BaseProduct):
     season = models.PositiveSmallIntegerField(choices=SEASON_CHOICES)
     diameter = models.PositiveSmallIntegerField()
     width = models.PositiveSmallIntegerField()
-    load_index = models.PositiveSmallIntegerField(blank=True)
+    load_index = models.PositiveSmallIntegerField(null=True, blank=True)
     speed_index = models.CharField(max_length=3, blank=True)
     spikes = models.BooleanField(default=False)
     weight = models.DecimalField(max_digits=4, decimal_places=1, null=True, blank=True)
