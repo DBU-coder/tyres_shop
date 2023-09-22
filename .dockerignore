@@ -1,5 +1,12 @@
 venv
+Shopingo
+nginx
 __pycache__
 .env
+.env.*
 .idea
-Shopingo
+.git
+.gitignore
+Dockerfile
+*.yml
+README.md

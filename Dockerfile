@@ -1,23 +1,37 @@
-# pull official base image
-FROM python
+FROM python:3.11-alpine AS builder
 
-# set work directory
 WORKDIR /app
-# set environment variables
+
+RUN apk add --update --virtual .build-deps \
+    build-base \
+    postgresql-dev \
+    python3-dev \
+    libpq \
+    git \
+    && pip install --upgrade pip
+
+COPY ./requirements.txt ./
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+
+FROM python:3.11-alpine
 # don't create .pyc files
 ENV PYTHONDONTWRITEBYTECODE 1
 # don't docker buffering
 ENV PYTHONUNBUFFERED 1
 
-RUN apt-get update \
-    && apt-get install netcat-traditional -y \
-    && pip install --upgrade pip
+ENV APP_DIR /app
 
-COPY ./requirements.txt ./
+WORKDIR $APP_DIR
 
-RUN pip install -r requirements.txt
+COPY --from=builder /usr/local/lib/python3.11/site-packages/ /usr/local/lib/python3.11/site-packages/
 
-RUN mkdir /app/staticfiles && mkdir /app/media
+COPY --from=builder /usr/local/bin/ /usr/local/bin/
+
+RUN apk add --no-cache bash libpq; \
+    adduser django_app -D; \
+    chown -R django_app $APP_DIR
 
 COPY . .
 

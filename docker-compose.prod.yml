@@ -28,6 +28,7 @@ services:
       - DJANGO_SETTINGS_MODULE=tyres_shop.settings.production
     env_file:
       - .env.prod
+    entrypoint: ./ep.prod.sh
 
   db:
     image: postgres:15-alpine
