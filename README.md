@@ -16,4 +16,6 @@ Preparation steps:
 
 ```python
 print("Привет, мир!")
+for i in range(10):
+    print(i)
 ```

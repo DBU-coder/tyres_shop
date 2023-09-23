@@ -47,16 +47,16 @@
                                                             <a href="{{ product.get_absolute_url }}"><h6 class="mb-2">{{ product.name }}</h6></a>
                                                             <p class="mb-0">Diameter: <span>{{ product.diameter }}</span>
                                                             </p>
-                                                            <p class="mb-2">Price: <span>&#8372 {{ item.price }} x {{ item.quantity }}pcs.</span>
+                                                            <p class="mb-2">Price: <span>${{ item.price }} x {{ item.quantity }}pcs.</span>
                                                             </p>
-                                                            <h5 class="mb-0">&#8372 {{ item.total_price }}</h5>
+                                                            <h5 class="mb-0">${{ item.total_price }}</h5>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-12 col-lg-3">
                                                     <div class="cart-action text-center">
                                                         <form id="{{ forloop.counter }}"
-                                                              action="{% url 'cart:cart_add' product.model_name product.slug %}"
+                                                              action="{% url 'cart:add' product.model_name product.slug %}"
                                                               method="POST">
                                                             {% csrf_token %}
                                                             {{ item.update_quantity_form.quantity }}
@@ -139,16 +139,16 @@
                                     </div>
                                     <div class="card rounded-0 border bg-transparent mb-0 shadow-none">
                                         <div class="card-body">
-                                            <p class="mb-2">Subtotal: <span class="float-end">&#8372 {{ cart.get_total_price }}</span>
+                                            <p class="mb-2">Subtotal: <span class="float-end">${{ cart.get_total_price }}</span>
                                             </p>
                                             <p class="mb-2">Shipping: <span class="float-end">--</span>
                                             </p>
-                                            <p class="mb-2">Taxes: <span class="float-end">&#8372 14.00</span>
+                                            <p class="mb-2">Taxes: <span class="float-end">$14.00</span>
                                             </p>
                                             <p class="mb-0">Discount: <span class="float-end">--</span>
                                             </p>
                                             <div class="my-3 border-top"></div>
-                                            <h5 class="mb-0">Order Total: <span class="float-end">&#8372 {{ cart.get_total_price }}</span></h5>
+                                            <h5 class="mb-0">Order Total: <span class="float-end">${{ cart.get_total_price }}</span></h5>
                                             <div class="my-4"></div>
                                             <div class="d-grid"><a href="{% url 'orders:order_create' %}" class="btn btn-dark btn-ecomm">Proceed
                                                 to Checkout</a>

@@ -1,6 +1,5 @@
 from django import template
 from django.core.cache import cache
-from django.db.models import Avg, Count
 
 from shop.models import Category
 

@@ -23,7 +23,7 @@ class AddToCartView(View):
         if form.is_valid():
             cd = form.cleaned_data
             self.cart.add(product=self.product, quantity=cd['quantity'], update_quantity=cd['update'])
-        return redirect('cart:cart_detail')
+        return redirect('cart:detail')
 
     def get(self, *args, **kwargs):
         self.cart.add(self.product)
@@ -50,10 +50,10 @@ class RemoveFromCartView(View):
         content_type = ContentType.objects.get(model=ct_model)
         product = content_type.model_class().objects.get(slug=product_slug)
         cart.remove(product)
-        return redirect('cart:cart_detail')
+        return redirect('cart:detail')
 
 
 def clear_cart(request):
     cart = Cart(request)
     cart.clear()
-    return redirect('cart:cart_detail')
+    return redirect('cart:detail')
