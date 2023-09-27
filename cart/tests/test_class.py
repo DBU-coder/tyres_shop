@@ -25,7 +25,8 @@ class TestCartClass(TestCase):
             stock_qty=10,
             diameter=19,
             width=45.5,
-            type=1
+            type=1,
+            stripe_product_price_id='test_fake_stripe_id12345'
         )
         Tyre.objects.create(
             sku='RT756029',
@@ -42,6 +43,7 @@ class TestCartClass(TestCase):
             diameter=16,
             width=70,
             spikes=False,
+            stripe_product_price_id='test_fake_stripe_id12346'
         )
 
     def setUp(self):
