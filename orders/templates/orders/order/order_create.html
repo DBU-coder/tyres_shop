@@ -15,7 +15,7 @@
                                     <li class="breadcrumb-item"><a href="{% url 'shop:index' %}"><i
                                             class="bx bx-home-alt"></i> Home</a>
                                     </li>
-                                    <li class="breadcrumb-item"><a href="{% url 'cart:cart_detail' %}">Cart</a>
+                                    <li class="breadcrumb-item"><a href="{% url 'cart:detail' %}">Cart</a>
                                     </li>
                                     <li class="breadcrumb-item active" aria-current="page">Checkout</li>
                                 </ol>
@@ -35,7 +35,7 @@
                                     <div class="card bg-transparent rounded-0 shadow-none">
                                         <div class="card-body">
                                             <div class="steps steps-light">
-                                                <a class="step-item active" href="{% url 'cart:cart_detail' %}">
+                                                <a class="step-item active" href="{% url 'cart:detail' %}">
                                                     <div class="step-progress"><span class="step-count">1</span>
                                                     </div>
                                                     <div class="step-label"><i class='bx bx-cart'></i>Cart</div>
@@ -127,7 +127,7 @@
 
                                                         <div class="col-md-6">
                                                             <div class="d-grid">
-                                                                <a href="{% url 'cart:cart_detail' %}"
+                                                                <a href="{% url 'cart:detail' %}"
                                                                    class="btn btn-light btn-ecomm"><i
                                                                         class='bx bx-chevron-left'></i>Back to Cart</a>
                                                             </div>

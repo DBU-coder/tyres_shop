@@ -129,3 +129,4 @@ cython_debug/
 
 Shopingo/
 media/
+shop/fixtures/

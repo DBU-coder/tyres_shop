@@ -42,6 +42,12 @@ services:
     container_name: redis
     restart: always
 
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8080:8080"
+
 volumes:
   static_volume:
   media_volume:
