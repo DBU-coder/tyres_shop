@@ -18,4 +18,4 @@ class Rating(models.Model):
     )
 
     def __str__(self):
-        return str(self.pk)
+        return f'Rating| ip:{self.ip} value:{self.value}'

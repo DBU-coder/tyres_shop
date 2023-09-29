@@ -3,13 +3,7 @@ from django import forms
 
 class AddToCartForm(forms.Form):
 
-    CHOICE_PRODUCT_QUANTITY = [
-        (1, '1'),
-        (2, '2'),
-        (3, '3'),
-        (4, '4'),
-        (5, '5'),
-    ]
+    CHOICE_PRODUCT_QUANTITY = [(i, str(i)) for i in range(1, 11)]
 
     quantity = forms.TypedChoiceField(
         label='Quantity',

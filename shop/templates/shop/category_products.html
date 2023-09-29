@@ -91,7 +91,11 @@
                                                         </div>
                                                     </div>
                                                     {% get_main_image product as image %}
-                                                    <img src="{{ image.url }}" class="card-img-top" alt="...">
+                                                    {% if image %}
+                                                        <img src="{{ image.url }}" class="card-img-top" alt="...">
+                                                    {% else %}
+                                                        <img src="{% static 'assets/images/products/no_image.png' %}" class="card-img-top" alt="...">
+                                                    {% endif %}
 
                                                     <div class="card-body">
                                                         <div class="product-info">
@@ -103,15 +107,19 @@
                                                             </a>
                                                             <div class="d-flex align-items-center">
                                                                 <div class="mb-1 product-price">
+                                                                    {% if product.status != 0 %}
                                                                     <span class="me-1 text-decoration-line-through">$99.00</span>
                                                                     <span class="fs-5">$ {{ product.price }}</span>
+                                                                    {% else %}
+                                                                        <span class="me-1">Out of stock</span>
+                                                                    {% endif %}
                                                                 </div>
                                                                 {% show_rating product %}
                                                             </div>
                                                             <div class="product-action mt-2">
                                                                 <div class="d-grid gap-2">
                                                                     <a href="{% url 'cart:add' product.model_name product.slug %}"
-                                                                       class="btn btn-dark btn-ecomm"> <i
+                                                                       class="btn btn-dark btn-ecomm {% if product.status == 0 %}disabled{% endif %}"> <i
                                                                             class="bx bxs-cart-add"></i>Add to Cart</a>
                                                                     <a href="javascript:;"
                                                                        class="btn btn-light btn-ecomm"

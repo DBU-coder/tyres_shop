@@ -40,6 +40,10 @@
                                                 <div class="item">
                                                     <img src="{{ gallery.image.url }}" class="img-fluid" alt="">
                                                 </div>
+                                                {% empty %}
+                                                <div class="item">
+                                                    <img src="{% static 'assets/images/products/no_image.png' %}" class="img-fluid" alt="">
+                                                </div>
                                             {% endfor %}
                                         </div>
 
@@ -62,8 +66,10 @@
                                             <div class="users__count">{{ rev }} review{{ rev|pluralize }}</div>
                                         </div>
                                         <div class="d-flex align-items-center mt-3 gap-2">
+                                            {% if product.status != 0 %}
                                             <h5 class="mb-0 text-decoration-line-through text-light-3">$98.00</h5>
                                             <h4 class="mb-0">${{ product.price }}</h4>
+                                            {% endif %}
                                         </div>
                                         <div class="mt-3">
                                             <h6>Description :</h6>
@@ -77,22 +83,26 @@
                                         </dl>
                                         <div class="row row-cols-auto align-items-center mt-3">
                                             <div class="col">
-
+                                                {% if product.status != 0 %}
                                                 <form id="qty-form" action="{% url 'cart:add' ct_model=ct_model slug=product.slug %}" method="post">
                                                      {% csrf_token %}
                                                     <label for="{{ form.quantity.id_for_label }}"
                                                            class="form-label">{{ form.quantity.label }}</label>
                                                     {{ form.quantity }}
                                                 </form>
+                                                {% else %}
+                                                    <h5>Out of stock.</h5>
+                                                {% endif %}
                                             </div>
 
                                         </div>
                                         <!--end row-->
                                         <div class="d-flex gap-2 mt-3">
+                                            {% if product.status != 0 %}
                                             <button form="qty-form" type="submit" class="btn btn-primary btn-ecomm"><i
                                                     class="bx bxs-cart-add"></i>Add to Cart
                                             </button>
-                                            {#												<a href="javascript:;" class="btn btn-white btn-ecomm">	<i class="bx bxs-cart-add"></i>Add to Cart</a>#}
+                                            {% endif %}
                                             <a href="javascript:;" class="btn btn-light btn-ecomm"><i
                                                     class="bx bx-heart"></i>Add to Wishlist</a>
                                         </div>

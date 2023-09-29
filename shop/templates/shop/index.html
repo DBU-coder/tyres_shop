@@ -87,7 +87,7 @@
                                 <div class="fs-1"><i class='bx bx-taxi'></i>
                                 </div>
                                 <div class="info-box-content ps-3">
-                                    <h6 class="mb-0">FREE SHIPPING &amp; RETURN</h6>
+                                    <h6 class="mb-0">FREE SHIPPING & RETURN</h6>
                                     <p class="mb-0">Free shipping on all orders over $49</p>
                                 </div>
                             </div>
@@ -202,9 +202,14 @@
                                         </div>
                                         <a href="{{ product.get_absolute_url }}">
                                             {% get_main_image product as image %}
-                                            <img src="{{ image.url }}" class="card-img-top" alt="...">
+                                            {% if image %}
+                                                <img src="{{ image.url }}" class="card-img-top" alt="...">
+                                            {% else %}
+                                                <img src="{% static 'assets/images/products/no_image.png' %}" class="card-img-top" alt="...">
+                                            {% endif %}
                                         </a>
                                         <div class="card-body">
+
                                             <div class="product-info">
                                                 <a href="{% url 'shop:category_products' product.category.slug %}">
                                                     <p class="product-catergory font-13 mb-1">{{ product.category }}</p>
@@ -264,7 +269,11 @@
                                         </div>
                                         <a href="{{ product.get_absolute_url }}">
                                             {% get_main_image product as image %}
-                                            <img src="{{ image.url }}" class="card-img-top" alt="...">
+                                            {% if image %}
+                                                <img src="{{ image.url }}" class="card-img-top" alt="...">
+                                            {% else %}
+                                                <img src="{% static 'assets/images/products/no_image.png' %}" class="card-img-top" alt="...">
+                                            {% endif %}
                                         </a>
                                         <div class="card-body">
                                             <div class="product-info">

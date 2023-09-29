@@ -14,8 +14,11 @@ register = template.Library()
 
 @register.simple_tag()
 def get_main_image(product):
-    first_gallery_obj = product.gallery.all()[0]
-    return first_gallery_obj.image
+    try:
+        first_gallery_obj = product.gallery.all()[0]
+        return first_gallery_obj.image
+    except IndexError:
+        return None
 
 
 @register.inclusion_tag('menu.html')
