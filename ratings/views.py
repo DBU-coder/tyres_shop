@@ -1,14 +1,17 @@
 import json
 
 from django.contrib.contenttypes.models import ContentType
-from django.db.models import Avg, Count
+from django.db.models import Avg
 from django.http import JsonResponse
 from django.views import View
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 from ratings.models import Rating
 
 
 class SetRatingView(View):
+    """Logged users only can set rating."""
 
     def get_user_ip(self):
         x_forwarded_for = self.request.META.get('HTTP_X_FORWARDED_FOR')
@@ -18,6 +21,7 @@ class SetRatingView(View):
             ip = self.request.META.get('REMOTE_ADDR')
         return ip
 
+    @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
         request_data = json.loads(request.body)
         ct_model = ContentType.objects.get(model=request_data['product_model'])
