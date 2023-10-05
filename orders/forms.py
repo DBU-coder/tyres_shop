@@ -4,18 +4,20 @@ from .models import Order
 
 
 class OrderCreateForm(forms.ModelForm):
+
     class Meta:
         model = Order
         fields = ['first_name', 'last_name', 'email', 'phone', 'country', 'zip', 'address']
+        template_input_class = 'form-control rounded-0'
         widgets = {
-            'first_name': forms.TextInput(attrs={'class': 'form-control rounded-0'}),
-            'last_name': forms.TextInput(attrs={'class': 'form-control rounded-0'}),
-            'phone': forms.TextInput(attrs={'class': 'form-control rounded-0'}),
-            'country': forms.TextInput(attrs={'class': 'form-control rounded-0'}),
-            'zip': forms.TextInput(attrs={'class': 'form-control rounded-0'}),
-            'address': forms.Textarea(attrs={'class': 'form-control rounded-0'}),
+            'first_name': forms.TextInput(attrs={'class': template_input_class}),
+            'last_name': forms.TextInput(attrs={'class': template_input_class}),
+            'phone': forms.TextInput(attrs={'class': template_input_class}),
+            'country': forms.TextInput(attrs={'class': template_input_class}),
+            'zip': forms.TextInput(attrs={'class': template_input_class}),
+            'address': forms.Textarea(attrs={'class': template_input_class}),
             'email': forms.EmailInput(attrs={
-                'class': 'form-control rounded-0',
+                'class': template_input_class,
                 'id': 'inputEmailAddress',
                 'placeholder': 'user@example.com'
             }),

@@ -78,6 +78,7 @@ class CategoryProductsListView(ListFilteredView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['paginate_by'] = self.paginate_by
+        context['form'] = AddToCartForm
         context['title'] = f'Category | {self.kwargs.get("cat_name").title()}'
         return context
 

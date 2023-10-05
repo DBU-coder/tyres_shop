@@ -14,7 +14,7 @@ class TestRatingsViews(TestCase):
 
     @classmethod
     def setUpTestData(cls):
-        Customer.objects.create(email='user1@example.com', password='SimpleTestPassword')
+        Customer.objects.create(email='test_user1@example.com', password='Test9PassworD')
         Category.objects.create(name='Wheels', slug='wheels')
         Wheel.objects.create(
             sku='02548WR',
@@ -32,7 +32,7 @@ class TestRatingsViews(TestCase):
         )
 
     def setUp(self):
-        self.user = Customer.objects.get(pk=1)
+        self.user = Customer.objects.first()
         self.wheel_product = Wheel.objects.first()
         Rating.objects.create(
             ip='125.86.0.1',

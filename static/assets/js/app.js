@@ -1,215 +1,252 @@
+// Modal product
 
+// get buttons for modal
+const modalbtns = document.querySelectorAll('.modal-btn');
+const modalContent = document.querySelector(".modal-content");
+
+modalbtns.forEach(a => a.addEventListener('click', () => {
+    // get product item modal info
+    const modalinfo = a.parentNode.parentNode.childNodes[1];
+    const imgLinks = modalinfo.childNodes[3].childNodes;
+    const cartForm = document.forms.modal_cart_form;
+
+    createCarousel(imgLinks)
+    modalContent.querySelector(".modal-title").textContent = modalinfo.children[1].textContent;
+    modalContent.querySelector(".modal-desc").textContent = modalinfo.children[2].textContent;
+    modalContent.querySelector(".modal-price").textContent = modalinfo.children[3].textContent;
+    modalContent.querySelector(".modal-sku").textContent = modalinfo.children[4].textContent;
+    cartForm.action = modalinfo.children[5].textContent;
+}));
 
 
 // Rating
 
-const ratings = document.querySelectorAll('.rating')
-if (ratings.length > 0) {
-    initRatings();
-}
-
-function initRatings() {
-    let ratingActive, ratingValue, usersCount;
-    for (let i = 0; i < ratings.length; i++) {
-        const rating = ratings[i];
-        initRating(rating);
+    const ratings = document.querySelectorAll('.rating')
+    if (ratings.length > 0) {
+        initRatings();
     }
 
-    function initRating(rating) {
-        initRatingVars(rating);
-
-        setRatingActiveWidth();
-
-        if (rating.classList.contains('rating__set')) {
-            setRating(rating);
-
+    function initRatings() {
+        let ratingActive, ratingValue, usersCount;
+        for (let i = 0; i < ratings.length; i++) {
+            const rating = ratings[i];
+            initRating(rating);
         }
-    }
 
-    function initRatingVars(rating) {
-        ratingActive = rating.querySelector('.rating__active');
-        ratingValue = rating.querySelector('.rating__value');
-    }
+        function initRating(rating) {
+            initRatingVars(rating);
 
-    function setRatingActiveWidth(index = ratingValue.innerHTML) {
-        const ratingActiveWidth = index /0.05;
-        ratingActive.style.width = `${ratingActiveWidth}%`;
-    }
+            setRatingActiveWidth();
 
-    function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        let cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            let cookie = cookies[i].trim();
-            // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
+            if (rating.classList.contains('rating__set')) {
+                setRating(rating);
+
             }
         }
-    }
-    return cookieValue;
-}
 
-    function setRating(rating) {
-        const ratingItems = rating.querySelectorAll('.rating__item');
-        for (let i = 0; i < ratingItems.length; i++) {
-            const ratingItem = ratingItems[i];
-            ratingItem.addEventListener("mouseenter", function(e) {
-                initRatingVars(rating);
-                setRatingActiveWidth(ratingItem.value);
-            });
-            ratingItem.addEventListener("mouseleave", function(e) {
-                setRatingActiveWidth();
-            })
-            ratingItem.addEventListener("click", function(e) {
-                initRatingVars(rating);
-
-                if (rating.dataset.ajax) {
-                    setRatingValue(ratingItem.value, rating);
-                } else {
-                    ratingValue.innerHTML = i + 1;
-                    setRatingActiveWidth();
-                }
-            })
+        function initRatingVars(rating) {
+            ratingActive = rating.querySelector('.rating__active');
+            ratingValue = rating.querySelector('.rating__value');
         }
 
-        async function setRatingValue(value, rating) {
-            if (!rating.classList.contains('rating_sending')) {
-                rating.classList.add('rating_sending');
-                let csrftoken = getCookie('csrftoken')
-                let response = await fetch("/ratings/set_rating/", {
-                    method: 'POST',
-                    mode: 'same-origin',
-                    body: JSON.stringify({
-                        user_rating: value,
-                        product_model: rating.dataset.model,
-                        product_id: rating.dataset.id
-                    }),
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRFToken': csrftoken
+        function setRatingActiveWidth(index = ratingValue.innerHTML) {
+            const ratingActiveWidth = index / 0.05;
+            ratingActive.style.width = `${ratingActiveWidth}%`;
+        }
+
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                let cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    let cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
                     }
+                }
+            }
+            return cookieValue;
+        }
+
+        function setRating(rating) {
+            const ratingItems = rating.querySelectorAll('.rating__item');
+            for (let i = 0; i < ratingItems.length; i++) {
+                const ratingItem = ratingItems[i];
+                ratingItem.addEventListener("mouseenter", function (e) {
+                    initRatingVars(rating);
+                    setRatingActiveWidth(ratingItem.value);
                 });
-                if (response.ok) {
-                    const result = await response.json();
-
-                    const newRating = result.new_rating;
-
-                    ratingValue.innerHTML = newRating;
-
+                ratingItem.addEventListener("mouseleave", function (e) {
                     setRatingActiveWidth();
-                    rating.classList.remove('rating_sending');
-                } else {
-                    alert("Error. Rating not sent.")
+                })
+                ratingItem.addEventListener("click", function (e) {
+                    initRatingVars(rating);
 
-                    rating.classList.remove('rating_sending');
+                    if (rating.dataset.ajax) {
+                        setRatingValue(ratingItem.value, rating);
+                    } else {
+                        ratingValue.innerHTML = i + 1;
+                        setRatingActiveWidth();
+                    }
+                })
+            }
+
+            async function setRatingValue(value, rating) {
+                if (!rating.classList.contains('rating_sending')) {
+                    rating.classList.add('rating_sending');
+                    let csrftoken = getCookie('csrftoken')
+                    let response = await fetch("/ratings/set_rating/", {
+                        method: 'POST',
+                        mode: 'same-origin',
+                        body: JSON.stringify({
+                            user_rating: value,
+                            product_model: rating.dataset.model,
+                            product_id: rating.dataset.id
+                        }),
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': csrftoken
+                        }
+                    });
+                    if (response.ok) {
+                        const result = await response.json();
+
+                        ratingValue.innerHTML = result.new_rating;
+
+                        setRatingActiveWidth();
+                        rating.classList.remove('rating_sending');
+                    } else {
+                        alert("Error. Rating not sent.")
+
+                        rating.classList.remove('rating_sending');
+                    }
                 }
             }
         }
     }
-}
 
 // Highlighting customer's menu items
 
-let a = document.querySelectorAll('.list-group-item')
-a.forEach((el) => {
-    if (el.getAttribute('href') === window.location.pathname)
-        el.classList.add('active')
-    el.classList.remove('bg-transparent')
-})
-
-$(function () {
-    "use strict";
-
-
-    new PerfectScrollbar('.cart-list');
-
-// Prevent closing from click inside dropdown
-
-    /*$(document).on('click', '.dropdown-menu', function (e) {
-      e.stopPropagation();
-    });*/
-
-
-    // jquery ready start
-    $(document).ready(function () {
-        // jQuery code
-
-
-        $("[data-trigger]").on("click", function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            var offcanvas_id = $(this).attr('data-trigger');
-            $(offcanvas_id).toggleClass("show");
-            $('body').toggleClass("offcanvas-active");
-            $(".screen-overlay").toggleClass("show");
-        });
-
-        // Close menu when pressing ESC
-        $(document).on('keydown', function (event) {
-            if (event.keyCode === 27) {
-                $(".mobile-offcanvas").removeClass("show");
-                $("body").removeClass("overlay-active");
-            }
-        });
-
-        $(".btn-close, .screen-overlay").click(function (e) {
-            $(".screen-overlay").removeClass("show");
-            $(".mobile-offcanvas").removeClass("show");
-            $("body").removeClass("offcanvas-active");
-        });
+    let a = document.querySelectorAll('.list-group-item')
+    a.forEach((el) => {
+        if (el.getAttribute('href') === window.location.pathname)
+            el.classList.add('active')
+        el.classList.remove('bg-transparent')
     })
-    }); // jquery end
+// Carousel for modal
+    function createCarousel(links) {
+    $('.image-zoom-section').html('<div id="modal_carousel" class="product-gallery owl-carousel owl-theme border mb-3 p-3" data-slider-id="1"></div><div class="owl-thumbs d-flex justify-content-center" data-slider-id="1"></div>');
 
-    $('.dropdown-menu a.dropdown-toggle').on('click', function (e) {
-        if (!$(this).next().hasClass('show')) {
-            $(this).parents('.dropdown-menu').first().find('.show').removeClass("show");
+    for (let i = 0; i < links.length; i++) {
+        $(".owl-carousel").append('<div class="item"><img src="' + links[i].textContent + '" alt="" /></div>');
+        $(".owl-thumbs").append('<button class="owl-thumb-item"><img src="' + links[i].textContent + '" alt="" /></button>');
+    }
+    let owl = $("#modal_carousel");
+    owl.owlCarousel({
+        loop: true,
+        margin: 10,
+        responsiveClass: true,
+        nav: false,
+        dots: false,
+        thumbs: true,
+        thumbsPrerendered: true,
+        responsive: {
+            0: {
+                items: 1
+            },
+            600: {
+                items: 1
+            },
+            1000: {
+                items: 1
+            }
         }
-        var $subMenu = $(this).next(".dropdown-menu");
-        $subMenu.toggleClass('show');
-
-
-        $(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function (e) {
-            $('.submenu .show').removeClass("show");
-        });
-
-
-        return false;
     });
 
+    $(function () {
+        "use strict";
 
-    $(document).ready(function () {
-        $(window).on("scroll", function () {
-            $(this).scrollTop() > 300 ? $(".back-to-top").fadeIn() : $(".back-to-top").fadeOut()
-        }), $(".back-to-top").on("click", function () {
-            return $("html, body").animate({
-                scrollTop: 0
-            }, 600), !1
-        })
+
+        new PerfectScrollbar('.cart-list');
+
+        // jquery ready start
+        $(document).ready(function () {
+            // jQuery code
+
+            $("[data-trigger]").on("click", function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                var offcanvas_id = $(this).attr('data-trigger');
+                $(offcanvas_id).toggleClass("show");
+                $('body').toggleClass("offcanvas-active");
+                $(".screen-overlay").toggleClass("show");
+            });
+
+            // Close menu when pressing ESC
+            $(document).on('keydown', function (event) {
+                if (event.keyCode === 27) {
+                    $(".mobile-offcanvas").removeClass("show");
+                    $("body").removeClass("overlay-active");
+                }
+            });
+
+            $(".btn-close, .screen-overlay").click(function (e) {
+                $(".screen-overlay").removeClass("show");
+                $(".mobile-offcanvas").removeClass("show");
+                $("body").removeClass("offcanvas-active");
+            });
+        });
+        // jquery end
+
+        $('.dropdown-menu a.dropdown-toggle').on('click', function (e) {
+            if (!$(this).next().hasClass('show')) {
+                $(this).parents('.dropdown-menu').first().find('.show').removeClass("show");
+            }
+            var $subMenu = $(this).next(".dropdown-menu");
+            $subMenu.toggleClass('show');
+
+
+            $(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function (e) {
+                $('.submenu .show').removeClass("show");
+            });
+
+
+            return false;
+        });
+
+
+        $(document).ready(function () {
+            $(window).on("scroll", function () {
+                $(this).scrollTop() > 300 ? $(".back-to-top").fadeIn() : $(".back-to-top").fadeOut()
+            }), $(".back-to-top").on("click", function () {
+                return $("html, body").animate({
+                    scrollTop: 0
+                }, 600), !1
+            })
         }),
 
 
-        $(".btn-mobile-filter").on("click", function () {
-            $(".filter-sidebar").removeClass("d-none")
-        }),
+            $(".btn-mobile-filter").on("click", function () {
+                $(".filter-sidebar").removeClass("d-none")
+            }),
 
-        $(".btn-mobile-filter-close").on("click", function () {
-            $(".filter-sidebar").addClass("d-none")
-        }),
-
-
-        $(".switcher-btn").on("click", function () {
-            $(".switcher-wrapper").toggleClass("switcher-toggled")
-        }),
-
-        $(".close-switcher").on("click", function () {
-            $(".switcher-wrapper").removeClass("switcher-toggled")
-        }),
+            $(".btn-mobile-filter-close").on("click", function () {
+                $(".filter-sidebar").addClass("d-none")
+            }),
 
 
-        $('#theme1').click(theme1);
+            $(".switcher-btn").on("click", function () {
+                $(".switcher-wrapper").toggleClass("switcher-toggled")
+            }),
+
+            $(".close-switcher").on("click", function () {
+                $(".switcher-wrapper").removeClass("switcher-toggled")
+            }),
+
+
+            $('#theme1').click(theme1);
         $('#theme2').click(theme2);
         $('#theme3').click(theme3);
         $('#theme4').click(theme4);
@@ -283,4 +320,4 @@ $(function () {
 
         function theme15() {
             $('body').attr('class', 'bg-theme bg-theme15');
-        }
+        }})}

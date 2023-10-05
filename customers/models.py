@@ -20,7 +20,7 @@ class Customer(AbstractUser):
     objects = CustomUserManager()
 
     def __str__(self):
-        return f'{self.first_name} {self.last_name}'
+        return f'{self.first_name} {self.last_name} {self.email}'
 
     def get_absolute_url(self):
         return reverse('customers:details', kwargs={'pk': self.pk})

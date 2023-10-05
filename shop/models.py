@@ -133,7 +133,7 @@ class BaseProduct(models.Model):
         stripe_product_price = stripe.Price.create(
             product=stripe_product['id'],
             unit_amount=(self.price * 100),
-            currency='uah'
+            currency='usd'
         )
         return stripe_product_price
 

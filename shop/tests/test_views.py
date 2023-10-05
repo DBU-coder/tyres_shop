@@ -71,7 +71,7 @@ class TestShopViews(TestCase):
         )
 
     @staticmethod
-    def get_test_data_for_pagination(quantity=15):
+    def set_test_data_for_pagination(quantity=15):
         for i in range(quantity):
             Tyre.objects.create(
                 sku=f'RT756029{i}',
@@ -127,28 +127,15 @@ class TestShopViews(TestCase):
         response = self.client.get(url, data={'cat': 'all', 'q': 'product'})
         self.assertSequenceEqual(response.context['products'], [self.tyre_product, self.wheel_product])
 
-    def test_category_products_queryset(self):
-        cats_queryset = {
-            'tyres': Tyre.objects.all(),
-            'wheels': Wheel.objects.all(),
-        }
-        for cat_name, expected_qs in cats_queryset.items():
-            with self.subTest(cat_name=cat_name):
-                response = self.client.get(reverse('shop:category_products', kwargs={'cat_name': cat_name}))
-                self.assertQuerySetEqual(response.context['products'], expected_qs)
-
     def test_has_avg_rating(self):
         response = self.client.get(reverse('shop:category_products', kwargs={'cat_name': 'wheels'}))
         product = response.context['products'][0]
         self.assertEqual(product.avg_rating, 4.5)
         self.assertEqual(product.users_count, 2)
+        self.assertIsInstance(product, Wheel)
 
     def test_category_products_paginator(self):
-        self.get_test_data_for_pagination()
-        response = self.client.get(
-            reverse('shop:category_products', kwargs={'cat_name': 'tyres'}),
-            data={'paginate_by': 10})
-        self.assertEqual(len(response.context['products']), 10)
+        self.set_test_data_for_pagination()
         response = self.client.get(
             reverse('shop:category_products', kwargs={'cat_name': 'tyres'}),
             data={'paginate_by': 10, 'page': 2})

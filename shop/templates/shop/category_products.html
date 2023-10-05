@@ -117,12 +117,16 @@
                                                                 {% show_rating product %}
                                                             </div>
                                                             <div class="product-action mt-2">
+                                                                <div class="modal-info" style="display: none">  <!-- this div will be hidden by default and I use it to store all the info I'll need to display on the modal for each product -->
+                                                                <div class="img-links">{% for gallery in product.gallery.all %}<p>{{ gallery.image.url }}</p>{% empty %}<p>{% static 'assets/images/products/no_image.png' %}</p>{% endfor %}</div><h1>
+                                                                        {{ product.name }}</h1><p>{{ product.description}}</p><p>${{ product.price}}</p><p>{{ product.sku}}</p><p>{% url 'cart:add' ct_model=product.model_name slug=product.slug %}</p>
+                                                                </div>
                                                                 <div class="d-grid gap-2">
                                                                     <a href="{% url 'cart:add' product.model_name product.slug %}"
                                                                        class="btn btn-dark btn-ecomm {% if product.status == 0 %}disabled{% endif %}"> <i
                                                                             class="bx bxs-cart-add"></i>Add to Cart</a>
                                                                     <a href="javascript:;"
-                                                                       class="btn btn-light btn-ecomm"
+                                                                       class="btn btn-light btn-ecomm modal-btn"
                                                                        data-bs-toggle="modal"
                                                                        data-bs-target="#QuickViewProduct"><i
                                                                             class="bx bx-zoom-in"></i>Quick View</a>
