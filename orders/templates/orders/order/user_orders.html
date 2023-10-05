@@ -54,18 +54,24 @@
 																<td>#{{ order.id }}</td>
 																<td>{{ order.created|date:'D, d M Y H:i' }}</td>
 																<td>
-																	<div class="badge rounded-pill {% if order.paid %}bg-success{% else %}bg-danger{% endif %} w-100">{{ order.paid }}</div>
+                                                                    {% if order.paid %}
+																	<div class="badge rounded-pill bg-success w-100">Paid</div>
+                                                                    {% else %}
+                                                                    <div class="badge rounded-pill bg-danger w-100">Unpaid</div>
+                                                                    {% endif %}
 																</td>
-																<td>&#8372 {{ order.get_total_cost }} for {{ order.get_total_quantity }} item{{ order.get_total_quantity|pluralize }}</td>
+																<td>${{ order.get_total_cost }} for {{ order.get_total_quantity }} item{{ order.get_total_quantity|pluralize }}</td>
 																<td>
 																	<div class="d-flex gap-2">
                                                                         <a href="{% url 'orders:order_details' order.id %}" class="btn btn-dark btn-sm rounded-0">View</a>
+                                                                        {% if not order.paid %}
+
                                                                         <form action="{% url 'payments:create' order.id %}" method="post">
                                                                             {% csrf_token %}
                                                                             <button type="submit" class="btn btn-dark btn-sm rounded-0">Pay</button>
                                                                         </form>
-
-																		<a href="#" class="btn btn-dark btn-sm rounded-0">Cancel</a>
+																		<a href="{% url 'orders:delete' order.id %}" class="btn btn-dark btn-sm rounded-0">Cancel</a>
+                                                                        {% endif %}
 																	</div>
 																</td>
 															</tr>

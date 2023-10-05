@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, ListView, TemplateView
+from django.views.generic import CreateView, ListView, TemplateView, DeleteView
 from django.contrib.admin.views.decorators import staff_member_required
 
 from cart.cart import Cart
@@ -44,6 +44,14 @@ class OrderCreateView(CreateView):
 
     def get_success_url(self):
         return reverse_lazy('orders:order_shipping', args=[self.object.id])
+
+
+class OrderDeleteView(DeleteView):
+    model = Order
+    template_name = 'orders/order/confirm_delete.html'
+
+    def get_success_url(self):
+        return reverse_lazy('orders:order_list')
 
 
 class ShippingChoiceView(TemplateView):

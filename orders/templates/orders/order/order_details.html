@@ -30,7 +30,7 @@
                 <div class="container">
                     <div class="shop-cart">
                         <div class="row">
-                            <div class="col-12 col-xl-8">
+                            <div class="col-12 col-xl-12">
                                 <div class="shop-cart-list mb-3 p-3">
                                     {% for item in order %}
                                         {% with product=item.content_object %}
@@ -47,116 +47,23 @@
                                                             <a href="{{ product.get_absolute_url }}"><h6 class="mb-2">{{ product.name }}</h6></a>
                                                             <p class="mb-0">Diameter: <span>{{ product.diameter }}</span>
                                                             </p>
-                                                            <p class="mb-2">Price: <span>&#8372 {{ item.price }} x {{ item.quantity }}pcs.</span>
+                                                            <p class="mb-2">Price: <span>${{ item.price }} x {{ item.quantity }}pcs.</span>
                                                             </p>
-                                                            <h5 class="mb-0">&#8372 {{ item.get_cost }}</h5>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-12 col-lg-3">
-                                                    <div class="cart-action text-center">
-                                                        <form id="{{ forloop.counter }}"
-                                                              action="{% url 'cart:add' product.model_name product.slug %}"
-                                                              method="POST">
-                                                            {% csrf_token %}
-                                                            {{ item.update_quantity_form.quantity }}
-                                                            {{ item.update_quantity_form.update }}
-
-                                                        </form>
-
-                                                    </div>
-                                                </div>
-                                                <div class="col-12 col-lg-3">
-                                                    <div class="text-center">
-                                                        <div class="d-flex gap-2 justify-content-center justify-content-lg-end">
-                                                            <button form="{{ forloop.counter }}" type="submit"
-                                                                    class="btn btn-dark rounded-0 btn-ecomm">
-                                                                <i class='bx bx-refresh'></i></button>
-                                                            <a href="{% url 'cart:remove' product.model_name product.slug %}"
-                                                               class="btn btn-dark rounded-0 btn-ecomm"><i
-                                                                    class='bx bx-x-circle'></i> Remove</a>
-
+                                                            <h5 class="mb-0">${{ item.get_cost }}</h5>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="my-4 border-top"></div>
                                         {% endwith %}
-                                    {% empty %}
-                                        <div class="row align-items-center g-3">
-                                            <h3>Your Cart is Empty</h3>
-                                            <p>Add something to make me happy :)</p>
-                                        </div>
-                                        <div class="my-4 border-top"></div>
                                     {% endfor %}
                                     <div class="d-lg-flex align-items-center gap-2"><a href="{% url 'shop:index' %}"
                                                                                        class="btn btn-dark btn-ecomm"><i
                                             class='bx bx-shopping-bag'></i> Continue Shoping</a>
-                                        <a href="{% url 'cart:clear' %}" class="btn btn-light btn-ecomm ms-auto"><i
-                                                class='bx bx-x-circle'></i> Clear Cart</a>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12 col-xl-4">
-                                <div class="checkout-form p-3 bg-light">
-                                    <div class="card rounded-0 border bg-transparent shadow-none">
-                                        <div class="card-body">
-                                            <p class="fs-5">Apply Discount Code</p>
-                                            <div class="input-group">
-                                                <input type="text" class="form-control rounded-0"
-                                                       placeholder="Enter discount code">
-                                                <button class="btn btn-dark btn-ecomm" type="button">Apply Discount
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card rounded-0 border bg-transparent shadow-none">
-                                        <div class="card-body">
-                                            <p class="fs-5">Estimate Shipping and Tax</p>
-                                            <div class="my-3 border-top"></div>
-                                            <div class="mb-3">
-                                                <label class="form-label">Country Name</label>
-                                                <select class="form-select rounded-0">
-                                                    <option selected>United States</option>
-                                                    <option value="1">Australia</option>
-                                                    <option value="2">India</option>
-                                                    <option value="3">Canada</option>
-                                                </select>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label class="form-label">State/Province</label>
-                                                <select class="form-select rounded-0">
-                                                    <option selected>California</option>
-                                                    <option value="1">Texas</option>
-                                                    <option value="2">Canada</option>
-                                                </select>
-                                            </div>
-                                            <div class="mb-0">
-                                                <label class="form-label">Zip/Postal Code</label>
-                                                <input type="email" class="form-control rounded-0">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card rounded-0 border bg-transparent mb-0 shadow-none">
-                                        <div class="card-body">
-                                            <p class="mb-2">Subtotal: <span class="float-end">&#8372 {{ cart.get_total_price }}</span>
-                                            </p>
-                                            <p class="mb-2">Shipping: <span class="float-end">--</span>
-                                            </p>
-                                            <p class="mb-2">Taxes: <span class="float-end">&#8372 14.00</span>
-                                            </p>
-                                            <p class="mb-0">Discount: <span class="float-end">--</span>
-                                            </p>
-                                            <div class="my-3 border-top"></div>
-                                            <h5 class="mb-0">Order Total: <span class="float-end">&#8372 {{ cart.get_total_price }}</span></h5>
-                                            <div class="my-4"></div>
-                                            <div class="d-grid"><a href="{% url 'orders:order_create' %}" class="btn btn-dark btn-ecomm">Proceed
-                                                to Checkout</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+
                         </div>
                         <!--end row-->
                     </div>
