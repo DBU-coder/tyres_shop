@@ -16,6 +16,7 @@ class Order(models.Model):
     address = models.TextField(max_length=300)
     created = models.DateTimeField(auto_now_add=True)
     paid = models.BooleanField(default=False)
+    delivery = models.ForeignKey('Delivery', related_name='orders', on_delete=models.CASCADE, null=True)
 
     class Meta:
         ordering = ('-created',)
@@ -55,4 +56,14 @@ class OrderItem(models.Model):
     def get_cost(self):
         return self.price * self.quantity
 
+
+class Delivery(models.Model):
+    method = models.CharField(max_length=50)
+    cost = models.PositiveSmallIntegerField(default=0)
+
+    class Meta:
+        verbose_name_plural = 'Deliveries'
+
+    def __str__(self):
+        return self.method
 

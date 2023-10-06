@@ -21,6 +21,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link href="{% static 'assets/css/app.css' %}" rel="stylesheet">
     <link href="{% static 'assets/css/icons.css' %}" rel="stylesheet">
+    {% block head %}
+    {% endblock %}
 
     <title>{% if title %}{{ title }}{% else %}Shop{% endif %}</title>
 

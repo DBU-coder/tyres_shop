@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import reverse
 from django.utils.safestring import mark_safe
 
-from orders.models import Order, OrderItem
+from orders.models import Order, Delivery
 
 
 @admin.register(Order)
@@ -15,4 +15,10 @@ class OrderAdmin(admin.ModelAdmin):
     def order_details(self, obj):
         url = reverse('orders:admin_order_details', args=[obj.id])
         return mark_safe(f'<a href="{url}">View</a>')
+
+
+@admin.register(Delivery)
+class DeliveryAdmin(admin.ModelAdmin):
+    pass
+
 

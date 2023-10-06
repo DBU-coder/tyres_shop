@@ -1,35 +1,50 @@
+from django.contrib.admin.views.decorators import staff_member_required
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, ListView, TemplateView, DeleteView
-from django.contrib.admin.views.decorators import staff_member_required
+from django.views.generic import ListView, TemplateView, DeleteView
+from formtools.wizard.views import SessionWizardView
 
 from cart.cart import Cart
 from customers.models import Customer
-from orders.forms import OrderCreateForm
-from orders.models import OrderItem, Order
+from orders.forms import OrderCreateForm, OrderAddressForm, OrderDeliveryMethodForm
+from orders.models import Order, OrderItem
 
 
-class OrderCreateView(CreateView):
-    template_name = 'orders/order/order_create.html'
-    form_class = OrderCreateForm
-    title = 'Store - Оформление заказа'
+class OrderCreateView(SessionWizardView):
+    form_list = [OrderCreateForm, OrderAddressForm, OrderDeliveryMethodForm]
 
-    def get_initial(self):
+    def get_form_initial(self, step):
         user = self.request.user
-        user_data = {
-            'first_name': user.first_name,
-            'last_name': user.last_name,
-            'email': user.email,
-            'phone': user.phone,
-            'address': user.address
-        }
-        return user_data
+        initial = self.initial_dict.get(step, {})
+        initial.update(
+            {
+                'first_name': user.first_name,
+                'last_name': user.last_name,
+                'email': user.email,
+                'phone': user.phone,
+                'address': user.address
+            }
+        )
+        return initial
 
-    def form_valid(self, form):
+    def get_context_data(self, form, **kwargs):
+        context = super().get_context_data(form, **kwargs)
+        context['title'] = 'Shop|Checkout'
+        return context
+
+    def done(self, form_list, **kwargs):
         cart = Cart(self.request)
-        order = form.save(commit=False)
         customer = Customer.objects.get(pk=self.request.user.pk)
+        receiver_form = form_list[0]
+        order = receiver_form.save(commit=False)
         order.customer = customer
+        address_form = form_list[1]
+        order.country = address_form.cleaned_data['country']
+        order.zip = address_form.cleaned_data['zip']
+        order.address = address_form.cleaned_data['address']
+        delivery_form = form_list[-1]
+        order.delivery = delivery_form.cleaned_data['delivery']
         order.save()
         for item in cart:
             OrderItem.objects.create(order=order,
@@ -40,10 +55,7 @@ class OrderCreateView(CreateView):
         cart.clear()
         # Запуск асинхронной задачи.
         # order_created.delay(order.id)
-        return super().form_valid(form)
-
-    def get_success_url(self):
-        return reverse_lazy('orders:order_shipping', args=[self.object.id])
+        return HttpResponseRedirect(reverse_lazy('payments:create', args=[order.id]))
 
 
 class OrderDeleteView(DeleteView):
