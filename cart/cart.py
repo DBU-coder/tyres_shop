@@ -1,3 +1,5 @@
+import copy
+
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 
@@ -43,14 +45,15 @@ class Cart:
         return sum(quantity)
 
     def __iter__(self):
-        model_names = self.cart_data.keys()
+        cart_data = copy.deepcopy(self.cart_data)
+        model_names = cart_data.keys()
         for model_name in model_names:
-            product_ids = self.cart_data[model_name].keys()
+            product_ids = cart_data[model_name].keys()
             product_type = ContentType.objects.get(model=model_name)
             product_model = product_type.model_class()
             products = product_model.objects.filter(id__in=product_ids)
             for product in products:
-                item = self.cart_data[model_name][str(product.id)]
+                item = cart_data[model_name][str(product.id)]
                 item['product'] = product
                 item['total_price'] = item['price'] * item['quantity']
                 yield item

@@ -1,7 +1,15 @@
+from http import HTTPStatus
+
+import stripe
+from django.conf import settings
 from django.contrib.admin.views.decorators import staff_member_required
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import get_object_or_404, render
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
+from django.utils import timezone
+from django.utils.decorators import method_decorator
+from django.views import View
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView, TemplateView, DeleteView
 from formtools.wizard.views import SessionWizardView
 
@@ -9,10 +17,12 @@ from cart.cart import Cart
 from customers.models import Customer
 from orders.forms import OrderCreateForm, OrderAddressForm, OrderDeliveryMethodForm
 from orders.models import Order, OrderItem
+from shop.models import ProductStatistic
 
 
 class OrderCreateView(SessionWizardView):
     form_list = [OrderCreateForm, OrderAddressForm, OrderDeliveryMethodForm]
+    template_name = 'orders/order/order_create.html'
 
     def get_form_initial(self, step):
         user = self.request.user
@@ -34,18 +44,15 @@ class OrderCreateView(SessionWizardView):
         return context
 
     def done(self, form_list, **kwargs):
-        cart = Cart(self.request)
-        customer = Customer.objects.get(pk=self.request.user.pk)
-        receiver_form = form_list[0]
-        order = receiver_form.save(commit=False)
-        order.customer = customer
-        address_form = form_list[1]
-        order.country = address_form.cleaned_data['country']
-        order.zip = address_form.cleaned_data['zip']
-        order.address = address_form.cleaned_data['address']
-        delivery_form = form_list[-1]
-        order.delivery = delivery_form.cleaned_data['delivery']
+        order = form_list[0].save(commit=False)
+        order.customer = Customer.objects.get(pk=self.request.user.pk)
+        order.country = form_list[1].cleaned_data['country']
+        order.zip = form_list[1].cleaned_data['zip']
+        order.address = form_list[1].cleaned_data['address']
+        order.delivery = form_list[-1].cleaned_data['delivery']
         order.save()
+
+        cart = Cart(self.request)
         for item in cart:
             OrderItem.objects.create(order=order,
                                      content_object=item['product'],
@@ -55,7 +62,17 @@ class OrderCreateView(SessionWizardView):
         cart.clear()
         # Запуск асинхронной задачи.
         # order_created.delay(order.id)
-        return HttpResponseRedirect(reverse_lazy('payments:create', args=[order.id]))
+
+        # Create a checkout session and redirect the user to Stripe's checkout page
+        checkout_session = stripe.checkout.Session.create(
+            payment_method_types=["card"],
+            line_items=order.stripe_products(),
+            metadata={'order_id': order.id},
+            mode="payment",
+            success_url=f'{settings.DOMAIN_NAME}{reverse("orders:success")}',
+            cancel_url=f'{settings.DOMAIN_NAME}{reverse("orders:cancel")}',
+        )
+        return HttpResponseRedirect(checkout_session.url, status=HTTPStatus.SEE_OTHER)
 
 
 class OrderDeleteView(DeleteView):
@@ -64,10 +81,6 @@ class OrderDeleteView(DeleteView):
 
     def get_success_url(self):
         return reverse_lazy('orders:order_list')
-
-
-class ShippingChoiceView(TemplateView):
-    template_name = 'orders/order/shipping_choice.html'
 
 
 class OrdersListView(ListView):
@@ -86,6 +99,62 @@ class OrderDetailsView(ListView):
     def get_queryset(self):
         order = Order.objects.get(id=self.kwargs['order_id'])
         return order.items.all()
+
+
+@method_decorator(csrf_exempt, name="dispatch")
+class StripeWebhookView(View):
+    """
+    Stripe webhook view to handle checkout session completed event.
+    """
+    order = None
+
+    def post(self, request):
+        payload = request.body
+        endpoint_secret = settings.STRIPE_WEBHOOK_SECRET
+        sig_header = request.META["HTTP_STRIPE_SIGNATURE"]
+
+        try:
+            event = stripe.Webhook.construct_event(payload, sig_header, endpoint_secret)
+        except ValueError:
+            # Invalid payload
+            return HttpResponse(status=HTTPStatus.BAD_REQUEST)
+        except stripe.error.SignatureVerificationError:
+            # Invalid signature
+            return HttpResponse(status=HTTPStatus.BAD_REQUEST)
+
+        if event["type"] == "checkout.session.completed":
+            session = event.data.object
+
+            self.set_order_paid(session)
+            self.set_sales_quantity()
+        # Can handle other events here.
+
+        return HttpResponse(status=HTTPStatus.OK)
+
+    def set_order_paid(self, session):
+        order_id = session.metadata.order_id
+        self.order = get_object_or_404(Order, id=order_id)
+        self.order.paid = True
+        self.order.save()
+
+    def set_sales_quantity(self):
+        for item in self.order.items.all():
+            obj, _ = ProductStatistic.objects.get_or_create(
+                content_type=item.content_type,
+                object_id=item.object_id,
+                date=timezone.now(),
+                defaults={'content_type': item.content_type, 'object_id': item.object_id, 'date': timezone.now()},
+            )
+            obj.sales_quantity += item.quantity
+            obj.save(update_fields=['sales_quantity'])
+
+
+class SuccessView(TemplateView):
+    template_name = 'orders/payments/success.html'
+
+
+class CancelView(TemplateView):
+    template_name = 'orders/payments/cancel.html'
 
 
 @staff_member_required

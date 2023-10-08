@@ -3,7 +3,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
-from payments.views import StripeWebhookView
+from orders.views import StripeWebhookView
 
 
 urlpatterns = [
@@ -15,7 +15,6 @@ urlpatterns = [
     path('cart/', include('cart.urls', namespace='cart')),
     path('ratings/', include('ratings.urls', namespace='ratings')),
     path('orders/', include('orders.urls', namespace='orders')),
-    path('payments/', include('payments.urls', namespace='payments')),
     path('webhooks/stripe/', StripeWebhookView.as_view(), name='stripe_webhook')
 
 ]

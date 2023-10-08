@@ -65,11 +65,7 @@
 																	<div class="d-flex gap-2">
                                                                         <a href="{% url 'orders:order_details' order.id %}" class="btn btn-dark btn-sm rounded-0">View</a>
                                                                         {% if not order.paid %}
-
-                                                                        <form action="{% url 'payments:create' order.id %}" method="post">
-                                                                            {% csrf_token %}
-                                                                            <button type="submit" class="btn btn-dark btn-sm rounded-0">Pay</button>
-                                                                        </form>
+                                                                        <a href="{% url 'orders:order_create' %}" class="btn btn-dark btn-sm rounded-0">Pay</a>
 																		<a href="{% url 'orders:delete' order.id %}" class="btn btn-dark btn-sm rounded-0">Cancel</a>
                                                                         {% endif %}
 																	</div>

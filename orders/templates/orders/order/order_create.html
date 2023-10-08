@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static i18n %}
+
+{% block head %}
+{{ wizard.form.media }}
+{% endblock %}
 {% block content %}
     <!--start page wrapper -->
     <div class="page-wrapper">
@@ -57,7 +61,7 @@
                                                     <div class="step-label"><i class='bx bx-credit-card'></i>Payment
                                                     </div>
                                                 </a>
-                                                <a class="step-item" href="checkout-review.html">
+                                                <a class="step-item" href="#">
                                                     <div class="step-progress"><span class="step-count">5</span>
                                                     </div>
                                                     <div class="step-label"><i class='bx bx-check-circle'></i>Review
@@ -89,53 +93,76 @@
                                                     <form method="post" class="row g-3">
                                                         {% csrf_token %}
                                                         {{ form.errors }}
-                                                        <div class="col-md-6">
-                                                            <label id="{{ form.first_name.id_for_label }}"
-                                                                   class="form-label">{{ form.first_name.label }}</label>
-                                                            {{ form.first_name }}
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <label id="{{ form.last_name.id_for_label }}"
-                                                                   class="form-label">{{ form.last_name.label }}</label>
-                                                            {{ form.last_name }}
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <label id="{{ form.email.id_for_label }}"
-                                                                   class="form-label">{{ form.email.label }}</label>
-                                                            {{ form.email }}
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <label id="{{ form.phone.id_for_label }}"
-                                                                   class="form-label">{{ form.phone.label }}</label>
-                                                            {{ form.phone }}
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <label id="{{ form.country.id_for_label }}"
-                                                                   class="form-label">{{ form.country.label }}</label>
-                                                            {{ form.country }}
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <label id="{{ form.zip.id_for_label }}"
-                                                                   class="form-label">{{ form.zip.label }}</label>
-                                                            {{ form.zip }}
-                                                        </div>
-                                                        <div class="col-md-12">
-                                                            <label id="{{ form.address.id_for_label }}"
-                                                                   class="form-label">{{ form.address.label }}</label>
-                                                            {{ form.address }}
-                                                        </div>
+                                                        {{ wizard.management_form }}
 
-                                                        <div class="col-md-6">
-                                                            <div class="d-grid">
-                                                                <a href="{% url 'cart:detail' %}"
-                                                                   class="btn btn-light btn-ecomm"><i
-                                                                        class='bx bx-chevron-left'></i>Back to Cart</a>
+                                                        {% if wizard.form.forms %}
+                                                            {{ wizard.form.management_form }}
+                                                            {% for form in wizard.form.forms %}
+                                                            <div class="col-md-6">
+                                                                <label id="{{ form.first_name.id_for_label }}"
+                                                                       class="form-label">{{ form.first_name.label }}</label>
+                                                                {{ form.first_name }}
                                                             </div>
-                                                        </div>
+                                                            <div class="col-md-6">
+                                                                <label id="{{ form.last_name.id_for_label }}"
+                                                                       class="form-label">{{ form.last_name.label }}</label>
+                                                                {{ form.last_name }}
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label id="{{ form.email.id_for_label }}"
+                                                                       class="form-label">{{ form.email.label }}</label>
+                                                                {{ form.email }}
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label id="{{ form.phone.id_for_label }}"
+                                                                       class="form-label">{{ form.phone.label }}</label>
+                                                                {{ form.phone }}
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label id="{{ form.country.id_for_label }}"
+                                                                       class="form-label">{{ form.country.label }}</label>
+                                                                {{ form.country }}
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label id="{{ form.zip.id_for_label }}"
+                                                                       class="form-label">{{ form.zip.label }}</label>
+                                                                {{ form.zip }}
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <label id="{{ form.address.id_for_label }}"
+                                                                       class="form-label">{{ form.address.label }}</label>
+                                                                {{ form.address }}
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <label id="{{ form.delivery.id_for_label }}"
+                                                                       class="form-label">{{ form.delivery.label }}</label>
+                                                                {{ form.delivery }}
+                                                            </div>
+                                                            {% endfor %}
+                                                        {% else %}
+                                                            {{ wizard.form }}
+                                                        {% endif %}
+                                                        {% if wizard.steps.prev %}
+                                                            <div class="col-md-6">
+                                                                <div class="d-grid">
+                                                                    <button name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}"
+                                                                       class="btn btn-light btn-ecomm"><i
+                                                                            class='bx bx-chevron-left'></i>{% translate "Prev step" %}</button>
+                                                                </div>
+                                                            </div>
+                                                        {% else %}
+                                                            <div class="col-md-6">
+                                                                <div class="d-grid">
+                                                                    <a href="{% url 'cart:detail' %}"
+                                                                       class="btn btn-light btn-ecomm"><i
+                                                                            class='bx bx-chevron-left'></i>{% translate "Back to Cart" %}</a>
+                                                                </div>
+                                                            </div>
+                                                        {% endif %}
                                                         <div class="col-md-6">
                                                             <div class="d-grid">
                                                                 <button type="submit" class="btn btn-dark btn-ecomm">
-                                                                    Proceed to Checkout<i
+                                                                    {% translate "Next step" %}<i
                                                                         class='bx bx-chevron-right'></i></button>
                                                             </div>
                                                         </div>
