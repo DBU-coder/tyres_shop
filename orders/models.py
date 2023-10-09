@@ -65,5 +65,5 @@ class Delivery(models.Model):
         verbose_name_plural = 'Deliveries'
 
     def __str__(self):
-        return self.method
+        return f'{self.method}\t+{self.cost}$/pcs.'
 

@@ -39,34 +39,33 @@
                                     <div class="card bg-transparent rounded-0 shadow-none">
                                         <div class="card-body">
                                             <div class="steps steps-light">
-                                                <a class="step-item active" href="{% url 'cart:detail' %}">
+                                                <div class="step-item active">
                                                     <div class="step-progress"><span class="step-count">1</span>
                                                     </div>
                                                     <div class="step-label"><i class='bx bx-cart'></i>Cart</div>
-                                                </a>
-                                                <a class="step-item active current" href="#">
+                                                </div>
+                                                <div class="step-item{% if wizard.steps.index == 0 %} active current{% elif wizard.steps.index > 0 %} active{% endif %}">
                                                     <div class="step-progress"><span class="step-count">2</span>
                                                     </div>
                                                     <div class="step-label"><i class='bx bx-user-circle'></i>Details
                                                     </div>
-                                                </a>
-                                                <a class="step-item" href="checkout-shipping.html">
+                                                </div>
+                                                <div class="step-item{% if wizard.steps.index == 1 %} active current{% elif wizard.steps.index > 1 %} active{% endif %}">
                                                     <div class="step-progress"><span class="step-count">3</span>
                                                     </div>
-                                                    <div class="step-label"><i class='bx bx-cube'></i>Shipping</div>
-                                                </a>
-                                                <a class="step-item" href="checkout-payment.html">
+                                                    <div class="step-label"><i class='bx bx-building-house'></i>Address</div>
+                                                </div>
+                                                <div class="step-item{% if wizard.steps.index == 2 %} active current{% elif wizard.steps.index > 2 %} active{% endif %}">
                                                     <div class="step-progress"><span class="step-count">4</span>
+                                                    </div>
+                                                    <div class="step-label"><i class='bx bx-cube'></i>Shipping</div>
+                                                </div>
+                                                <div class="step-item{% if wizard.steps.index == 3 %} active current{% elif wizard.steps.index > 3 %} active{% endif %}">
+                                                    <div class="step-progress"><span class="step-count">5</span>
                                                     </div>
                                                     <div class="step-label"><i class='bx bx-credit-card'></i>Payment
                                                     </div>
-                                                </a>
-                                                <a class="step-item" href="#">
-                                                    <div class="step-progress"><span class="step-count">5</span>
-                                                    </div>
-                                                    <div class="step-label"><i class='bx bx-check-circle'></i>Review
-                                                    </div>
-                                                </a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -87,10 +86,18 @@
                                                 </div>
                                             </div>
                                             <div class="border p-3">
-                                                <h2 class="h5 mb-0">Shipping Address</h2>
+                                                <h2 class="h5 mb-0">
+                                                    {% if wizard.steps.index == 0 %}
+                                                    Recipient details
+                                                    {% elif wizard.steps.index == 1 %}
+                                                    Shipping Address
+                                                    {% elif wizard.steps.index == 2 %}
+                                                    Shipping method
+                                                    {% endif %}
+                                                </h2>
                                                 <div class="my-3 border-bottom"></div>
                                                 <div class="form-body">
-                                                    <form method="post" class="row g-3">
+                                                    <form id="checkout-form" method="post" class="row g-3">
                                                         {% csrf_token %}
                                                         {{ form.errors }}
                                                         {{ wizard.management_form }}
@@ -145,7 +152,7 @@
                                                         {% if wizard.steps.prev %}
                                                             <div class="col-md-6">
                                                                 <div class="d-grid">
-                                                                    <button name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}"
+                                                                    <button id="prev-btn" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}"
                                                                        class="btn btn-light btn-ecomm"><i
                                                                             class='bx bx-chevron-left'></i>{% translate "Prev step" %}</button>
                                                                 </div>
@@ -161,9 +168,15 @@
                                                         {% endif %}
                                                         <div class="col-md-6">
                                                             <div class="d-grid">
-                                                                <button type="submit" class="btn btn-dark btn-ecomm">
-                                                                    {% translate "Next step" %}<i
-                                                                        class='bx bx-chevron-right'></i></button>
+                                                                <button id="next-btn" type="submit" class="btn btn-dark btn-ecomm">
+                                                                    {% if wizard.steps.index == 0 %}
+                                                                        ADDRESS
+                                                                    {% elif wizard.steps.index == 1 %}
+                                                                        SHIPPING
+                                                                    {% elif wizard.steps.index == 2 %}
+                                                                        PAYMENT
+                                                                    {% endif %}
+                                                                    <i class='bx bx-chevron-right'></i></button>
                                                             </div>
                                                         </div>
                                                     </form>
@@ -173,7 +186,7 @@
                                     </div>
                                 </div>
                             </div>
-                        {% include 'order_summary.html' %}
+                        {% include 'orders/order/order_summary.html' %}
                         </div>
                         <!--end row-->
                     </div>

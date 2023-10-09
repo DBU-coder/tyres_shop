@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Order
+from .models import Order, Delivery
 
 
 class OrderCreateForm(forms.ModelForm):
@@ -35,6 +35,12 @@ class OrderAddressForm(forms.ModelForm):
 
 
 class OrderDeliveryMethodForm(forms.ModelForm):
+    delivery = forms.ModelChoiceField(
+        queryset=Delivery.objects.all(),
+        empty_label=None,
+        label='Choose method',
+        widget=forms.RadioSelect()
+    )
 
     class Meta:
         model = Order
