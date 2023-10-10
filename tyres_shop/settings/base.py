@@ -164,6 +164,10 @@ AUTH_USER_MODEL = 'customers.Customer'
 
 CART_SESSION_ID = 'cart'
 
+# Favorites
+
+FAVORITES_SESSION_ID = 'favorites'
+
 # Stripe
 
 STRIPE_PUBLISHABLE_KEY = env('STRIPE_PUBLISHABLE_KEY')

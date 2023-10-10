@@ -15,6 +15,7 @@ urlpatterns = [
     path('cart/', include('cart.urls', namespace='cart')),
     path('ratings/', include('ratings.urls', namespace='ratings')),
     path('orders/', include('orders.urls', namespace='orders')),
+    path('favorites/', include('favorites.urls', namespace='favorites')),
     path('webhooks/stripe/', StripeWebhookView.as_view(), name='stripe_webhook')
 
 ]
