@@ -66,4 +66,3 @@ class Delivery(models.Model):
 
     def __str__(self):
         return f'{self.method}\t+{self.cost}$/pcs.'
-

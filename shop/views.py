@@ -88,7 +88,7 @@ class CategoryProductsListView(ListFilteredView):
         queryset = product_model.objects.select_related('category').prefetch_related('gallery', 'ratings').annotate(
             avg_rating=Avg('ratings__value'),
             users_count=Count('ratings__ip')
-        ).only('category', 'ratings', 'gallery', 'name', 'price', 'slug')
+        ).only('category', 'ratings', 'gallery', 'name', 'price', 'slug').order_by('id')
         return queryset
 
     def get_paginate_by(self, queryset):
