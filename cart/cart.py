@@ -49,9 +49,8 @@ class Cart:
         model_names = cart_data.keys()
         for model_name in model_names:
             product_ids = cart_data[model_name].keys()
-            product_type = ContentType.objects.get(model=model_name)
-            product_model = product_type.model_class()
-            products = product_model.objects.filter(id__in=product_ids)
+            ct_type = ContentType.objects.get(model=model_name)
+            products = ct_type.model_class().objects.filter(id__in=product_ids)
             for product in products:
                 item = cart_data[model_name][str(product.id)]
                 item['product'] = product

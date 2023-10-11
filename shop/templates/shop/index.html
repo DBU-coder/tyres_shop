@@ -194,10 +194,9 @@
                                                     <div class="product-compare"><span><i class='bx bx-git-compare'></i> Compare</span>
                                                     </div>
                                                 </a>
-                                                <a href="javascript:;">
-                                                    <div class="product-wishlist"><i class='bx bx-heart'></i>
-                                                    </div>
-                                                </a>
+                                                <div class=" product-wishlist add-to-favorites" data-type="{{ product.model_name }}" data-id="{{ product.id }}">
+                                                    <i class="bx bx-heart"></i>
+                                                </div>
                                             </div>
                                         </div>
                                         <a href="{{ product.get_absolute_url }}">
@@ -261,10 +260,9 @@
                                     <div class="card rounded-0 product-card">
                                         <div class="card-header bg-transparent border-bottom-0">
                                             <div class="d-flex align-items-center justify-content-end">
-                                                <a href="javascript:;">
-                                                    <div class="product-wishlist"><i class='bx bx-heart'></i>
-                                                    </div>
-                                                </a>
+                                                <div class=" product-wishlist add-to-favorites" data-type="{{ product.model_name }}" data-id="{{ product.id }}">
+                                                    <i class="bx bx-heart"></i>
+                                                </div>
                                             </div>
                                         </div>
                                         <a href="{{ product.get_absolute_url }}">

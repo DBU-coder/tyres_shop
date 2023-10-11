@@ -1,10 +1,9 @@
-import json
 
 from django.contrib.contenttypes.models import ContentType
+from django.db.models import Avg, Count
 from django.http import JsonResponse
-from django.shortcuts import redirect
 from django.views import View
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
 
 from favorites.utils import Favorite
 
@@ -35,11 +34,27 @@ class RemoveFromFavoritesView(View):
         return JsonResponse(data=response_data)
 
 
-class FavoritesView(TemplateView):
+class FavoritesView(ListView):
     template_name = 'favorites/favorites_list.html'
+    context_object_name = 'products'
+
+    def get_queryset(self):
+        favorites = self.request.session.get('favorites')
+        queryset = []
+        if favorites:
+            for key, value in favorites.items():
+                ct_model = ContentType.objects.get(model=key)
+                products = ct_model.model_class().objects.filter(id__in=value).\
+                    select_related('category').prefetch_related('gallery', 'ratings').annotate(
+                    avg_rating=Avg('ratings__value'),
+                    users_count=Count('ratings__ip')
+                ).only('category', 'ratings', 'gallery', 'name', 'price', 'slug', 'status')
+                queryset.extend(products)
+        return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['title'] = 'Shop|Favorites'
         return context
 
 

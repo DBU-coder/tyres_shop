@@ -122,8 +122,7 @@ class BaseProduct(models.Model):
 
     @property
     def model_name(self):
-        ct = ContentType.objects.get_for_model(self)
-        return ct.model
+        return self._meta.model_name
 
     def create_stripe_product_price(self):
         stripe_product = stripe.Product.create(

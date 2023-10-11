@@ -82,9 +82,35 @@ function get_session_favorites() {
     })
 }
 
-$(document).ready(function() {
+function remove_favorites_from_session() {
+    $('.remove-from-favorites').each((index, el) => {
+        $(el).on('click', function (e) {
+            e.preventDefault();
+            const type = $(el).data('type');
+            const id = $(el).data('id');
+            $.ajax({
+                url: '/favorites/remove/',
+                type: 'POST',
+                dataType: 'json',
+                headers: {
+                    'X-CSRFToken': csrftoken,
+                },
+                data: {
+                    type: type,
+                    id: id
+                },
+                success: (data) => {
+                    $(el).closest('.col').remove();
+                }
+            })
+        })
+    })
+}
+
+$(document).ready(function () {
     addToFavorites();
     get_session_favorites();
+    remove_favorites_from_session();
 })
 
 // Modal product
@@ -110,106 +136,107 @@ modalbtns.forEach(a => a.addEventListener('click', () => {
 
 // Rating
 
-    const ratings = document.querySelectorAll('.rating')
-    if (ratings.length > 0) {
-        initRatings();
+const ratings = document.querySelectorAll('.rating')
+if (ratings.length > 0) {
+    initRatings();
+}
+
+function initRatings() {
+    let ratingActive, ratingValue, usersCount;
+    for (let i = 0; i < ratings.length; i++) {
+        const rating = ratings[i];
+        initRating(rating);
     }
 
-    function initRatings() {
-        let ratingActive, ratingValue, usersCount;
-        for (let i = 0; i < ratings.length; i++) {
-            const rating = ratings[i];
-            initRating(rating);
+    function initRating(rating) {
+        initRatingVars(rating);
+
+        setRatingActiveWidth();
+
+        if (rating.classList.contains('rating__set')) {
+            setRating(rating);
+
         }
+    }
 
-        function initRating(rating) {
-            initRatingVars(rating);
+    function initRatingVars(rating) {
+        ratingActive = rating.querySelector('.rating__active');
+        ratingValue = rating.querySelector('.rating__value');
+    }
 
-            setRatingActiveWidth();
+    function setRatingActiveWidth(index = ratingValue.innerHTML) {
+        const ratingActiveWidth = index / 0.05;
+        ratingActive.style.width = `${ratingActiveWidth}%`;
+    }
 
-            if (rating.classList.contains('rating__set')) {
-                setRating(rating);
+    function setRating(rating) {
+        const ratingItems = rating.querySelectorAll('.rating__item');
+        for (let i = 0; i < ratingItems.length; i++) {
+            const ratingItem = ratingItems[i];
+            ratingItem.addEventListener("mouseenter", function (e) {
+                initRatingVars(rating);
+                setRatingActiveWidth(ratingItem.value);
+            });
+            ratingItem.addEventListener("mouseleave", function (e) {
+                setRatingActiveWidth();
+            })
+            ratingItem.addEventListener("click", function (e) {
+                initRatingVars(rating);
 
-            }
-        }
-
-        function initRatingVars(rating) {
-            ratingActive = rating.querySelector('.rating__active');
-            ratingValue = rating.querySelector('.rating__value');
-        }
-
-        function setRatingActiveWidth(index = ratingValue.innerHTML) {
-            const ratingActiveWidth = index / 0.05;
-            ratingActive.style.width = `${ratingActiveWidth}%`;
-        }
-
-        function setRating(rating) {
-            const ratingItems = rating.querySelectorAll('.rating__item');
-            for (let i = 0; i < ratingItems.length; i++) {
-                const ratingItem = ratingItems[i];
-                ratingItem.addEventListener("mouseenter", function (e) {
-                    initRatingVars(rating);
-                    setRatingActiveWidth(ratingItem.value);
-                });
-                ratingItem.addEventListener("mouseleave", function (e) {
+                if (rating.dataset.ajax) {
+                    setRatingValue(ratingItem.value, rating);
+                } else {
+                    ratingValue.innerHTML = i + 1;
                     setRatingActiveWidth();
-                })
-                ratingItem.addEventListener("click", function (e) {
-                    initRatingVars(rating);
+                }
+            })
+        }
 
-                    if (rating.dataset.ajax) {
-                        setRatingValue(ratingItem.value, rating);
-                    } else {
-                        ratingValue.innerHTML = i + 1;
-                        setRatingActiveWidth();
+        async function setRatingValue(value, rating) {
+            if (!rating.classList.contains('rating_sending')) {
+                rating.classList.add('rating_sending');
+                let csrftoken = getCookie('csrftoken')
+                let response = await fetch("/ratings/set_rating/", {
+                    method: 'POST',
+                    mode: 'same-origin',
+                    body: JSON.stringify({
+                        user_rating: value,
+                        product_model: rating.dataset.model,
+                        product_id: rating.dataset.id
+                    }),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrftoken
                     }
-                })
-            }
+                });
+                if (response.ok) {
+                    const result = await response.json();
 
-            async function setRatingValue(value, rating) {
-                if (!rating.classList.contains('rating_sending')) {
-                    rating.classList.add('rating_sending');
-                    let csrftoken = getCookie('csrftoken')
-                    let response = await fetch("/ratings/set_rating/", {
-                        method: 'POST',
-                        mode: 'same-origin',
-                        body: JSON.stringify({
-                            user_rating: value,
-                            product_model: rating.dataset.model,
-                            product_id: rating.dataset.id
-                        }),
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRFToken': csrftoken
-                        }
-                    });
-                    if (response.ok) {
-                        const result = await response.json();
+                    ratingValue.innerHTML = result.new_rating;
 
-                        ratingValue.innerHTML = result.new_rating;
+                    setRatingActiveWidth();
+                    rating.classList.remove('rating_sending');
+                } else {
+                    alert("Error. Rating not sent.")
 
-                        setRatingActiveWidth();
-                        rating.classList.remove('rating_sending');
-                    } else {
-                        alert("Error. Rating not sent.")
-
-                        rating.classList.remove('rating_sending');
-                    }
+                    rating.classList.remove('rating_sending');
                 }
             }
         }
     }
+}
 
 // Highlighting customer's menu items
 
-    let a = document.querySelectorAll('.list-group-item')
-    a.forEach((el) => {
-        if (el.getAttribute('href') === window.location.pathname)
-            el.classList.add('active')
-        el.classList.remove('bg-transparent')
-    })
+let a = document.querySelectorAll('.list-group-item')
+a.forEach((el) => {
+    if (el.getAttribute('href') === window.location.pathname)
+        el.classList.add('active')
+    el.classList.remove('bg-transparent')
+})
+
 // Carousel for modal
-    function createCarousel(links) {
+function createCarousel(links) {
     $('.image-zoom-section').html('<div id="modal_carousel" class="product-gallery owl-carousel owl-theme border mb-3 p-3" data-slider-id="1"></div><div class="owl-thumbs d-flex justify-content-center" data-slider-id="1"></div>');
 
     for (let i = 0; i < links.length; i++) {
@@ -392,4 +419,6 @@ modalbtns.forEach(a => a.addEventListener('click', () => {
 
         function theme15() {
             $('body').attr('class', 'bg-theme bg-theme15');
-        }})}
+        }
+    })
+}
