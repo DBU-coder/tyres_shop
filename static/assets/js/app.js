@@ -1,3 +1,92 @@
+// Cookies
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        let cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            let cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+// Add to favorites
+
+let csrftoken = getCookie('csrftoken');
+
+function addToFavorites() {
+    $('.add-to-favorites').each((index, el) => {
+        $(el).on('click', function (e) {
+            e.preventDefault();
+            const type = $(el).data('type');
+            const id = $(el).data('id');
+            if ($(this).hasClass('added')) {
+                $.ajax({
+                    url: '/favorites/remove/',
+                    type: 'POST',
+                    dataType: 'json',
+                    headers: {
+                        'X-CSRFToken': csrftoken,
+                    },
+                    data: {
+                        type: type,
+                        id: id
+                    },
+                    success: (data) => {
+                        $(el).removeClass('added');
+                        $(el).html('<i class="bx bx-heart"></i>')
+                    }
+                })
+            } else {
+                $.ajax({
+                    url: '/favorites/add/',
+                    type: 'POST',
+                    dataType: 'json',
+                    headers: {
+                        'X-CSRFToken': csrftoken,
+                    },
+                    data: {
+                        type: type,
+                        id: id
+                    },
+                    success: (data) => {
+                        $(el).addClass('added');
+                        $(el).html('<i class="bx bxs-heart"></i>');
+                    }
+                })
+            }
+        })
+    })
+}
+
+function get_session_favorites() {
+    $.getJSON('/favorites/api/', (json) => {
+        if (json !== null) {
+            for (let key in json) {
+                $('.add-to-favorites').each((index, el) => {
+                    const type = $(el).data('type');
+                    const id = $(el).data('id');
+                    if (type === key && json[key].includes(String(id))) {
+                        $(el).addClass('added');
+                        $(el).html('<i class="bx bxs-heart"></i>');
+                    }
+                })
+            }
+        }
+    })
+}
+
+$(document).ready(function() {
+    addToFavorites();
+    get_session_favorites();
+})
+
 // Modal product
 
 // get buttons for modal
@@ -52,22 +141,6 @@ modalbtns.forEach(a => a.addEventListener('click', () => {
         function setRatingActiveWidth(index = ratingValue.innerHTML) {
             const ratingActiveWidth = index / 0.05;
             ratingActive.style.width = `${ratingActiveWidth}%`;
-        }
-
-        function getCookie(name) {
-            let cookieValue = null;
-            if (document.cookie && document.cookie !== '') {
-                let cookies = document.cookie.split(';');
-                for (let i = 0; i < cookies.length; i++) {
-                    let cookie = cookies[i].trim();
-                    // Does this cookie string begin with the name we want?
-                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                        break;
-                    }
-                }
-            }
-            return cookieValue;
         }
 
         function setRating(rating) {
@@ -174,7 +247,6 @@ modalbtns.forEach(a => a.addEventListener('click', () => {
         // jquery ready start
         $(document).ready(function () {
             // jQuery code
-
             $("[data-trigger]").on("click", function (e) {
                 e.preventDefault();
                 e.stopPropagation();
