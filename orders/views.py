@@ -58,11 +58,7 @@ class OrderCreateView(SessionWizardView):
                                      content_object=item['product'],
                                      price=item['price'],
                                      quantity=item['quantity'])
-        # Очищаем корзину.
         cart.clear()
-        # Запуск асинхронной задачи.
-        # order_created.delay(order.id)
-
         # Create a checkout session and redirect the user to Stripe's checkout page
         checkout_session = stripe.checkout.Session.create(
             payment_method_types=["card"],
