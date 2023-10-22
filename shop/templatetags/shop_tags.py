@@ -1,12 +1,13 @@
 from django import template
 from django.core.cache import cache
+from django.utils.translation import gettext_lazy as _
 
 from shop.models import Category
 
 menu = [
-    {'name': 'Delivery', 'url_name': 'shop:delivery'},
-    {'name': 'About', 'url_name': 'shop:about'},
-    {'name': 'Contact us', 'url_name': 'shop:contacts'},
+    {'name': _('Delivery'), 'url_name': 'shop:delivery'},
+    {'name': _('About'), 'url_name': 'shop:about'},
+    {'name': _('Contact us'), 'url_name': 'shop:contacts'},
 ]
 
 register = template.Library()

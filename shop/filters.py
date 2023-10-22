@@ -1,5 +1,6 @@
 import django_filters as filters
 from django import forms
+from django.utils.translation import gettext_lazy as _
 from django_filters.widgets import LinkWidget, RangeWidget
 
 from shop.models import Tyre, Wheel
@@ -7,26 +8,30 @@ from shop.models import Tyre, Wheel
 
 class BaseFilter(filters.FilterSet):
     ORDERING_CHOICES = (
-        ('-avg_rating', 'Sort by rating:high to low'),
-        ('avg_rating', 'Sort by rating:low to high'),
-        ('-created', 'Sort by newest'),
-        ('price', 'Sort by price:low to high'),
-        ('-price', 'Sort by price:high to low'),
+        ('-avg_rating', _('Sort by rating:high to low')),
+        ('avg_rating', _('Sort by rating:low to high')),
+        ('-created', _('Sort by newest')),
+        ('price', _('Sort by price:low to high')),
+        ('-price', _('Sort by price:high to low')),
     )
 
-    price = filters.RangeFilter(widget=RangeWidget(attrs={'size': 7}))
+    price = filters.RangeFilter(
+        label=_('Price'),
+        widget=RangeWidget(attrs={'size': 7})
+    )
     brand = filters.MultipleChoiceFilter(
-        label='Brands',
+        label=_('Brands'),
         widget=forms.CheckboxSelectMultiple(attrs={'class': 'form-check-input'})
     )
     diameter = filters.MultipleChoiceFilter(
+        label=_('Diameter'),
         widget=forms.CheckboxSelectMultiple(attrs={'class': 'form-check-input'})
     )
     ordering = filters.ChoiceFilter(
-        label='Sort by:',
+        label=_('Sort by:'),
         choices=ORDERING_CHOICES,
         method='filter_by_order',
-        empty_label='Default sorting',
+        empty_label=_('Default sorting'),
         widget=forms.Select(attrs={'class': 'form-select ms-3 rounded-0', 'onchange': 'form.submit()'})
     )
 
@@ -47,13 +52,14 @@ class BaseFilter(filters.FilterSet):
 
 class TyreFilter(BaseFilter):
     vehicle_type = filters.ChoiceFilter(
-        label='Vehicle',
+        label=_('Vehicle'),
         choices=Tyre.VEHICLE_CHOICES,
         widget=LinkWidget(attrs={'class': 'list-unstyled mb-0 categories-list'})
     )
     season = filters.ChoiceFilter(
+        label=_('Season'),
         choices=Tyre.SEASON_CHOICES,
-        empty_label='All tyres',
+        empty_label=_('All tyres'),
         widget=forms.RadioSelect(attrs={'class': 'form-check-input'})
     )
 
@@ -64,6 +70,7 @@ class TyreFilter(BaseFilter):
 
 class WheelFilter(BaseFilter):
     type = filters.ChoiceFilter(
+        label=_('Type'),
         choices=Wheel.TYPE_CHOICES,
         widget=LinkWidget(attrs={'class': 'list-unstyled mb-0 categories-list'})
     )

@@ -1,19 +1,20 @@
+{% load i18n %}
 <div class="primary-menu border-top">
     <div class="container">
         <nav id="navbar_main" class="mobile-offcanvas navbar navbar-expand-lg">
             <div class="offcanvas-header">
                 <button class="btn-close float-end"></button>
-                <h5 class="py-2">Navigation</h5>
+                <h5 class="py-2">{% trans 'Navigation' %}</h5>
             </div>
             <ul class="navbar-nav">
                 {% for cat in cats %}
-                    <li class="nav-item"><a class="nav-link"
-                                            href="{% url 'shop:category_products' cat.slug %}">{{ cat.name }}</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'shop:category_products' cat.slug %}">{{ cat.name }}</a>
                     </li>
                 {% endfor %}
                 {% for menu_item in menu %}
-                    <li class="nav-item"><a class="nav-link"
-                                            href="{% url menu_item.url_name %}">{{ menu_item.name }}</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url menu_item.url_name %}">{{ menu_item.name }}</a>
                     </li>
                 {% endfor %}
             </ul>

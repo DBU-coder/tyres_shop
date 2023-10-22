@@ -1,12 +1,13 @@
 import stripe
-from django.conf import settings
 
+from django.conf import settings
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.db.models import Sum, Avg, Count
 from django.urls import reverse
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 
 from django_resized import ResizedImageField
 
@@ -61,7 +62,7 @@ class HomepageProduct:
 
 class Category(models.Model):
     class Meta:
-        verbose_name_plural = 'categories'
+        verbose_name_plural = _('categories')
 
     name = models.CharField(max_length=100)
     slug = models.SlugField(max_length=100, unique=True)
@@ -90,10 +91,10 @@ class Gallery(models.Model):
 
 class BaseProduct(models.Model):
     STATUS_CHOICES = (
-        (0, 'out stock'),
-        (1, 'in stock'),
-        (2, 'running out'),
-        (3, 'coming soon'),
+        (0, _('out stock')),
+        (1, _('in stock')),
+        (2, _('running out')),
+        (3, _('coming soon')),
     )
 
     class Meta:
@@ -145,16 +146,16 @@ class BaseProduct(models.Model):
 
 class Tyre(BaseProduct):
     VEHICLE_CHOICES = (
-        (1, 'Motorcycle'),
-        (2, 'Car'),
-        (3, 'Truck'),
-        (4, 'Special transports'),
+        (1, _('Motorcycle')),
+        (2, _('Car')),
+        (3, _('Truck')),
+        (4, _('Special transports')),
     )
 
     SEASON_CHOICES = (
-        (1, 'All season'),
-        (2, 'Summer'),
-        (3, 'Winter'),
+        (1, _('All season')),
+        (2, _('Summer')),
+        (3, _('Winter')),
     )
 
     vehicle_type = models.PositiveSmallIntegerField('Vehicle type', choices=VEHICLE_CHOICES)
@@ -173,8 +174,8 @@ class Tyre(BaseProduct):
 
 class Wheel(BaseProduct):
     TYPE_CHOICES = (
-        (1, 'Alloy'),
-        (2, 'Steel'),
+        (1, _('Alloy')),
+        (2, _('Steel')),
     )
 
     model = models.CharField(max_length=100, blank=True)

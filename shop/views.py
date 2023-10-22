@@ -3,6 +3,7 @@ from itertools import chain
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import Avg, Count, Q
 from django.views.generic import DetailView, TemplateView, ListView
+from django.utils.translation import gettext_lazy as _
 
 from enhanced_cbv.views import ListFilteredView
 
@@ -16,7 +17,7 @@ class IndexTemplateView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Shop | Homepage'
+        context['title'] = _('Shop | Homepage')
         context['new_products'] = HomepageProduct.objects.get_new_products('tyre', 'wheel')
         context['popular_products'] = HomepageProduct.objects.get_popular_products(days=7)
         return context
@@ -28,7 +29,7 @@ class SearchView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Search result'
+        context['title'] = _('Search result')
         return context
 
     def get_queryset(self, **kwargs):
@@ -127,7 +128,7 @@ class DeliveryView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Shop | Delivery'
+        context['title'] = _('Shop | Delivery')
         return context
 
 
@@ -136,7 +137,7 @@ class AboutView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Shop | AboutUs'
+        context['title'] = _('Shop | AboutUs')
         return context
 
 
@@ -145,5 +146,5 @@ class ContactsView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Shop | Contacts'
+        context['title'] = _('Shop | Contacts')
         return context

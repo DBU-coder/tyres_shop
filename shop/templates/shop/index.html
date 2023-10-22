@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static shop_tags %}
+{% load static shop_tags i18n %}
 {% block content %}
     <!--start slider section-->
     <section class="slider-section">
@@ -18,7 +18,7 @@
                                     <h3 class="h3 fw-light">Sale -50%!</h3>
                                     <h1 class="h1">New Summer Collection</h1>
                                     <p class="pb-3">Tyres, Wheels &amp; much more...</p>
-                                    <div class=""><a class="btn btn-dark btn-ecomm" href="javascript:;">Shop Now <i
+                                    <div class=""><a class="btn btn-dark btn-ecomm" href="javascript:;">{% trans 'Shop Now' %} <i
                                             class='bx bx-chevron-right'></i></a>
                                     </div>
                                 </div>
@@ -35,7 +35,7 @@
                                     <h3 class="h3 fw-light">Hurry up! Limited time offer.</h3>
                                     <h1 class="h1">Wheels Sale</h1>
                                     <p class="pb-3">Wheels, Tools &amp; much more...</p>
-                                    <div class=""><a class="btn btn-dark btn-ecomm" href="javascript:;">Shop Now <i
+                                    <div class=""><a class="btn btn-dark btn-ecomm" href="javascript:;">{% trans 'Shop Now' %} <i
                                             class='bx bx-chevron-right'></i></a>
                                     </div>
                                 </div>
@@ -52,7 +52,7 @@
                                     <h3 class="h3 fw-light">Automotive tyres</h3>
                                     <h1 class="h1">New HUGE collection Michelin!</h1>
                                     <p class="pb-3">Cars, SUV, Truck & Van &amp; much more...</p>
-                                    <div class=""><a class="btn btn-dark btn-ecomm" href="#">Shop Now <i
+                                    <div class=""><a class="btn btn-dark btn-ecomm" href="#">{% trans 'Shop Now' %} <i
                                             class='bx bx-chevron-right'></i></a>
                                     </div>
                                 </div>
@@ -65,11 +65,11 @@
                 </div>
                 <a class="carousel-control-prev" href="#carouselExampleDark" role="button" data-bs-slide="prev"> <span
                         class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
+                    <span class="visually-hidden">{% trans 'Previous' %}</span>
                 </a>
                 <a class="carousel-control-next" href="#carouselExampleDark" role="button" data-bs-slide="next"> <span
                         class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
+                    <span class="visually-hidden">{% trans 'Next' %}</span>
                 </a>
             </div>
         </div>
@@ -87,8 +87,12 @@
                                 <div class="fs-1"><i class='bx bx-taxi'></i>
                                 </div>
                                 <div class="info-box-content ps-3">
-                                    <h6 class="mb-0">FREE SHIPPING & RETURN</h6>
-                                    <p class="mb-0">Free shipping on all orders over $49</p>
+                                    <h6 class="mb-0">{% trans 'FAST SHIPPING & RETURN' %}</h6>
+                                    <p class="mb-0">
+                                        {% blocktrans %}
+                                            Fast shipping on all countries.
+                                        {% endblocktrans %}
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -97,8 +101,8 @@
                                 <div class="fs-1"><i class='bx bx-dollar-circle'></i>
                                 </div>
                                 <div class="info-box-content ps-3">
-                                    <h6 class="mb-0">MONEY BACK GUARANTEE</h6>
-                                    <p class="mb-0">100% money back guarantee</p>
+                                    <h6 class="mb-0">{% trans 'MONEY BACK GUARANTEE' %}</h6>
+                                    <p class="mb-0">{% trans '100% money back guarantee' %}</p>
                                 </div>
                             </div>
                         </div>
@@ -107,8 +111,8 @@
                                 <div class="fs-1"><i class='bx bx-support'></i>
                                 </div>
                                 <div class="info-box-content ps-3">
-                                    <h6 class="mb-0">ONLINE SUPPORT 24/7</h6>
-                                    <p class="mb-0">Awesome Support for 24/7 Days</p>
+                                    <h6 class="mb-0">{% trans 'ONLINE SUPPORT 24/7' %}</h6>
+                                    <p class="mb-0">{% trans 'Awesome Support for 24/7 Days' %}</p>
                                 </div>
                             </div>
                         </div>
@@ -129,9 +133,9 @@
                                     </div>
                                     <div class="col">
                                         <div class="card-body">
-                                            <h5 class="card-title text-uppercase">Tyres</h5>
+                                            <h5 class="card-title text-uppercase">{% trans 'Tyres' %}</h5>
                                             <p class="card-text text-uppercase">Starting at$9</p>    <a
-                                                href="{% url 'shop:category_products' 'tyres' %}" class="btn btn-dark btn-ecomm">SHOP NOW</a>
+                                                href="{% url 'shop:category_products' 'tyres' %}" class="btn btn-dark btn-ecomm"></a>
                                         </div>
                                     </div>
                                 </div>
@@ -145,9 +149,9 @@
                                     </div>
                                     <div class="col">
                                         <div class="card-body">
-                                            <h5 class="card-title text-uppercase">Wheels</h5>
+                                            <h5 class="card-title text-uppercase">{% trans 'Wheels' %}</h5>
                                             <p class="card-text text-uppercase">Starting at$9</p>    <a
-                                                href="{% url 'shop:category_products' 'wheels' %}" class="btn btn-dark btn-ecomm">SHOP NOW</a>
+                                                href="{% url 'shop:category_products' 'wheels' %}" class="btn btn-dark btn-ecomm">{% trans 'SHOP NOW' %}</a>
                                         </div>
                                     </div>
                                 </div>
@@ -161,9 +165,9 @@
                                     </div>
                                     <div class="col">
                                         <div class="card-body">
-                                            <h5 class="card-title text-uppercase">Tools</h5>
+                                            <h5 class="card-title text-uppercase">{% trans 'Tools' %}</h5>
                                             <p class="card-text text-uppercase">Starting at$9</p>    <a
-                                                href="#" class="btn btn-dark btn-ecomm">SHOP NOW</a>
+                                                href="#" class="btn btn-dark btn-ecomm">{% trans 'SHOP NOW' %}</a>
                                         </div>
                                     </div>
                                 </div>
@@ -178,7 +182,7 @@
             <section class="py-4">
                 <div class="container">
                     <div class="d-flex align-items-center">
-                        <h5 class="text-uppercase mb-0">FEATURED PRODUCTS</h5>
+                        <h5 class="text-uppercase mb-0">{% trans 'POPULAR PRODUCTS' %}</h5>
                         <a href="javascript:;" class="btn btn-dark btn-ecomm ms-auto rounded-0">More Products<i
                                 class='bx bx-chevron-right'></i></a>
                     </div>
@@ -227,10 +231,10 @@
                                                 <div class="product-action mt-2">
                                                     <div class="d-grid gap-2">
                                                         <a href="{% url 'cart:add' product.model_name product.slug %}" class="btn btn-dark btn-ecomm"> <i
-                                                                class='bx bxs-cart-add'></i>Add to Cart</a>
+                                                                class='bx bxs-cart-add'></i>{% trans 'Add to Cart' %}</a>
                                                         <a href="javascript:;" class="btn btn-light btn-ecomm"
                                                            data-bs-toggle="modal" data-bs-target="#QuickViewProduct"><i
-                                                                class='bx bx-zoom-in'></i>Quick View</a>
+                                                                class='bx bx-zoom-in'></i>{% trans 'Quick View' %}</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -248,8 +252,8 @@
             <section class="py-4">
                 <div class="container">
                     <div class="d-flex align-items-center">
-                        <h5 class="text-uppercase mb-0">New Arrivals</h5>
-                        <a href="javascript:;" class="btn btn-dark ms-auto rounded-0">View All<i
+                        <h5 class="text-uppercase mb-0">{% trans 'New Arrivals' %}</h5>
+                        <a href="javascript:;" class="btn btn-dark ms-auto rounded-0">{% trans 'View All' %}<i
                                 class='bx bx-chevron-right'></i></a>
                     </div>
                     <hr/>
@@ -286,17 +290,14 @@
                                                             class="me-1 text-decoration-line-through">$99.00</span>
                                                         <span class="fs-5">${{ product.price }}</span>
                                                     </div>
-                                                    <div class="cursor-pointer ms-auto"><span>5.0</span> <i
-                                                            class="bx bxs-star text-white"></i>
-                                                    </div>
                                                 </div>
                                                 <div class="product-action mt-2">
                                                     <div class="d-grid gap-2">
                                                         <a href="javascript:;" class="btn btn-dark btn-ecomm"> <i
-                                                                class='bx bxs-cart-add'></i>Add to Cart</a>
+                                                                class='bx bxs-cart-add'></i>{% trans 'Add to Cart' %}</a>
                                                         <a href="javascript:;" class="btn btn-light btn-ecomm"
                                                            data-bs-toggle="modal" data-bs-target="#QuickViewProduct"><i
-                                                                class='bx bx-zoom-in'></i>Quick View</a>
+                                                                class='bx bx-zoom-in'></i>{% trans 'Quick View' %}</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -383,8 +384,8 @@
                             <div class="text-center">
                                 <div class="font-50"><i class='bx bx-cart'></i>
                                 </div>
-                                <h2 class="fs-5 text-uppercase mb-0">Free delivery</h2>
-                                <p class="text-capitalize">Free delivery over $199</p>
+                                <h2 class="fs-5 text-uppercase mb-0">{% trans 'Fast shipping' %}</h2>
+                                <p class="text-capitalize">Fast shipping worldwide.</p>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nec vestibulum magna,
                                     et dapib.</p>
                             </div>
@@ -393,7 +394,7 @@
                             <div class="text-center">
                                 <div class="font-50"><i class='bx bx-credit-card'></i>
                                 </div>
-                                <h2 class="fs-5 text-uppercase mb-0">Secure payment</h2>
+                                <h2 class="fs-5 text-uppercase mb-0">{% trans 'Secure payment' %}</h2>
                                 <p class="text-capitalize">We possess SSL / Secure сertificate</p>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nec vestibulum magna,
                                     et dapib.</p>
@@ -403,7 +404,7 @@
                             <div class="text-center">
                                 <div class="font-50"><i class='bx bx-dollar-circle'></i>
                                 </div>
-                                <h2 class="fs-5 text-uppercase mb-0">Free returns</h2>
+                                <h2 class="fs-5 text-uppercase mb-0">{% trans 'Free returns' %}</h2>
                                 <p class="text-capitalize">We return money within 30 days</p>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nec vestibulum magna,
                                     et dapib.</p>
@@ -413,7 +414,7 @@
                             <div class="text-center">
                                 <div class="font-50"><i class='bx bx-support'></i>
                                 </div>
-                                <h2 class="fs-5 text-uppercase mb-0">Customer Support</h2>
+                                <h2 class="fs-5 text-uppercase mb-0">{% trans 'Customer Support' %}</h2>
                                 <p class="text-capitalize">Friendly 24/7 customer support</p>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nec vestibulum magna,
                                     et dapib.</p>
@@ -428,8 +429,8 @@
             <section class="py-4">
                 <div class="container">
                     <div class="d-flex align-items-center">
-                        <h5 class="text-uppercase mb-0">Latest News</h5>
-                        <a href="blog.html" class="btn btn-dark ms-auto rounded-0">View All News<i
+                        <h5 class="text-uppercase mb-0">{% trans 'Latest News' %}</h5>
+                        <a href="blog.html" class="btn btn-dark ms-auto rounded-0">{% trans 'View All News' %}<i
                                 class='bx bx-chevron-right'></i></a>
                     </div>
                     <hr/>
@@ -605,7 +606,7 @@
             <!--start brands-->
             <section class="py-4">
                 <div class="container">
-                    <h3 class="d-none">Brands</h3>
+                    <h3 class="d-none">{% trans 'Brands' %}</h3>
                     <div class="brand-grid">
                         <div class="brands-shops owl-carousel owl-theme border">
                             <div class="item border-end">
@@ -655,335 +656,6 @@
                 </div>
             </section>
             <!--end brands-->
-            <!--start bottom products section-->
-            <section class="py-4 border-top">
-                <div class="container">
-                    <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4">
-                        <div class="col">
-                            <div class="bestseller-list mb-3">
-                                <h6 class="mb-3 text-uppercase">Best Selling Products</h6>
-                                <div class="d-flex align-items-center">
-                                    <div class="bottom-product-img">
-                                        <a href="product-details.html">
-                                            <img src="assets/images/products/01.png" width="100" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="ms-0">
-                                        <h6 class="mb-0 fw-light mb-1">Product Short Name</h6>
-                                        <div class="rating font-12"><i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                        </div>
-                                        <p class="mb-0"><strong>$59.00</strong>
-                                        </p>
-                                    </div>
-                                </div>
-                                <hr/>
-                                <div class="d-flex align-items-center">
-                                    <div class="bottom-product-img">
-                                        <a href="product-details.html">
-                                            <img src="assets/images/products/02.png" width="100" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="ms-0">
-                                        <h6 class="mb-0 fw-light mb-1">Product Short Name</h6>
-                                        <div class="rating font-12"><i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                        </div>
-                                        <p class="mb-0"><strong>$59.00</strong>
-                                        </p>
-                                    </div>
-                                </div>
-                                <hr/>
-                                <div class="d-flex align-items-center">
-                                    <div class="bottom-product-img">
-                                        <a href="product-details.html">
-                                            <img src="assets/images/products/03.png" width="100" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="ms-0">
-                                        <h6 class="mb-0 fw-light mb-1">Product Short Name</h6>
-                                        <div class="rating font-12"><i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                        </div>
-                                        <p class="mb-0"><strong>$59.00</strong>
-                                        </p>
-                                    </div>
-                                </div>
-                                <hr/>
-                                <div class="d-flex align-items-center">
-                                    <div class="bottom-product-img">
-                                        <a href="product-details.html">
-                                            <img src="assets/images/products/04.png" width="100" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="ms-0">
-                                        <h6 class="mb-0 fw-light mb-1">Product Short Name</h6>
-                                        <div class="rating font-12"><i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                        </div>
-                                        <p class="mb-0"><strong>$59.00</strong>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="featured-list mb-3">
-                                <h6 class="mb-3 text-uppercase">Featured Products</h6>
-                                <div class="d-flex align-items-center">
-                                    <div class="bottom-product-img">
-                                        <a href="product-details.html">
-                                            <img src="assets/images/products/05.png" width="100" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="ms-0">
-                                        <h6 class="mb-0 fw-light mb-1">Product Short Name</h6>
-                                        <div class="rating font-12"><i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                        </div>
-                                        <p class="mb-0"><strong>$59.00</strong>
-                                        </p>
-                                    </div>
-                                </div>
-                                <hr/>
-                                <div class="d-flex align-items-center">
-                                    <div class="bottom-product-img">
-                                        <a href="product-details.html">
-                                            <img src="assets/images/products/06.png" width="100" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="ms-0">
-                                        <h6 class="mb-0 fw-light mb-1">Product Short Name</h6>
-                                        <div class="rating font-12"><i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                        </div>
-                                        <p class="mb-0"><strong>$59.00</strong>
-                                        </p>
-                                    </div>
-                                </div>
-                                <hr/>
-                                <div class="d-flex align-items-center">
-                                    <div class="bottom-product-img">
-                                        <a href="product-details.html">
-                                            <img src="assets/images/products/07.png" width="100" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="ms-0">
-                                        <h6 class="mb-0 fw-light mb-1">Product Short Name</h6>
-                                        <div class="rating font-12"><i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                        </div>
-                                        <p class="mb-0"><strong>$59.00</strong>
-                                        </p>
-                                    </div>
-                                </div>
-                                <hr/>
-                                <div class="d-flex align-items-center">
-                                    <div class="bottom-product-img">
-                                        <a href="product-details.html">
-                                            <img src="assets/images/products/08.png" width="100" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="ms-0">
-                                        <h6 class="mb-0 fw-light mb-1">Product Short Name</h6>
-                                        <div class="rating font-12"><i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                        </div>
-                                        <p class="mb-0"><strong>$59.00</strong>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="new-arrivals-list mb-3">
-                                <h6 class="mb-3 text-uppercase">New arrivals</h6>
-                                <div class="d-flex align-items-center">
-                                    <div class="bottom-product-img">
-                                        <a href="jproduct-details.html">
-                                            <img src="assets/images/products/09.png" width="100" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="ms-0">
-                                        <h6 class="mb-0 fw-light mb-1">Product Short Name</h6>
-                                        <div class="rating font-12"><i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                        </div>
-                                        <p class="mb-0"><strong>$59.00</strong>
-                                        </p>
-                                    </div>
-                                </div>
-                                <hr/>
-                                <div class="d-flex align-items-center">
-                                    <div class="bottom-product-img">
-                                        <a href="product-details.html">
-                                            <img src="assets/images/products/10.png" width="100" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="ms-0">
-                                        <h6 class="mb-0 fw-light mb-1">Product Short Name</h6>
-                                        <div class="rating font-12"><i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                        </div>
-                                        <p class="mb-0"><strong>$59.00</strong>
-                                        </p>
-                                    </div>
-                                </div>
-                                <hr/>
-                                <div class="d-flex align-items-center">
-                                    <div class="bottom-product-img">
-                                        <a href="product-details.html">
-                                            <img src="assets/images/products/11.png" width="100" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="ms-0">
-                                        <h6 class="mb-0 fw-light mb-1">Product Short Name</h6>
-                                        <div class="rating font-12"><i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                        </div>
-                                        <p class="mb-0"><strong>$59.00</strong>
-                                        </p>
-                                    </div>
-                                </div>
-                                <hr/>
-                                <div class="d-flex align-items-center">
-                                    <div class="bottom-product-img">
-                                        <a href="product-details.html">
-                                            <img src="assets/images/products/12.png" width="100" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="ms-0">
-                                        <h6 class="mb-0 fw-light mb-1">Product Short Name</h6>
-                                        <div class="rating font-12"><i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                        </div>
-                                        <p class="mb-0"><strong>$59.00</strong>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="top-rated-products-list mb-3">
-                                <h6 class="mb-3 text-uppercase">Top rated Products</h6>
-                                <div class="d-flex align-items-center">
-                                    <div class="bottom-product-img">
-                                        <a href="product-details.html">
-                                            <img src="assets/images/products/13.png" width="100" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="ms-0">
-                                        <h6 class="mb-0 fw-light mb-1">Product Short Name</h6>
-                                        <div class="rating font-12"><i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                        </div>
-                                        <p class="mb-0"><strong>$59.00</strong>
-                                        </p>
-                                    </div>
-                                </div>
-                                <hr/>
-                                <div class="d-flex align-items-center">
-                                    <div class="bottom-product-img">
-                                        <a href="product-details.html">
-                                            <img src="assets/images/products/14.png" width="100" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="ms-0">
-                                        <h6 class="mb-0 fw-light mb-1">Product Short Name</h6>
-                                        <div class="rating font-12"><i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                        </div>
-                                        <p class="mb-0"><strong>$59.00</strong>
-                                        </p>
-                                    </div>
-                                </div>
-                                <hr/>
-                                <div class="d-flex align-items-center">
-                                    <div class="bottom-product-img">
-                                        <a href="product-details.html">
-                                            <img src="assets/images/products/15.png" width="100" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="ms-0">
-                                        <h6 class="mb-0 fw-light mb-1">Product Short Name</h6>
-                                        <div class="rating font-12"><i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                        </div>
-                                        <p class="mb-0"><strong>$59.00</strong>
-                                        </p>
-                                    </div>
-                                </div>
-                                <hr/>
-                                <div class="d-flex align-items-center">
-                                    <div class="bottom-product-img">
-                                        <a href="product-details.html">
-                                            <img src="assets/images/products/16.png" width="100" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="ms-0">
-                                        <h6 class="mb-0 fw-light mb-1">Product Short Name</h6>
-                                        <div class="rating font-12"><i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                            <i class="bx bxs-star text-light-4"></i>
-                                            <i class="bx bxs-star text-warning"></i>
-                                        </div>
-                                        <p class="mb-0"><strong>$59.00</strong>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--end row-->
-                </div>
-            </section>
-            <!--end bottom products section-->
         </div>
     </div>
     <!--end page wrapper -->

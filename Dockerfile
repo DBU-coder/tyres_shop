@@ -29,7 +29,7 @@ COPY --from=builder /usr/local/lib/python3.11/site-packages/ /usr/local/lib/pyth
 
 COPY --from=builder /usr/local/bin/ /usr/local/bin/
 
-RUN apk add --no-cache bash libpq; \
+RUN apk add --no-cache bash libpq gettext; \
     adduser django_app -D; \
     chown -R django_app $APP_DIR
 
