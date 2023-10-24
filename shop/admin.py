@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.contrib.contenttypes.admin import GenericTabularInline
 
+from modeltranslation.admin import TabbedTranslationAdmin
+
 from shop.models import Gallery, Tyre, Wheel, ProductStatistic, Category
 
 
@@ -11,7 +13,7 @@ class GalleryInline(GenericTabularInline):
 
 
 @admin.register(Tyre)
-class TyreAdmin(admin.ModelAdmin):
+class TyreAdmin(TabbedTranslationAdmin):
     list_display = ('sku', 'brand', 'name', 'diameter', 'profile', 'season', 'vehicle_type', 'spikes', 'price', 'stock_qty', 'status')
     list_display_links = ('sku', 'name')
     search_fields = ('sku', 'brand', 'name')
@@ -22,7 +24,7 @@ class TyreAdmin(admin.ModelAdmin):
 
 
 @admin.register(Wheel)
-class WheelAdmin(admin.ModelAdmin):
+class WheelAdmin(TabbedTranslationAdmin):
     list_display = ('sku', 'brand', 'model', 'name', 'diameter', 'width', 'type', 'price', 'color', 'stock_qty', 'status')
     list_display_links = ('sku', 'model', 'name')
     search_fields = ('sku', 'brand', 'name')
@@ -38,4 +40,6 @@ class ProductStatisticAdmin(admin.ModelAdmin):
     search_fields = ('__str__',)
 
 
-admin.site.register(Category)
+@admin.register(Category)
+class CategoryAdmin(TabbedTranslationAdmin):
+    list_display = ('name',)
