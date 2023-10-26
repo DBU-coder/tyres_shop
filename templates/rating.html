@@ -1,3 +1,5 @@
+{% load l10n %}
+
 <div data-model="{{ product_model }}" data-id="{{ product_id }}" data-ajax="true" class="rating rating__set">
     <div class="rating__body">
         <div class="rating__active"></div>
@@ -9,5 +11,6 @@
             <input type="radio" class="rating__item" value="5" name="rating">
         </div>
     </div>
-    <div class="rating__value">{{ rating }}</div>
+    <!-- You must send rating value to JS with decimal separator "." for correct work on other locale language.  -->
+    <div class="rating__value">{{ rating|unlocalize }}</div>
 </div>
