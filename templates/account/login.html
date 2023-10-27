@@ -12,11 +12,11 @@
 							<div class="ms-auto">
 								<nav aria-label="breadcrumb">
 									<ol class="breadcrumb mb-0 p-0">
-										<li class="breadcrumb-item"><a href="{% url 'shop:index' %}"><i class="bx bx-home-alt"></i> Home</a>
+										<li class="breadcrumb-item"><a href="{% url 'shop:index' %}"><i class="bx bx-home-alt"></i> {% trans 'Home' %}</a>
 										</li>
-										<li class="breadcrumb-item"><a href="#">Authentication</a>
+										<li class="breadcrumb-item"><a href="#">{% trans 'Authentication' %}</a>
 										</li>
-										<li class="breadcrumb-item active" aria-current="page">Sign In</li>
+										<li class="breadcrumb-item active" aria-current="page">{% trans 'Sign In' %}</li>
 									</ol>
 								</nav>
 							</div>
@@ -40,12 +40,12 @@
 												<div class="d-grid">
 													<a class="btn my-4 shadow-sm btn-white" href="{% provider_login_url 'google' %}"> <span class="d-flex justify-content-center align-items-center">
 														<img class="me-2" src="{% static 'assets/images/icons/search.svg' %}" width="16" alt="Image Description">
-														<span>Sign in with Google</span>
+														<span> {% trans 'Sign in with'%} Google</span>
 														</span>
 													</a>
-                                                    <a href="{% provider_login_url 'github' %}" class="btn btn-white"><i class='bx bxl-github'></i> Sign in with GitHUB</a>
+                                                    <a href="{% provider_login_url 'github' %}" class="btn btn-white"><i class='bx bxl-github'></i> {% trans 'Sign in with'%} GitHUB</a>
 												</div>
-												<div class="login-separater text-center mb-4"> <span>OR SIGN IN WITH EMAIL</span>
+												<div class="login-separater text-center mb-4"> <span>{% trans 'OR SIGN IN WITH EMAIL' %}</span>
 													<hr/>
 												</div>
 												<div class="form-body">

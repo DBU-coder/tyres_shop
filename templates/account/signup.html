@@ -12,7 +12,7 @@
             <section class="py-3 border-bottom border-top d-none d-md-flex bg-light">
                 <div class="container">
                     <div class="page-breadcrumb d-flex align-items-center">
-                        <h3 class="breadcrumb-title pe-3">Sign Up</h3>
+                        <h3 class="breadcrumb-title pe-3">{% trans 'Sign Up' %}</h3>
                         <div class="ms-auto">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb mb-0 p-0">
@@ -21,7 +21,7 @@
                                     </li>
                                     <li class="breadcrumb-item"><a href="javascript:;">Authentication</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">Sign Up</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{% trans 'Sign Up' %}</li>
                                 </ol>
                             </nav>
                         </div>
@@ -39,9 +39,8 @@
                                     <div class="card-body">
                                         <div class="border p-4 rounded">
                                             <div class="text-center">
-                                                <h3 class="">Sign Up</h3>
-                                                <p>{% blocktrans %}Already have an account? <a href="{{ login_url }}">Sign in
-                                                    here</a>{% endblocktrans %}</p>
+                                                <h3 class="">{% trans 'Sign Up' %}</h3>
+                                                <p>{% blocktrans %}Already have an account? <a href="{{ login_url }}">Sign in here</a>{% endblocktrans %}</p>
                                             </div>
 
                                             <div class="login-separater text-center mb-4">

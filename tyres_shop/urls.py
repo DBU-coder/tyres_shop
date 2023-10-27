@@ -9,9 +9,7 @@ from orders.views import StripeWebhookView
 
 urlpatterns = [
     path("__debug__/", include("debug_toolbar.urls")),
-    path('cart/', include('cart.urls', namespace='cart')),
     path('ratings/', include('ratings.urls', namespace='ratings')),
-    path('favorites/', include('favorites.urls', namespace='favorites')),
     path('webhooks/stripe/', StripeWebhookView.as_view(), name='stripe_webhook'),
 ]
 
@@ -22,6 +20,8 @@ urlpatterns += i18n_patterns(
     path('accounts/', include('allauth.urls')),  # Allauth
     path('shop/', include('shop.urls', namespace='shop')),
     path('orders/', include('orders.urls', namespace='orders')),
+    path('cart/', include('cart.urls', namespace='cart')),
+    path('favorites/', include('favorites.urls', namespace='favorites')),
     prefix_default_language=False
 )
 

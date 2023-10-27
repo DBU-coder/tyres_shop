@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static i18n %}
 {% block content %}
 		<!--start page wrapper -->
 		<div class="page-wrapper">
@@ -8,15 +8,15 @@
 				<section class="py-3 border-bottom border-top d-none d-md-flex bg-light">
 					<div class="container">
 						<div class="page-breadcrumb d-flex align-items-center">
-							<h3 class="breadcrumb-title pe-3">Dashboard</h3>
+							<h3 class="breadcrumb-title pe-3">{% trans 'Dashboard' %}</h3>
 							<div class="ms-auto">
 								<nav aria-label="breadcrumb">
 									<ol class="breadcrumb mb-0 p-0">
-										<li class="breadcrumb-item"><a href="{% url 'shop:index' %}"><i class="bx bx-home-alt"></i> Home</a>
+										<li class="breadcrumb-item"><a href="{% url 'shop:index' %}"><i class="bx bx-home-alt"></i> {% trans 'Home' %}</a>
 										</li>
-										<li class="breadcrumb-item"><a href="#">Account</a>
+										<li class="breadcrumb-item"><a href="#">{% trans 'Account' %}</a>
 										</li>
-										<li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+										<li class="breadcrumb-item active" aria-current="page">{% trans 'Dashboard' %}</li>
 									</ol>
 								</nav>
 							</div>
@@ -27,7 +27,7 @@
 				<!--start shop cart-->
 				<section class="py-4">
 					<div class="container">
-						<h3 class="d-none">Account</h3>
+						<h3 class="d-none">{% trans 'Account' %}</h3>
 						<div class="card">
 							<div class="card-body">
 								<div class="row">
@@ -35,8 +35,11 @@
 									<div class="col-lg-8">
 										<div class="card shadow-none mb-0">
 											<div class="card-body">
-												<p>Hello <strong>{{ user.first_name }} {{ user.last_name }}</strong> (not <strong>{{ user.first_name }} {{ user.last_name }}?</strong>  <a href="{% url 'account_logout' %}">Logout</a>)</p>
+                                                {% url 'account_logout' as logout_url %}
+                                                {% blocktrans with f_name=user.first_name l_name=user.last_name %}
+												<p>Hello <strong>{{ f_name }} {{ l_name }}</strong> (not <strong>{{ f_name }} {{ l_name }}?</strong>  <a href="{{ logout_url }}">Logout</a>)</p>
 												<p>From your account dashboard you can view your Recent Orders, manage your shipping and billing addesses and edit your password and account details</p>
+                                                {% endblocktrans %}
 											</div>
 										</div>
 									</div>

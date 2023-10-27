@@ -2,13 +2,11 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-24 18:57+0300\n"
+"POT-Creation-Date: 2023-10-27 19:01+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,29 +19,13 @@ msgstr ""
 "100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
 "(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
 
-#: customers/manager.py:16
-msgid "The Email must be set"
-msgstr ""
-
-#: customers/manager.py:32
-msgid "Superuser must have is_staff=True."
-msgstr ""
-
-#: customers/manager.py:34
-msgid "Superuser must have is_superuser=True."
-msgstr ""
-
 #: orders/templates/orders/order/order_create.html:157
-#, fuzzy
-#| msgid "Prev"
 msgid "Prev step"
-msgstr "Попередня"
+msgstr "Попередній крок"
 
 #: orders/templates/orders/order/order_create.html:165
-#, fuzzy
-#| msgid "Add to Cart"
 msgid "Back to Cart"
-msgstr "Додати до Кошика"
+msgstr "Назад до Кошика"
 
 #: shop/filters.py:11
 msgid "Sort by rating:high to low"
@@ -90,8 +72,6 @@ msgid "Vehicle"
 msgstr "Транспорт"
 
 #: shop/filters.py:60
-#, fuzzy
-#| msgid "All season"
 msgid "Season"
 msgstr "Сезон"
 
@@ -177,21 +157,25 @@ msgstr "Про нас"
 
 #: shop/templates/shop/about_us.html:16
 #: shop/templates/shop/category_products.html:16
+#: templates/account/login.html:15 templates/account/password_change.html:19
 msgid "Home"
 msgstr "Головна"
+
+#: shop/templates/shop/about_us.html:29
+msgid "Our Story"
+msgstr "Наша історія"
 
 #: shop/templates/shop/about_us.html:41
 msgid "Why Choose Us"
 msgstr "Чому обирають нас"
 
 #: shop/templates/shop/about_us.html:48
-msgid "FREE SHIPPING"
-msgstr ""
+msgid "FAST SHIPPING"
+msgstr "ШВИДКА ДОСТАВКА"
 
-#: shop/templates/shop/about_us.html:57
-#, python-format
-msgid "100%% MONEY BACK GUARANTEE"
-msgstr ""
+#: shop/templates/shop/about_us.html:57 shop/templates/shop/index.html:104
+msgid "MONEY BACK GUARANTEE"
+msgstr "ГАРАНТІЯ ПОВЕРНЕННЯ"
 
 #: shop/templates/shop/about_us.html:66 shop/templates/shop/index.html:114
 msgid "ONLINE SUPPORT 24/7"
@@ -213,10 +197,8 @@ msgid "Show:"
 msgstr "Відображати по:"
 
 #: shop/templates/shop/category_products.html:100
-#, fuzzy
-#| msgid "out stock"
 msgid "Out of stock"
-msgstr "нема в наявності"
+msgstr "немає в наявності"
 
 #: shop/templates/shop/category_products.html:113
 #: shop/templates/shop/index.html:234 shop/templates/shop/index.html:297
@@ -248,14 +230,10 @@ msgid ""
 "                                        "
 msgstr ""
 
-#: shop/templates/shop/index.html:104
-msgid "MONEY BACK GUARANTEE"
-msgstr "ГАРАНТІЯ ПОВЕРНЕННЯ"
-
 #: shop/templates/shop/index.html:105
 #, python-format
 msgid "100%% money back guarantee"
-msgstr ""
+msgstr "100%% гарантія повернення коштів"
 
 #: shop/templates/shop/index.html:115
 msgid "Awesome Support for 24/7 Days"
@@ -265,13 +243,14 @@ msgstr "Чудова підтримка 24/7"
 msgid "Tyres"
 msgstr "Шини"
 
+#: shop/templates/shop/index.html:138 shop/templates/shop/index.html:154
+#: shop/templates/shop/index.html:170
+msgid "SHOP NOW"
+msgstr "КУПИТИ ЗАРАЗ"
+
 #: shop/templates/shop/index.html:152 templates/base.html:145
 msgid "Wheels"
 msgstr "Диски"
-
-#: shop/templates/shop/index.html:154 shop/templates/shop/index.html:170
-msgid "SHOP NOW"
-msgstr "КУПИТИ ЗАРАЗ"
 
 #: shop/templates/shop/index.html:168
 msgid "Tools"
@@ -280,6 +259,12 @@ msgstr "Інструменти"
 #: shop/templates/shop/index.html:185
 msgid "POPULAR PRODUCTS"
 msgstr "ПОПУЛЯРНІ ТОВАРИ"
+
+#: shop/templates/shop/index.html:186
+#, fuzzy
+#| msgid "Search for Products"
+msgid "More Products"
+msgstr "Пошук товарів"
 
 #: shop/templates/shop/index.html:255
 msgid "New Arrivals"
@@ -313,6 +298,18 @@ msgstr "Останні новини"
 msgid "View All News"
 msgstr "Дивитись всі новини"
 
+#: shop/templates/shop/tyres_filter.html:9
+#: shop/templates/shop/tyres_filter.html:23
+#: shop/templates/shop/tyres_filter.html:44
+#: shop/templates/shop/tyres_filter.html:63
+#: shop/templates/shop/tyres_filter.html:81
+#: shop/templates/shop/wheels_filter.html:9
+#: shop/templates/shop/wheels_filter.html:23
+#: shop/templates/shop/wheels_filter.html:44
+#: shop/templates/shop/wheels_filter.html:61
+msgid "Filter"
+msgstr "Фільтрувати"
+
 #: shop/templatetags/shop_tags.py:8
 msgid "Delivery"
 msgstr "Доставка"
@@ -334,115 +331,113 @@ msgid "Search result"
 msgstr "Результати пошуку"
 
 #: shop/views.py:131
-#, fuzzy
-#| msgid "Delivery"
 msgid "Shop | Delivery"
-msgstr "Доставка"
+msgstr "Shop | Доставка"
 
 #: shop/views.py:140
-#, fuzzy
-#| msgid "About Us"
 msgid "Shop | AboutUs"
-msgstr "Про нас"
+msgstr "Shop | Про нас"
 
 #: shop/views.py:149
-#, fuzzy
-#| msgid "Contact us"
 msgid "Shop | Contacts"
-msgstr "Контакти"
+msgstr "Shop | Контакти"
 
 #: templates/account/account_inactive.html:5
 #: templates/account/account_inactive.html:8
 msgid "Account Inactive"
-msgstr ""
+msgstr "Аккаунт деактивовано"
 
 #: templates/account/account_inactive.html:10
 msgid "This account is inactive."
-msgstr ""
+msgstr "Цей аккаунт деактивовано."
 
 #: templates/account/base.html:16
 msgid "Messages:"
-msgstr ""
+msgstr "Повідомлення"
 
 #: templates/account/base.html:26
 msgid "Menu:"
-msgstr ""
+msgstr "Меню:"
 
 #: templates/account/base.html:29
 msgid "Change E-mail"
-msgstr ""
+msgstr "Змінити E-mail"
 
 #: templates/account/base.html:30 templates/account/logout.html:5
 #: templates/account/logout.html:14 templates/account/logout.html:23
 #: templates/account/logout.html:42
 msgid "Sign Out"
-msgstr ""
+msgstr "Вийти"
 
 #: templates/account/base.html:32 templates/account/login.html:11
-#: templates/account/login.html:37 templates/account/login.html:71
-#: templates/socialaccount/login.html:4 templates/socialaccount/login.html:13
-#: templates/socialaccount/login.html:23
+#: templates/account/login.html:19 templates/account/login.html:37
+#: templates/account/login.html:71 templates/socialaccount/login.html:4
+#: templates/socialaccount/login.html:13 templates/socialaccount/login.html:23
 msgid "Sign In"
-msgstr ""
+msgstr "Вхід"
 
-#: templates/account/base.html:33 templates/socialaccount/signup.html:8
-#: templates/socialaccount/signup.html:19
+#: templates/account/base.html:33 templates/account/signup.html:15
+#: templates/account/signup.html:24 templates/account/signup.html:42
+#: templates/socialaccount/signup.html:8 templates/socialaccount/signup.html:19
 msgid "Sign Up"
-msgstr ""
+msgstr "Реєстрація"
 
 #: templates/account/email.html:5 templates/account/email.html:8
 msgid "E-mail Addresses"
-msgstr ""
+msgstr "Адреси ел. пошти"
 
 #: templates/account/email.html:10
 msgid "The following e-mail addresses are associated with your account:"
-msgstr ""
+msgstr "Наступні E-mail адреси пов'язані з вашим аккаунтом."
 
 #: templates/account/email.html:24
 msgid "Verified"
-msgstr ""
+msgstr "Підтверджено"
 
 #: templates/account/email.html:26
 msgid "Unverified"
-msgstr ""
+msgstr "Не підтверджено"
 
 #: templates/account/email.html:28
 msgid "Primary"
-msgstr ""
+msgstr "Основний"
 
 #: templates/account/email.html:34
 msgid "Make Primary"
-msgstr ""
+msgstr "Зробити основним"
 
 #: templates/account/email.html:35
 msgid "Re-send Verification"
-msgstr ""
+msgstr "Повторно надіслати підтвердження"
 
 #: templates/account/email.html:36 templates/socialaccount/connections.html:35
 msgid "Remove"
-msgstr ""
+msgstr "Видалити"
 
 #: templates/account/email.html:43
 msgid "Warning:"
-msgstr ""
+msgstr "Увага:"
 
 #: templates/account/email.html:43
 msgid ""
 "You currently do not have any e-mail address set up. You should really add "
 "an e-mail address so you can receive notifications, reset your password, etc."
 msgstr ""
+"Наразі у вас не встановлено жодної адреси електронної пошти. Вам слід додати "
+"адресу електронної пошти, щоб ви могли отримувати сповіщення, скидати пароль "
+"тощо."
 
 #: templates/account/email.html:48
 msgid "Add E-mail Address"
-msgstr ""
+msgstr "Додати E-mail адресу"
 
 #: templates/account/email.html:53
 msgid "Add E-mail"
-msgstr ""
+msgstr "Додати E-mail"
 
 #: templates/account/email.html:63
 msgid "Do you really want to remove the selected e-mail address?"
-msgstr ""
+msgstr "Ви дійсно хочете видалити вибрану електронну адресу?"
 
 #: templates/account/email/account_already_exists_message.txt:4
 #, python-format
@@ -461,15 +456,25 @@ msgid ""
 "\n"
 "%(password_reset_url)s"
 msgstr ""
+"Ви отримали цього листа тому що ви або хтось інший намагався зареєструвати "
+"обліковий запис використовуючи адресу електронної пошти:\n"
+"\n"
+"%(email)s\n"
+"\n"
+"Однак, аккаунт з цією адресою вже існує. У випадку якщо ви забули про це,\n"
+"будь ласка, скористайтеся процедурою забутого пароля,\n"
+"щоб відновити свій обліковий запис:\n"
+"\n"
+"%(password_reset_url)s"
 
 #: templates/account/email/account_already_exists_subject.txt:3
 msgid "Account Already Exists"
-msgstr ""
+msgstr "Обліковий запис вже існує"
 
 #: templates/account/email/base_message.txt:1
 #, python-format
 msgid "Hello from %(site_name)s!"
-msgstr ""
+msgstr "Вас вітає %(site_name)s!"
 
 #: templates/account/email/base_message.txt:5
 #, python-format
@@ -477,6 +482,8 @@ msgid ""
 "Thank you for using %(site_name)s!\n"
 "%(site_domain)s"
 msgstr ""
+"Дякуємо що користуєтесь %(site_name)s!\n"
+"%(site_domain)s"
 
 #: templates/account/email/email_confirmation_message.txt:5
 #, python-format
@@ -502,7 +509,7 @@ msgstr ""
 #: templates/account/email/password_reset_key_message.txt:9
 #, python-format
 msgid "In case you forgot, your username is %(username)s."
-msgstr ""
+msgstr "У випадку якщо ви забули, ваше ім'я користувача %(username)s."
 
 #: templates/account/email/password_reset_key_subject.txt:3
 #: templates/account/email/unknown_account_subject.txt:3
@@ -525,7 +532,7 @@ msgstr ""
 #: templates/account/email_confirm.html:6
 #: templates/account/email_confirm.html:10
 msgid "Confirm E-mail Address"
-msgstr ""
+msgstr "Підтвердьте електронну адресу"
 
 #: templates/account/email_confirm.html:16
 #, python-format
@@ -533,10 +540,12 @@ msgid ""
 "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail "
 "address for user %(user_display)s."
 msgstr ""
+"Будь ласка підтвердіть що <a href=\"mailto:%(email)s\">%(email)s</a> це "
+"електронна адреса користувача %(user_display)s."
 
 #: templates/account/email_confirm.html:20
 msgid "Confirm"
-msgstr ""
+msgstr "Підтвердити"
 
 #: templates/account/email_confirm.html:27
 #, python-format
@@ -544,67 +553,83 @@ msgid ""
 "This e-mail confirmation link expired or is invalid. Please <a "
 "href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 msgstr ""
+"Термін дії посилання для підтвердження електронної пошти вичерпано, або воно "
+"не дійсне.\n"
+"Будь ласка, <a href=\"%(email_url)s\">надішліть новий запит на підтвердження "
+"електронною поштою.</a>."
+
+#: templates/account/login.html:17
+msgid "Authentication"
+msgstr "Аутентифікація"
 
 #: templates/account/login.html:38
 msgid "Don't have an account yet?"
-msgstr ""
+msgstr "Ще немає аккаунта?"
 
 #: templates/account/login.html:38
 msgid "Sign up here"
-msgstr ""
+msgstr "Зареєструйтесь"
+
+#: templates/account/login.html:43 templates/account/login.html:46
+msgid "Sign in with"
+msgstr "Вхід з"
+
+#: templates/account/login.html:48
+msgid "OR SIGN IN WITH EMAIL"
+msgstr "АБО ЗАРЕЄСТРУЙТЕСЬ ПО EMAIL"
 
 #: templates/account/login.html:67
 msgid "Forgot Password?"
-msgstr ""
+msgstr "Забули пароль?"
 
 #: templates/account/logout.html:34
 msgid "Are you sure you want to sign out?"
-msgstr ""
+msgstr "Ви дійсно хочете вийти?"
 
 #: templates/account/messages/cannot_delete_primary_email.txt:2
 #, python-format
 msgid "You cannot remove your primary e-mail address (%(email)s)."
-msgstr ""
+msgstr "Ви не можете видалити основну адресу електронної пошти (%(email)s)."
 
 #: templates/account/messages/email_confirmation_sent.txt:2
 #, python-format
 msgid "Confirmation e-mail sent to %(email)s."
-msgstr ""
+msgstr "Лист підтвердження надіслано на %(email)s."
 
 #: templates/account/messages/email_confirmed.txt:2
 #, python-format
 msgid "You have confirmed %(email)s."
-msgstr ""
+msgstr "Ви підтвердили %(email)s."
 
 #: templates/account/messages/email_deleted.txt:2
 #, python-format
 msgid "Removed e-mail address %(email)s."
-msgstr ""
+msgstr "Видалити електронну адресу %(email)s."
 
 #: templates/account/messages/logged_in.txt:4
 #, python-format
 msgid "Successfully signed in as %(name)s."
-msgstr ""
+msgstr "Ви успішно увійшли як %(name)s."
 
 #: templates/account/messages/logged_out.txt:2
 msgid "You have signed out."
-msgstr ""
+msgstr "Ви вийшли."
 
 #: templates/account/messages/password_changed.txt:2
 msgid "Password successfully changed."
-msgstr ""
+msgstr "Пароль успішно змінено."
 
 #: templates/account/messages/password_set.txt:2
 msgid "Password successfully set."
-msgstr ""
+msgstr "Пароль встановлено успішно."
 
 #: templates/account/messages/primary_email_set.txt:2
 msgid "Primary e-mail address set."
-msgstr ""
+msgstr "Основна адреса електронної пошти встановлена."
 
 #: templates/account/messages/unverified_primary_email.txt:2
 msgid "Your primary e-mail address must be verified."
-msgstr ""
+msgstr "Ваша основна адреса електронної пошти повинна бути верифікована."
 
 #: templates/account/password_change.html:14
 #: templates/account/password_change.html:23
@@ -615,6 +640,18 @@ msgstr ""
 #: templates/account/password_reset_from_key_done.html:7
 msgid "Change Password"
 msgstr "Змінити пароль"
+
+#: templates/account/password_change.html:21
+#, fuzzy
+#| msgid "Account Inactive"
+msgid "Account"
+msgstr "Аккаунт деактивовано"
+
+#: templates/account/password_change.html:73
+#, fuzzy
+#| msgid "Forgot Password?"
+msgid "Forgot password?"
+msgstr "Забули пароль?"
 
 #: templates/account/password_reset.html:6
 #: templates/account/password_reset.html:15
@@ -630,6 +667,8 @@ msgid ""
 "Forgotten your password? Enter your e-mail address below, and we'll send you "
 "an e-mail allowing you to reset it."
 msgstr ""
+"Забули пароль? Введіть електронну пошту нижче, і ми надішлемо вам листа, "
+"який дозволить його скинути."
 
 #: templates/account/password_reset.html:46
 msgid "Reset My Password"
@@ -640,6 +679,7 @@ msgid ""
 "Please contact us if you have any trouble resetting your\n"
 "                        password."
 msgstr ""
+"Будь ласка зв'яжіться з нами якщо виникли проблеми зі скиданням паролю."
 
 #: templates/account/password_reset_done.html:15
 msgid ""
@@ -649,7 +689,7 @@ msgstr ""
 
 #: templates/account/password_reset_from_key.html:7
 msgid "Bad Token"
-msgstr ""
+msgstr "Поганий Токен"
 
 #: templates/account/password_reset_from_key.html:11
 #, python-format
@@ -658,6 +698,9 @@ msgid ""
 "used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
 "a>."
 msgstr ""
+"Посилання для скидання пароля було недійсним, можливо, тому, що воно вже "
+"було використано. Будь ласка, надішліть запит на <a "
+"href=\"%(passwd_reset_url)s\">скидання нового пароля</a>."
 
 #: templates/account/password_reset_from_key.html:16
 msgid "change password"
@@ -665,7 +708,7 @@ msgstr "змінити пароль"
 
 #: templates/account/password_reset_from_key_done.html:8
 msgid "Your password is now changed."
-msgstr ""
+msgstr "Ваш пароль тепер змінено."
 
 #: templates/account/password_set.html:5 templates/account/password_set.html:8
 #: templates/account/password_set.html:13
@@ -674,27 +717,25 @@ msgstr "Встановити пароль"
 
 #: templates/account/signup.html:43
 #, python-format
-msgid ""
-"Already have an account? <a href=\"%(login_url)s\">Sign in\n"
-"                                                    here</a>"
-msgstr ""
+msgid "Already have an account? <a href=\"%(login_url)s\">Sign in here</a>"
+msgstr "Маєте аккаунт? <a href=\"%(login_url)s\">Увійдіть</a>"
 
-#: templates/account/signup.html:48
+#: templates/account/signup.html:47
 msgid "OR SIGN UP WITH EMAIL"
 msgstr "АБО ЗАРЕЄСТРУЙТЕСЬ ПО EMAIL"
 
-#: templates/account/signup.html:93
+#: templates/account/signup.html:92
 msgid "Sing Up"
-msgstr "Зареєструватись"
+msgstr "Реєстрація"
 
 #: templates/account/signup_closed.html:5
 #: templates/account/signup_closed.html:8
 msgid "Sign Up Closed"
-msgstr ""
+msgstr "Реєстрацію закрито"
 
 #: templates/account/signup_closed.html:10
 msgid "We are sorry, but the sign up is currently closed."
-msgstr ""
+msgstr "Вибачте, наразі реєстрацію закрито."
 
 #: templates/account/snippets/already_logged_in.html:5
 msgid "Note"
@@ -703,14 +744,14 @@ msgstr "Примітка"
 #: templates/account/snippets/already_logged_in.html:5
 #, python-format
 msgid "You are already logged in as %(user_display)s."
-msgstr ""
+msgstr "Ви вже увійшли як %(user_display)s."
 
 #: templates/account/verification_sent.html:5
 #: templates/account/verification_sent.html:8
 #: templates/account/verified_email_required.html:5
 #: templates/account/verified_email_required.html:8
 msgid "Verify Your E-mail Address"
-msgstr ""
+msgstr "Підтвердіть свою електронну адресу"
 
 #: templates/account/verification_sent.html:10
 msgid ""
@@ -719,6 +760,11 @@ msgid ""
 "your main inbox, check your spam folder. Please contact us if you do not "
 "receive the verification e-mail within a few minutes."
 msgstr ""
+"Ми надіслали вам електронний лист для перевірки. Перейдіть за посиланням, та "
+"завершіть процес реєстрації. Якщо ви не бачите електронного листа для "
+"підтвердження у вашій папці \"Вхідні\", перевірте папку спаму. Будь ласка, "
+"зв'яжіться з нами, якщо ви не отримали електронний лист підтвердження "
+"протягом кількох хвилин."
 
 #: templates/account/verified_email_required.html:12
 msgid ""
@@ -735,13 +781,19 @@ msgid ""
 "Otherwise\n"
 "contact us if you do not receive it within a few minutes."
 msgstr ""
-
+"Ми надіслали вам електронного листа для\n"
+"підтвердження. Натисніть посилання в цьому електронному листі. Якщо ви не бачите "
+"підтверджувальний електронний лист у вашій  папці \"Вхідні\", перевірте папку зі спамом."
+"Інакше\n"
+"зв'яжіться з нами, якщо ви не отримали листа протягом кількох хвилин."
 #: templates/account/verified_email_required.html:20
 #, python-format
 msgid ""
 "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your e-"
 "mail address</a>."
 msgstr ""
+"<strong>Примітка:</strong> ви все ще можете <a "
+"href=\"%(email_url)s\">змінити вашу ел.пошту</a>."
 
 #: templates/base.html:39
 #, python-format
@@ -764,9 +816,11 @@ msgstr "Блог"
 msgid "Help"
 msgstr "Допомога"
 
+#: templates/base.html:140
+msgid "Search for Products"
+msgstr "Пошук товарів"
+
 #: templates/base.html:143
-#, fuzzy
-#| msgid "categories"
 msgid "All Categories"
 msgstr "Всі категорії"
 
@@ -788,7 +842,7 @@ msgstr "Ваш кошик порожній."
 
 #: templates/base.html:230
 msgid "TOTAL"
-msgstr "ЗАГАЛОМ"
+msgstr "ВСЬОГО"
 
 #: templates/base.html:236
 msgid "CHECKOUT"
@@ -800,7 +854,7 @@ msgstr "ЗА ПОКУПКАМИ"
 
 #: templates/menu.html:7
 msgid "Navigation"
-msgstr ""
+msgstr "Навігація"
 
 #: templates/openid/login.html:9
 msgid "OpenID Sign In"
@@ -809,17 +863,18 @@ msgstr ""
 #: templates/socialaccount/authentication_error.html:5
 #: templates/socialaccount/authentication_error.html:8
 msgid "Social Network Login Failure"
-msgstr ""
+msgstr "Помилка входу в соціальну мережу"
 
 #: templates/socialaccount/authentication_error.html:10
 msgid ""
 "An error occurred while attempting to login via your social network account."
 msgstr ""
+"Під час спроби входу через обліковий запис соціальної мережі сталася помилка."
 
 #: templates/socialaccount/connections.html:5
 #: templates/socialaccount/connections.html:8
 msgid "Account Connections"
-msgstr ""
+msgstr "Підключення облікових записів"
 
 #: templates/socialaccount/connections.html:11
 msgid ""
@@ -841,7 +896,7 @@ msgstr ""
 msgid ""
 "Connect\n"
 "                            %(provider)s"
-msgstr ""
+msgstr "Підключено %(provider)s"
 
 #: templates/socialaccount/login.html:37
 #, python-format
@@ -855,7 +910,7 @@ msgstr ""
 msgid ""
 "Sign In Via\n"
 "                            %(provider)s"
-msgstr ""
+msgstr "Увійти за допомогою %(provider)s"
 
 #: templates/socialaccount/login.html:43
 #, python-format
@@ -866,12 +921,12 @@ msgstr ""
 
 #: templates/socialaccount/login.html:49
 msgid "Continue"
-msgstr ""
+msgstr "Продовжити"
 
 #: templates/socialaccount/login_cancelled.html:5
 #: templates/socialaccount/login_cancelled.html:9
 msgid "Login Cancelled"
-msgstr ""
+msgstr "Вхід скасовано"
 
 #: templates/socialaccount/login_cancelled.html:13
 #, python-format
@@ -883,19 +938,19 @@ msgstr ""
 
 #: templates/socialaccount/messages/account_connected.txt:2
 msgid "The social account has been connected."
-msgstr ""
+msgstr "Соціальний обліковий запис підключено."
 
 #: templates/socialaccount/messages/account_connected_other.txt:2
 msgid "The social account is already connected to a different account."
-msgstr ""
+msgstr "Соціальний обліковий запис вже підключено до іншого облікового запису."
 
 #: templates/socialaccount/messages/account_disconnected.txt:2
 msgid "The social account has been disconnected."
-msgstr ""
+msgstr "Соціальний обліковий запис відключено."
 
 #: templates/socialaccount/signup.html:5
 msgid "Signup"
-msgstr ""
+msgstr "Реєстрація"
 
 #: templates/socialaccount/signup.html:10
 #, python-format
@@ -903,6 +958,9 @@ msgid ""
 "You are about to use your %(provider_name)s account to login to\n"
 "%(site_name)s. As a final step, please complete the following form:"
 msgstr ""
+"Ви збираєтеся використовувати свій обліковий запис %(provider_name)s для "
+"входу\n"
+"%(site_name)s. На завершення заповніть таку форму:"
 
 #: tyres_shop/settings/base.py:149
 msgid "English"

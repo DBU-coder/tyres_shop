@@ -20,7 +20,7 @@ class CustomerUpdateView(UpdateView):
 
 
 class CustomerChangePassword(PasswordChangeView):
-    template_name = 'customers/../templates/account/change_password.html'
+    template_name = 'templates/account/change_password.html'
     form_class = CustomerChangePasswordForm
 
     def get_success_url(self):

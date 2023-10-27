@@ -1,3 +1,4 @@
+{% load i18n %}
 <div class="col-12 col-xl-3">
     <div class="btn-mobile-filter d-xl-none"><i class='bx bx-slider-alt'></i>
     </div>
@@ -5,7 +6,7 @@
         <div class="card rounded-0 w-100">
             <div class="card-body">
                 <div class="align-items-center d-flex d-xl-none">
-                    <h6 class="text-uppercase mb-0">Filter</h6>
+                    <h6 class="text-uppercase mb-0">{% trans 'Filter' %}</h6>
                     <div class="btn-mobile-filter-close btn-close ms-auto cursor-pointer"></div>
                 </div>
                 <hr class="d-flex d-xl-none"/>
@@ -19,7 +20,7 @@
                     <div class="my-4" id="slider"></div>
                     <div class="d-flex align-items-center">
                         <button type="submit" class="btn btn-dark btn-sm text-uppercase rounded-0 font-13 fw-500">
-                            Filter
+                            {% trans 'Filter' %}
                         </button>
                         <div class="ms-auto">
                             {{ filter.form.price }}
@@ -40,7 +41,7 @@
                     {% endfor %}
                     </ul>
                     <button type="submit" class="btn btn-dark btn-sm text-uppercase rounded-0 font-13 fw-500">
-                            Filter
+                            {% trans 'Filter' %}
                         </button>
                 </div>
                 <hr>
@@ -57,7 +58,7 @@
                         {% endfor %}
                     </ul>
                 <button type="submit" class="btn btn-dark btn-sm text-uppercase rounded-0 font-13 fw-500">
-                            Filter
+                            {% trans 'Filter' %}
                         </button>
                 </div>
             </div>

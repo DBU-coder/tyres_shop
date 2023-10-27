@@ -155,6 +155,7 @@ MODELTRANSLATION_PREPOPULATE_LANGUAGE = 'en'
 
 LOCALE_PATHS = [
     os.path.join(BASE_DIR, 'shop', 'locale'),
+    os.path.join(BASE_DIR, 'customers', 'locale'),
 ]
 
 # Static files (CSS, JavaScript, Images)

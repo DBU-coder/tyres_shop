@@ -1,3 +1,4 @@
+{% load i18n %}
 <div class="col-lg-4">
     <div class="card shadow-none mb-3 mb-lg-0 border rounded-0">
         <div class="card-body">
@@ -5,29 +6,25 @@
 
                 <a href="{% url 'customers:profile' user.id %}"
                    class="list-group-item d-flex justify-content-between align-items-center bg-transparent">
-                    Dashboard
+                    {% trans 'Dashboard' %}
                 <i class='bx bx-tachometer fs-5'></i>
                 </a>
 
                 <a href="{% url 'orders:order_list' %}"
                    class="list-group-item d-flex justify-content-between align-items-center bg-transparent">
-                    Orders
+                    {% trans 'Orders' %}
                 <i class='bx bx-cart-alt fs-5'></i></a>
                 <a href="account-addresses.html"
-                   class="list-group-item d-flex justify-content-between align-items-center bg-transparent">Addresses <i
+                   class="list-group-item d-flex justify-content-between align-items-center bg-transparent">{% trans 'Addresses' %} <i
                         class='bx bx-home-smile fs-5'></i></a>
-                <a href="account-payment-methods.html"
-                   class="list-group-item d-flex justify-content-between align-items-center bg-transparent">Payment
-                    Methods <i class='bx bx-credit-card fs-5'></i></a>
                 <a href="{% url 'customers:details' user.id %}"
-                   class="list-group-item d-flex justify-content-between align-items-center bg-transparent">Account
-                    Details <i class='bx bx-user-circle fs-5'></i></a>
+                   class="list-group-item d-flex justify-content-between align-items-center bg-transparent">{% trans 'Account Details' %} <i class='bx bx-user-circle fs-5'></i></a>
                 {% if user.has_usable_password  %}
                 <a href="{% url 'account_change_password' %}"
-                   class="list-group-item d-flex justify-content-between align-items-center bg-transparent">Change password <i class='bx bxs-key fs-5'></i></a>
+                   class="list-group-item d-flex justify-content-between align-items-center bg-transparent">{% trans 'Change password' %} <i class='bx bxs-key fs-5'></i></a>
                 {% endif %}
                 <a href="{% url 'account_logout' %}"
-                   class="list-group-item d-flex justify-content-between align-items-center bg-transparent">Logout <i
+                   class="list-group-item d-flex justify-content-between align-items-center bg-transparent">{% trans 'Logout' %} <i
                         class='bx bx-log-out fs-5'></i></a>
             </div>
         </div>

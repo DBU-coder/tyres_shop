@@ -14,7 +14,8 @@ class GalleryInline(GenericTabularInline):
 
 @admin.register(Tyre)
 class TyreAdmin(TabbedTranslationAdmin):
-    list_display = ('sku', 'brand', 'name', 'diameter', 'profile', 'season', 'vehicle_type', 'spikes', 'price', 'stock_qty', 'status')
+    list_display = ('sku', 'brand', 'name', 'diameter', 'profile', 'season',
+                    'vehicle_type', 'spikes', 'price', 'stock_qty', 'status')
     list_display_links = ('sku', 'name')
     search_fields = ('sku', 'brand', 'name')
     list_editable = ('status', 'price', 'stock_qty')
@@ -25,7 +26,8 @@ class TyreAdmin(TabbedTranslationAdmin):
 
 @admin.register(Wheel)
 class WheelAdmin(TabbedTranslationAdmin):
-    list_display = ('sku', 'brand', 'model', 'name', 'diameter', 'width', 'type', 'price', 'color', 'stock_qty', 'status')
+    list_display = ('sku', 'brand', 'model', 'name', 'diameter', 'width',
+                    'type', 'price', 'color', 'stock_qty', 'status')
     list_display_links = ('sku', 'model', 'name')
     search_fields = ('sku', 'brand', 'name')
     list_editable = ('status', 'price', 'stock_qty')
