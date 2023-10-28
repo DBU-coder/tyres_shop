@@ -109,8 +109,6 @@ msgid "Addresses"
 msgstr "Адреси"
 
 #: customers/templates/customers/customer_menu.html:21
-#, fuzzy
-#| msgid "Details"
 msgid "Account Details"
 msgstr "Деталі аккаунта"
 

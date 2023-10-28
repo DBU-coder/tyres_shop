@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-27 19:01+0300\n"
+"POT-Creation-Date: 2023-10-28 02:38+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,14 +18,6 @@ msgstr ""
 "11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
 "100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
 "(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
-
-#: orders/templates/orders/order/order_create.html:157
-msgid "Prev step"
-msgstr "Попередній крок"
-
-#: orders/templates/orders/order/order_create.html:165
-msgid "Back to Cart"
-msgstr "Назад до Кошика"
 
 #: shop/filters.py:11
 msgid "Sort by rating:high to low"
@@ -107,7 +99,7 @@ msgstr "незабаром"
 msgid "Country"
 msgstr "Країна"
 
-#: shop/models.py:108
+#: shop/models.py:108 shop/templates/shop/product_detail.html:153
 msgid "Description"
 msgstr "Опис"
 
@@ -157,7 +149,8 @@ msgstr "Про нас"
 
 #: shop/templates/shop/about_us.html:16
 #: shop/templates/shop/category_products.html:16
-#: templates/account/login.html:15 templates/account/password_change.html:19
+#: shop/templates/shop/product_detail.html:16 templates/account/login.html:15
+#: templates/account/password_change.html:19
 msgid "Home"
 msgstr "Головна"
 
@@ -202,6 +195,7 @@ msgstr "немає в наявності"
 
 #: shop/templates/shop/category_products.html:113
 #: shop/templates/shop/index.html:234 shop/templates/shop/index.html:297
+#: shop/templates/shop/product_detail.html:109
 msgid "Add to Cart"
 msgstr "Додати до Кошика"
 
@@ -229,6 +223,9 @@ msgid ""
 "                                            Fast shipping on all countries.\n"
 "                                        "
 msgstr ""
+"\n"
+"                                            Швидка доставка у всі країни.\n"
+"                                        "
 
 #: shop/templates/shop/index.html:105
 #, python-format
@@ -261,10 +258,8 @@ msgid "POPULAR PRODUCTS"
 msgstr "ПОПУЛЯРНІ ТОВАРИ"
 
 #: shop/templates/shop/index.html:186
-#, fuzzy
-#| msgid "Search for Products"
 msgid "More Products"
-msgstr "Пошук товарів"
+msgstr "Більше товарів"
 
 #: shop/templates/shop/index.html:255
 msgid "New Arrivals"
@@ -298,6 +293,55 @@ msgstr "Останні новини"
 msgid "View All News"
 msgstr "Дивитись всі новини"
 
+#: shop/templates/shop/product_detail.html:21
+msgid "Product Details"
+msgstr "Про продукт"
+
+#: shop/templates/shop/product_detail.html:67
+#, python-format
+msgid "%(product_rev)s review"
+msgid_plural "%(product_rev)s reviews"
+msgstr[0] "%(product_rev)s відгук"
+msgstr[1] "%(product_rev)s відгуки"
+msgstr[2] "%(product_rev)s відгуків"
+msgstr[3] "%(product_rev)s відгуків"
+
+#: shop/templates/shop/product_detail.html:81
+msgid "Description :"
+msgstr "Опис :"
+
+#: shop/templates/shop/product_detail.html:85
+msgid "Prod.SKU"
+msgstr "Артикул"
+
+#: shop/templates/shop/product_detail.html:87 shop/templatetags/shop_tags.py:8
+msgid "Delivery"
+msgstr "Доставка"
+
+#: shop/templates/shop/product_detail.html:88
+msgid "Ukraine, USA, and Europe"
+msgstr "Україна, США і Європа"
+
+#: shop/templates/shop/product_detail.html:100
+msgid "Out of stock."
+msgstr "Немає в наявності"
+
+#: shop/templates/shop/product_detail.html:113
+msgid "Add to Wishlist"
+msgstr "Додати до Бажаного"
+
+#: shop/templates/shop/product_detail.html:161
+msgid "More Info"
+msgstr "Більше Інфо"
+
+#: shop/templates/shop/product_detail.html:168
+msgid "Tags"
+msgstr "Теги"
+
+#: shop/templates/shop/product_detail.html:176
+msgid "Reviews"
+msgstr "Відгуки"
+
 #: shop/templates/shop/tyres_filter.html:9
 #: shop/templates/shop/tyres_filter.html:23
 #: shop/templates/shop/tyres_filter.html:44
@@ -309,10 +353,6 @@ msgstr "Дивитись всі новини"
 #: shop/templates/shop/wheels_filter.html:61
 msgid "Filter"
 msgstr "Фільтрувати"
-
-#: shop/templatetags/shop_tags.py:8
-msgid "Delivery"
-msgstr "Доставка"
 
 #: shop/templatetags/shop_tags.py:9 templates/base.html:52
 msgid "About"
@@ -496,7 +536,7 @@ msgstr ""
 
 #: templates/account/email/email_confirmation_subject.txt:3
 msgid "Please Confirm Your E-mail Address"
-msgstr ""
+msgstr "Будь ласка підтвердіть свою електронну адресу"
 
 #: templates/account/email/password_reset_key_message.txt:4
 msgid ""
@@ -642,14 +682,10 @@ msgid "Change Password"
 msgstr "Змінити пароль"
 
 #: templates/account/password_change.html:21
-#, fuzzy
-#| msgid "Account Inactive"
 msgid "Account"
-msgstr "Аккаунт деактивовано"
+msgstr "Аккаунт"
 
 #: templates/account/password_change.html:73
-#, fuzzy
-#| msgid "Forgot Password?"
 msgid "Forgot password?"
 msgstr "Забули пароль?"
 
@@ -782,10 +818,11 @@ msgid ""
 "contact us if you do not receive it within a few minutes."
 msgstr ""
 "Ми надіслали вам електронного листа для\n"
-"підтвердження. Натисніть посилання в цьому електронному листі. Якщо ви не бачите "
-"підтверджувальний електронний лист у вашій  папці \"Вхідні\", перевірте папку зі спамом."
-"Інакше\n"
+"підтвердження. Натисніть посилання в цьому електронному листі. Якщо ви не "
+"бачите підтверджувальний електронний лист у вашій  папці \"Вхідні\", "
+"перевірте папку зі спамом.Інакше\n"
 "зв'яжіться з нами, якщо ви не отримали листа протягом кількох хвилин."
+
 #: templates/account/verified_email_required.html:20
 #, python-format
 msgid ""
@@ -794,11 +831,6 @@ msgid ""
 msgstr ""
 "<strong>Примітка:</strong> ви все ще можете <a "
 "href=\"%(email_url)s\">змінити вашу ел.пошту</a>."
-
-#: templates/base.html:39
-#, python-format
-msgid " %(message)s"
-msgstr ""
 
 #: templates/base.html:49
 msgid "Welcome to our Tyres Shop!"

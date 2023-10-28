@@ -1,0 +1,268 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-10-28 03:48+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != "
+"11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
+"100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
+"(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+
+#: orders/templates/orders/order/confirm_delete.html:11
+#, python-format
+msgid "Are you sure, you want to delete \"%(order)s\"?"
+msgstr "Ви впевнені, що хочете видалити замовлення \"%(order)s\"?"
+
+#: orders/templates/orders/order/confirm_delete.html:13
+msgid "Confirm Delete"
+msgstr "Видалити"
+
+#: orders/templates/orders/order/order_create.html:15
+#: orders/templates/orders/order/order_create.html:24
+msgid "Checkout"
+msgstr "Оформлення"
+
+#: orders/templates/orders/order/order_create.html:20
+#: orders/templates/orders/order/order_details.html:16
+#: orders/templates/orders/order/user_orders.html:15
+#: orders/templates/orders/payments/cancel.html:15
+#: orders/templates/orders/payments/success.html:15
+msgid "Home"
+msgstr "Головна"
+
+#: orders/templates/orders/order/order_create.html:22
+#: orders/templates/orders/order/order_create.html:45
+msgid "Cart"
+msgstr "Кошик"
+
+#: orders/templates/orders/order/order_create.html:50
+#, fuzzy
+#| msgid "Order details"
+msgid "Details"
+msgstr "Деталі замовлення"
+
+#: orders/templates/orders/order/order_create.html:56
+msgid "Address"
+msgstr "Адреса"
+
+#: orders/templates/orders/order/order_create.html:61
+#: orders/templates/orders/order/order_summary.html:43
+msgid "Shipping"
+msgstr "Доставка"
+
+#: orders/templates/orders/order/order_create.html:66
+msgid "Payment"
+msgstr "Оплата"
+
+#: orders/templates/orders/order/order_create.html:85
+msgid "Edit Profile"
+msgstr "Редагувати профіль"
+
+#: orders/templates/orders/order/order_create.html:91
+msgid "Recipient details"
+msgstr "Інформація про отримувача"
+
+#: orders/templates/orders/order/order_create.html:93
+msgid "Shipping Address"
+msgstr "Адреса доставки"
+
+#: orders/templates/orders/order/order_create.html:95
+msgid "Shipping method"
+msgstr "Спосіб доставки"
+
+#: orders/templates/orders/order/order_create.html:157
+msgid "Prev step"
+msgstr "Попередній крок"
+
+#: orders/templates/orders/order/order_create.html:165
+msgid "Back to Cart"
+msgstr "До кошика"
+
+#: orders/templates/orders/order/order_create.html:173
+msgid "ADDRESS"
+msgstr "АДРЕСА"
+
+#: orders/templates/orders/order/order_create.html:175
+msgid "SHIPPING"
+msgstr "ДОСТАВКА"
+
+#: orders/templates/orders/order/order_create.html:177
+msgid "PAYMENT"
+msgstr "ОПЛАТА"
+
+#: orders/templates/orders/order/order_details.html:11
+#: orders/templates/orders/order/order_details.html:20
+msgid "Order details"
+msgstr "Деталі замовлення"
+
+#: orders/templates/orders/order/order_details.html:18
+#: orders/templates/orders/payments/cancel.html:17
+#: orders/templates/orders/payments/success.html:17
+#, fuzzy
+#| msgid "Order"
+msgid "Orders"
+msgstr "Замовлення"
+
+#: orders/templates/orders/order/order_details.html:48
+msgid "Diameter"
+msgstr "Діаметр"
+
+#: orders/templates/orders/order/order_details.html:50
+msgid "Price"
+msgstr "Ціна"
+
+#: orders/templates/orders/order/order_details.html:50
+msgid "pcs."
+msgstr "шт."
+
+#: orders/templates/orders/order/order_details.html:62
+msgid "Continue Shopping"
+msgstr "Продовжити покупки"
+
+#: orders/templates/orders/order/order_summary.html:8
+msgid "Apply Discount Code"
+msgstr "Промокод"
+
+#: orders/templates/orders/order/order_summary.html:12
+msgid "Apply Discount"
+msgstr "Використати"
+
+#: orders/templates/orders/order/order_summary.html:18
+msgid "Order summary"
+msgstr "Сума замовлення"
+
+#: orders/templates/orders/order/order_summary.html:41
+msgid "Subtotal"
+msgstr "Всього"
+
+#: orders/templates/orders/order/order_summary.html:45
+#, fuzzy
+#| msgid "Account"
+msgid "Discount"
+msgstr "Аккаунт"
+
+#: orders/templates/orders/order/order_summary.html:48
+#, fuzzy
+#| msgid "Order"
+msgid "Order Total"
+msgstr "Замовлення"
+
+#: orders/templates/orders/order/user_orders.html:11
+#: orders/templates/orders/order/user_orders.html:19
+#: orders/templates/orders/order/user_orders.html:41
+msgid "My Orders"
+msgstr "Мої замовлення"
+
+#: orders/templates/orders/order/user_orders.html:17
+#: orders/templates/orders/order/user_orders.html:30
+msgid "Account"
+msgstr "Аккаунт"
+
+#: orders/templates/orders/order/user_orders.html:44
+msgid "Order"
+msgstr "Замовлення"
+
+#: orders/templates/orders/order/user_orders.html:45
+msgid "Date"
+msgstr "Дата"
+
+#: orders/templates/orders/order/user_orders.html:46
+msgid "Status"
+msgstr "Статус"
+
+#: orders/templates/orders/order/user_orders.html:47
+msgid "Total"
+msgstr "Всього"
+
+#: orders/templates/orders/order/user_orders.html:48
+msgid "Actions"
+msgstr "Дії"
+
+#: orders/templates/orders/order/user_orders.html:58
+msgid "Paid"
+msgstr "Оплачено"
+
+#: orders/templates/orders/order/user_orders.html:60
+msgid "Unpaid"
+msgstr "Не оплачено"
+
+#: orders/templates/orders/order/user_orders.html:63
+#, python-format
+msgid "$%(total_cost)s for %(total_qty)s item"
+msgid_plural "$%(total_cost)s for %(total_qty)s items"
+msgstr[0] "$%(total_cost)s за %(total_qty)s товар"
+msgstr[1] "$%(total_cost)s за %(total_qty)s товари"
+msgstr[2] "$%(total_cost)s за %(total_qty)s товарів"
+msgstr[3] "$%(total_cost)s за %(total_qty)s товарів"
+
+#: orders/templates/orders/order/user_orders.html:70
+msgid "View"
+msgstr "Перегляд"
+
+#: orders/templates/orders/order/user_orders.html:72
+msgid "Pay"
+msgstr "Оплатити"
+
+#: orders/templates/orders/order/user_orders.html:73
+msgid "Cancel"
+msgstr "Скасувати"
+
+#: orders/templates/orders/order/user_orders.html:83
+msgid "There are no orders."
+msgstr "Замовлень немає."
+
+#: orders/templates/orders/payments/cancel.html:11
+msgid "Failed"
+msgstr "Не вдалося"
+
+#: orders/templates/orders/payments/cancel.html:19
+#: orders/templates/orders/payments/success.html:19
+msgid "Order Complete"
+msgstr "Виконання замовлення"
+
+#: orders/templates/orders/payments/cancel.html:32
+msgid ""
+"<h2 class=\"h4 pb-3\">Something went wrong:(</h2> <p class=\"fs-sm "
+"mb-2\">Your payment is failed. Please try again...</p>"
+msgstr ""
+"<h2 class=\"h4 pb-3\">Щось пішло не так:(</h2> <p class=\"fs-sm "
+"mb-2\">Ваша оплата не вдалася. Будь ласка спробуйте ще раз...</p>"
+
+#: orders/templates/orders/payments/cancel.html:36
+#: orders/templates/orders/payments/success.html:40
+msgid "Go back shopping"
+msgstr "Назад за покупками"
+
+#: orders/templates/orders/payments/success.html:11
+msgid "Success"
+msgstr "Успіх"
+
+#: orders/templates/orders/payments/success.html:32
+msgid ""
+"<h2 class=\"h4 pb-3\">Thank you for your order!</h2> <p class=\"fs-sm "
+"mb-2\">Your order has been placed and will be processed as soon as possible."
+"</p> <p class=\"fs-sm mb-2\">Make sure you make note of your order number, "
+"which is <span class=\"fw-medium\">34VB5540K83.</span> </p> <p class=\"fs-"
+"sm\">You will be receiving an email shortly with confirmation of your order. "
+"<u>You can now:</u> </p>"
+msgstr ""
+"<h2 class=\"h4 pb-3\">Дякуємо за замовлення!</h2> <p class=\"fs-sm "
+"mb-2\">Ваше замовлення отримано і буде оброблене як можно швидше."
+"</p> <p class=\"fs-sm mb-2\">Впевніться що ви занотували номер замовлення, "
+"ось він <span class=\"fw-medium\">34VB5540K83.</span> </p> <p class=\"fs-"
+"sm\">Вам буде надіслано листа з підтвердженням вашого замовлення. "
+"<u>Зараз ви можете:</u> </p>"
+#: orders/templates/orders/payments/success.html:41
+msgid "Order list"
+msgstr "Список замовлень"

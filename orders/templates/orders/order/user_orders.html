@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static i18n %}
 {% block content %}
 		<!--start page wrapper -->
 		<div class="page-wrapper">
@@ -8,15 +8,15 @@
 				<section class="py-3 border-bottom border-top d-none d-md-flex bg-light">
 					<div class="container">
 						<div class="page-breadcrumb d-flex align-items-center">
-							<h3 class="breadcrumb-title pe-3">My Orders</h3>
+							<h3 class="breadcrumb-title pe-3">{% trans 'My Orders' %}</h3>
 							<div class="ms-auto">
 								<nav aria-label="breadcrumb">
 									<ol class="breadcrumb mb-0 p-0">
-										<li class="breadcrumb-item"><a href="{% url 'shop:index' %}"><i class="bx bx-home-alt"></i> Home</a>
+										<li class="breadcrumb-item"><a href="{% url 'shop:index' %}"><i class="bx bx-home-alt"></i> {% trans 'Home' %}</a>
 										</li>
-										<li class="breadcrumb-item"><a href="{% url 'customers:profile' user.pk %}">Account</a>
+										<li class="breadcrumb-item"><a href="{% url 'customers:profile' user.pk %}">{% trans 'Account' %}</a>
 										</li>
-										<li class="breadcrumb-item active" aria-current="page">My Orders</li>
+										<li class="breadcrumb-item active" aria-current="page">{% trans 'My Orders' %}</li>
 									</ol>
 								</nav>
 							</div>
@@ -27,7 +27,7 @@
 				<!--start shop cart-->
 				<section class="py-4">
 					<div class="container">
-						<h3 class="d-none">Account</h3>
+						<h3 class="d-none">{% trans 'Account' %}</h3>
 						<div class="card">
 							<div class="card-body">
 								<div class="row">
@@ -38,14 +38,14 @@
                                             {% if orders %}
 												<div class="table-responsive">
 													<table class="table">
-                                                    <caption>My orders</caption>
+                                                    <caption>{% trans 'My Orders' %}</caption>
 														<thead class="table-light">
 															<tr>
-																<th>Order</th>
-																<th>Date</th>
-																<th>Status</th>
-																<th>Total</th>
-																<th>Actions</th>
+																<th>{% trans 'Order' %}</th>
+																<th>{% trans 'Date' %}</th>
+																<th>{% trans 'Status' %}</th>
+																<th>{% trans 'Total' %}</th>
+																<th>{% trans 'Actions' %}</th>
 															</tr>
 														</thead>
 														<tbody>
@@ -55,18 +55,22 @@
 																<td>{{ order.created|date:'D, d M Y H:i' }}</td>
 																<td>
                                                                     {% if order.paid %}
-																	<div class="badge rounded-pill bg-success w-100">Paid</div>
+																	<div class="badge rounded-pill bg-success w-100">{% trans 'Paid' %}</div>
                                                                     {% else %}
-                                                                    <div class="badge rounded-pill bg-danger w-100">Unpaid</div>
+                                                                    <div class="badge rounded-pill bg-danger w-100">{% trans 'Unpaid' %}</div>
                                                                     {% endif %}
 																</td>
-																<td>${{ order.get_total_cost }} for {{ order.get_total_quantity }} item{{ order.get_total_quantity|pluralize }}</td>
+																<td>{% blocktrans trimmed with total_cost=order.get_total_cost count total_qty=order.get_total_quantity %}
+                                                                    ${{ total_cost }} for {{ total_qty }} item
+                                                                {% plural %}
+                                                                    ${{ total_cost }} for {{ total_qty }} items
+                                                                {% endblocktrans %}</td>
 																<td>
 																	<div class="d-flex gap-2">
-                                                                        <a href="{% url 'orders:order_details' order.id %}" class="btn btn-dark btn-sm rounded-0">View</a>
+                                                                        <a href="{% url 'orders:order_details' order.id %}" class="btn btn-dark btn-sm rounded-0">{% trans 'View' %}</a>
                                                                         {% if not order.paid %}
-                                                                        <a href="{% url 'orders:order_create' %}" class="btn btn-dark btn-sm rounded-0">Pay</a>
-																		<a href="{% url 'orders:delete' order.id %}" class="btn btn-dark btn-sm rounded-0">Cancel</a>
+                                                                        <a href="{% url 'orders:order_create' %}" class="btn btn-dark btn-sm rounded-0">{% trans 'Pay' %}</a>
+																		<a href="{% url 'orders:delete' order.id %}" class="btn btn-dark btn-sm rounded-0">{% trans 'Cancel' %}</a>
                                                                         {% endif %}
 																	</div>
 																</td>
@@ -76,7 +80,7 @@
 													</table>
 												</div>
                                             {% else %}
-                                            <p>There are no orders.</p>
+                                            <p>{% trans 'There are no orders.' %}</p>
                                             {% endif %}
 											</div>
 										</div>

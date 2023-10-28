@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% block content %}
     <div class="page-wrapper">
         <div class="page-content">
@@ -7,9 +8,9 @@
                 <div class="container">
                     <form method="post">
                         {% csrf_token %}
-                        <h1>Are you sure, you want to delete "{{ object }}"?</h1>
+                        <h1>{% blocktrans with order=object %}Are you sure, you want to delete "{{ order }}"?{% endblocktrans %}</h1>
                         <button type="submit" class="btn btn-danger btn-sm text-uppercase rounded-0 font-13 fw-500">
-                            Confirm Delete
+                            {% trans 'Confirm Delete' %}
                         </button>
                     </form>
                 </div>

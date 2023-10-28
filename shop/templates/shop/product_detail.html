@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static shop_tags %}
+{% load static shop_tags i18n %}
 {% block content %}
     <!--start page wrapper -->
     <div class="page-wrapper">
@@ -13,12 +13,12 @@
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb mb-0 p-0">
                                     <li class="breadcrumb-item"><a href="{% url 'shop:index' %}"><i
-                                            class="bx bx-home-alt"></i> Home</a>
+                                            class="bx bx-home-alt"></i> {% trans 'Home' %}</a>
                                     </li>
                                     <li class="breadcrumb-item"><a
                                             href="{% url 'shop:category_products' product.category.slug %}">{{ product.category.name }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">Product Details</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{% trans 'Product Details' %}</li>
                                 </ol>
                             </nav>
                         </div>
@@ -63,7 +63,13 @@
                                         <div class="product-rating d-flex align-items-center mt-2">
                                             {% show_rating product %}
                                             {% reviews product as rev %}
-                                            <div class="users__count">{{ rev }} review{{ rev|pluralize }}</div>
+                                            <div class="users__count">
+                                                {% blocktrans trimmed count product_rev=rev %}
+                                                    {{ product_rev }} review
+                                                    {% plural %}
+                                                    {{ product_rev }} reviews
+                                                {% endblocktrans %}
+                                            </div>
                                         </div>
                                         <div class="d-flex align-items-center mt-3 gap-2">
                                             {% if product.status != 0 %}
@@ -72,14 +78,14 @@
                                             {% endif %}
                                         </div>
                                         <div class="mt-3">
-                                            <h6>Description :</h6>
+                                            <h6>{% trans 'Description :' %}</h6>
                                             <p class="mb-0">{{ product.description }}</p>
                                         </div>
                                         <dl class="row mt-3">
-                                            <dt class="col-sm-3">Prod.SKU</dt>
+                                            <dt class="col-sm-3">{% trans 'Prod.SKU' %}</dt>
                                             <dd class="col-sm-9">{{ product.sku }}</dd>
-                                            <dt class="col-sm-3">Delivery</dt>
-                                            <dd class="col-sm-9">Ukraine, USA, and Europe</dd>
+                                            <dt class="col-sm-3">{% trans 'Delivery' %}</dt>
+                                            <dd class="col-sm-9">{% trans 'Ukraine, USA, and Europe' %}</dd>
                                         </dl>
                                         <div class="row row-cols-auto align-items-center mt-3">
                                             <div class="col">
@@ -91,7 +97,7 @@
                                                     {{ form.quantity }}
                                                 </form>
                                                 {% else %}
-                                                    <h5>Out of stock.</h5>
+                                                    <h5>{% trans 'Out of stock.' %}</h5>
                                                 {% endif %}
                                             </div>
 
@@ -100,11 +106,11 @@
                                         <div class="d-flex gap-2 mt-3">
                                             {% if product.status != 0 %}
                                             <button form="qty-form" type="submit" class="btn btn-primary btn-ecomm"><i
-                                                    class="bx bxs-cart-add"></i>Add to Cart
+                                                    class="bx bxs-cart-add"></i>{% trans 'Add to Cart' %}
                                             </button>
                                             {% endif %}
                                             <a href="javascript:;" class="btn btn-light btn-ecomm"><i
-                                                    class="bx bx-heart"></i>Add to Wishlist</a>
+                                                    class="bx bx-heart"></i>{% trans 'Add to Wishlist' %}</a>
                                         </div>
                                         <hr/>
                                         <div class="product-sharing">
@@ -144,7 +150,7 @@
                                 <a class="nav-link active" data-bs-toggle="tab" href="#discription" role="tab"
                                    aria-selected="true">
                                     <div class="d-flex align-items-center">
-                                        <div class="tab-title text-uppercase fw-500">Description</div>
+                                        <div class="tab-title text-uppercase fw-500">{% trans 'Description' %}</div>
                                     </div>
                                 </a>
                             </li>
@@ -152,14 +158,14 @@
                                 <a class="nav-link" data-bs-toggle="tab" href="#more-info" role="tab"
                                    aria-selected="false">
                                     <div class="d-flex align-items-center">
-                                        <div class="tab-title text-uppercase fw-500">More Info</div>
+                                        <div class="tab-title text-uppercase fw-500">{% trans 'More Info' %}</div>
                                     </div>
                                 </a>
                             </li>
                             <li class="nav-item" role="presentation">
                                 <a class="nav-link" data-bs-toggle="tab" href="#tags" role="tab" aria-selected="false">
                                     <div class="d-flex align-items-center">
-                                        <div class="tab-title text-uppercase fw-500">Tags</div>
+                                        <div class="tab-title text-uppercase fw-500">{% trans 'Tags' %}</div>
                                     </div>
                                 </a>
                             </li>
@@ -167,7 +173,7 @@
                                 <a class="nav-link" data-bs-toggle="tab" href="#reviews" role="tab"
                                    aria-selected="false">
                                     <div class="d-flex align-items-center">
-                                        <div class="tab-title text-uppercase fw-500">(3) Reviews</div>
+                                        <div class="tab-title text-uppercase fw-500">{% trans 'Reviews' %}</div>
                                     </div>
                                 </a>
                             </li>

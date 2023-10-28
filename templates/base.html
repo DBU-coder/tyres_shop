@@ -36,7 +36,7 @@
     {% if messages %}
         {% for message in messages %}
             <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong><i class='bx bx-check-circle bx-burst' ></i></strong>{% blocktrans %} {{ message }}{% endblocktrans %}
+                <strong><i class='bx bx-check-circle bx-burst' ></i></strong>{{ message }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         {% endfor %}

@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static shop_tags %}
+{% load static shop_tags i18n %}
 {% block content %}
     <!--start page wrapper -->
     <div class="page-wrapper">
@@ -8,16 +8,16 @@
             <section class="py-3 border-bottom border-top d-none d-md-flex bg-light">
                 <div class="container">
                     <div class="page-breadcrumb d-flex align-items-center">
-                        <h3 class="breadcrumb-title pe-3">Order details</h3>
+                        <h3 class="breadcrumb-title pe-3">{% trans 'Order details' %}</h3>
                         <div class="ms-auto">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb mb-0 p-0">
-                                    <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i>
-                                        Home</a>
+                                    <li class="breadcrumb-item"><a href="{% url 'shop:index' %}"><i class="bx bx-home-alt"></i>
+                                        {% trans 'Home' %}</a>
                                     </li>
-                                    <li class="breadcrumb-item"><a href="javascript:;">Orders</a>
+                                    <li class="breadcrumb-item"><a href="{% url 'orders:order_list' %}">{% trans 'Orders' %}</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">Order details</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{% trans 'Order details' %}</li>
                                 </ol>
                             </nav>
                         </div>
@@ -45,9 +45,9 @@
                                                         </div>
                                                         <div class="cart-detail text-center text-lg-start">
                                                             <a href="{{ product.get_absolute_url }}"><h6 class="mb-2">{{ product.name }}</h6></a>
-                                                            <p class="mb-0">Diameter: <span>{{ product.diameter }}</span>
+                                                            <p class="mb-0">{% trans 'Diameter' %}: <span>{{ product.diameter }}</span>
                                                             </p>
-                                                            <p class="mb-2">Price: <span>${{ item.price }} x {{ item.quantity }}pcs.</span>
+                                                            <p class="mb-2">{% trans 'Price' %}: <span>${{ item.price }} x {{ item.quantity }}{% trans 'pcs.' %}</span>
                                                             </p>
                                                             <h5 class="mb-0">${{ item.get_cost }}</h5>
                                                         </div>
@@ -59,7 +59,7 @@
                                     {% endfor %}
                                     <div class="d-lg-flex align-items-center gap-2"><a href="{% url 'shop:index' %}"
                                                                                        class="btn btn-dark btn-ecomm"><i
-                                            class='bx bx-shopping-bag'></i> Continue Shoping</a>
+                                            class='bx bx-shopping-bag'></i> {% trans 'Continue Shopping' %}</a>
                                     </div>
                                 </div>
                             </div>

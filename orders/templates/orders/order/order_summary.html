@@ -1,23 +1,21 @@
-{% load shop_tags %}
+{% load shop_tags i18n %}
 <div class="col-12 col-xl-4">
     <div class="order-summary">
         <div class="card rounded-0">
             <div class="card-body">
                 <div class="card rounded-0 border bg-transparent shadow-none">
                     <div class="card-body">
-                        <p class="fs-5">Apply Discount Code</p>
+                        <p class="fs-5">{% trans 'Apply Discount Code' %}</p>
                         <div class="input-group">
                             <input type="text" class="form-control rounded-0"
                                    placeholder="Enter discount code">
-                            <button class="btn btn-dark btn-ecomm" type="button">Apply
-                                Discount
-                            </button>
+                            <button class="btn btn-dark btn-ecomm" type="button">{% trans 'Apply Discount' %}</button>
                         </div>
                     </div>
                 </div>
                 <div class="card rounded-0 border bg-transparent shadow-none">
                     <div class="card-body">
-                        <p class="fs-5">Order summary</p>
+                        <p class="fs-5">{% trans 'Order summary' %}</p>
                         {% for item in cart %}
                             {% with product=item.product %}
                         <div class="my-3 border-top"></div>
@@ -29,7 +27,7 @@
                             <div class="ps-2">
                                 <h6 class="mb-1"><a href="{{ product.get_absolute_url }}" class="text-dark">{{ product.name }}</a></h6>
                                 <div class="widget-product-meta">
-                                    <span class="me-2">&#8372 {{ item.price }}</span>
+                                    <span class="me-2">${{ item.price }}</span>
                                     <span class="">x {{ item.quantity }}</span>
                                 </div>
                             </div>
@@ -40,16 +38,14 @@
                 </div>
                 <div class="card rounded-0 border bg-transparent mb-0 shadow-none">
                     <div class="card-body">
-                        <p class="mb-2">Subtotal: <span class="float-end">&#8372 {{ cart.get_total_price }}</span>
+                        <p class="mb-2">{% trans 'Subtotal' %}: <span class="float-end">${{ cart.get_total_price }}</span>
                         </p>
-                        <p class="mb-2">Shipping: <span class="float-end">--</span>
+                        <p class="mb-2">{% trans 'Shipping' %}: <span class="float-end">--</span>
                         </p>
-                        <p class="mb-2">Taxes: <span class="float-end">$14.00</span>
-                        </p>
-                        <p class="mb-0">Discount: <span class="float-end">--</span>
+                        <p class="mb-0">{% trans 'Discount' %}: <span class="float-end">--</span>
                         </p>
                         <div class="my-3 border-top"></div>
-                        <h5 class="mb-0">Order Total: <span class="float-end">&#8372 {{ cart.get_total_price }}</span>
+                        <h5 class="mb-0">{% trans 'Order Total' %}: <span class="float-end">${{ cart.get_total_price }}</span>
                         </h5>
                     </div>
                 </div>
