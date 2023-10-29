@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static shop_tags %}
+{% load static shop_tags i18n %}
 {% block content %}
     <!--start page wrapper -->
     <div class="page-wrapper">
@@ -8,16 +8,14 @@
             <section class="py-3 border-bottom border-top d-none d-md-flex bg-light">
                 <div class="container">
                     <div class="page-breadcrumb d-flex align-items-center">
-                        <h3 class="breadcrumb-title pe-3">Shop Cart</h3>
+                        <h3 class="breadcrumb-title pe-3">{% trans 'Shop Cart' %}</h3>
                         <div class="ms-auto">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb mb-0 p-0">
-                                    <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i>
-                                        Home</a>
+                                    <li class="breadcrumb-item"><a href="{% url 'shop:index' %}"><i class="bx bx-home-alt"></i>
+                                        {% trans 'Home' %}</a>
                                     </li>
-                                    <li class="breadcrumb-item"><a href="javascript:;">Shop</a>
-                                    </li>
-                                    <li class="breadcrumb-item active" aria-current="page">Shop Cart</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{% trans 'Shop Cart' %}</li>
                                 </ol>
                             </nav>
                         </div>
@@ -45,9 +43,9 @@
                                                         </div>
                                                         <div class="cart-detail text-center text-lg-start">
                                                             <a href="{{ product.get_absolute_url }}"><h6 class="mb-2">{{ product.name }}</h6></a>
-                                                            <p class="mb-0">Diameter: <span>{{ product.diameter }}</span>
+                                                            <p class="mb-0">{% trans 'Diameter:' %} <span>{{ product.diameter }}</span>
                                                             </p>
-                                                            <p class="mb-2">Price: <span>${{ item.price }} x {{ item.quantity }}pcs.</span>
+                                                            <p class="mb-2">{% trans 'Price:' %} <span>${{ item.price }} x {{ item.quantity }}{% trans 'pcs.' %}</span>
                                                             </p>
                                                             <h5 class="mb-0">${{ item.total_price }}</h5>
                                                         </div>
@@ -73,7 +71,7 @@
                                                                 <i class='bx bx-refresh'></i></button>
                                                             <a href="{% url 'cart:remove' product.model_name product.slug %}"
                                                                class="btn btn-dark rounded-0 btn-ecomm"><i
-                                                                    class='bx bx-x-circle'></i> Remove</a>
+                                                                    class='bx bx-x-circle'></i> {% trans 'Remove' %}</a>
 
                                                         </div>
                                                     </div>
@@ -83,16 +81,18 @@
                                         {% endwith %}
                                     {% empty %}
                                         <div class="row align-items-center g-3">
+                                        {% blocktrans trimmed %}
                                             <h3>Your Cart is Empty</h3>
                                             <p>Add something to make me happy :)</p>
+                                        {% endblocktrans %}
                                         </div>
                                         <div class="my-4 border-top"></div>
                                     {% endfor %}
                                     <div class="d-lg-flex align-items-center gap-2"><a href="{% url 'shop:index' %}"
                                                                                        class="btn btn-dark btn-ecomm"><i
-                                            class='bx bx-shopping-bag'></i> Continue Shoping</a>
+                                            class='bx bx-shopping-bag'></i> {% trans 'Continue Shopping' %}</a>
                                         <a href="{% url 'cart:clear' %}" class="btn btn-light btn-ecomm ms-auto"><i
-                                                class='bx bx-x-circle'></i> Clear Cart</a>
+                                                class='bx bx-x-circle'></i> {% trans 'Clear Cart' %}</a>
                                     </div>
                                 </div>
                             </div>
@@ -100,57 +100,25 @@
                                 <div class="checkout-form p-3 bg-light">
                                     <div class="card rounded-0 border bg-transparent shadow-none">
                                         <div class="card-body">
-                                            <p class="fs-5">Apply Discount Code</p>
+                                            <p class="fs-5">{% trans 'Discount Code' %}</p>
                                             <div class="input-group">
                                                 <input type="text" class="form-control rounded-0"
-                                                       placeholder="Enter discount code">
-                                                <button class="btn btn-dark btn-ecomm" type="button">Apply Discount
+                                                       placeholder="{% trans 'Enter discount code' %}">
+                                                <button class="btn btn-dark btn-ecomm" type="button">{% trans 'Apply Discount' %}
                                                 </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card rounded-0 border bg-transparent shadow-none">
-                                        <div class="card-body">
-                                            <p class="fs-5">Estimate Shipping and Tax</p>
-                                            <div class="my-3 border-top"></div>
-                                            <div class="mb-3">
-                                                <label class="form-label">Country Name</label>
-                                                <select class="form-select rounded-0">
-                                                    <option selected>United States</option>
-                                                    <option value="1">Australia</option>
-                                                    <option value="2">India</option>
-                                                    <option value="3">Canada</option>
-                                                </select>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label class="form-label">State/Province</label>
-                                                <select class="form-select rounded-0">
-                                                    <option selected>California</option>
-                                                    <option value="1">Texas</option>
-                                                    <option value="2">Canada</option>
-                                                </select>
-                                            </div>
-                                            <div class="mb-0">
-                                                <label class="form-label">Zip/Postal Code</label>
-                                                <input type="email" class="form-control rounded-0">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="card rounded-0 border bg-transparent mb-0 shadow-none">
                                         <div class="card-body">
-                                            <p class="mb-2">Subtotal: <span class="float-end">${{ cart.get_total_price }}</span>
+                                            <p class="mb-2">{% trans 'Subtotal:' %} <span class="float-end">${{ cart.get_total_price }}</span>
                                             </p>
-                                            <p class="mb-2">Shipping: <span class="float-end">--</span>
-                                            </p>
-                                            <p class="mb-2">Taxes: <span class="float-end">$14.00</span>
-                                            </p>
-                                            <p class="mb-0">Discount: <span class="float-end">--</span>
+                                            <p class="mb-0">{% trans 'Discount:' %} <span class="float-end">--</span>
                                             </p>
                                             <div class="my-3 border-top"></div>
-                                            <h5 class="mb-0">Order Total: <span class="float-end">${{ cart.get_total_price }}</span></h5>
+                                            <h5 class="mb-0">{% trans 'Order Total:' %} <span class="float-end">${{ cart.get_total_price }}</span></h5>
                                             <div class="my-4"></div>
-                                            <div class="d-grid"><a href="{% url 'orders:order_create' %}" class="btn btn-dark btn-ecomm">Proceed
-                                                to Checkout</a>
+                                            <div class="d-grid"><a href="{% url 'orders:order_create' %}" class="btn btn-dark btn-ecomm">{% trans 'Proceed to Checkout' %}</a>
                                             </div>
                                         </div>
                                     </div>

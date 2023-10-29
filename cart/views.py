@@ -2,9 +2,13 @@ from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import redirect
 from django.views import View
 from django.views.generic import TemplateView
+from django.utils.translation import gettext_lazy as _
 
 from cart.cart import Cart
 from cart.forms import AddToCartForm
+
+
+CART_REDIRECT_URL = 'cart:detail'
 
 
 class AddToCartView(View):
@@ -23,7 +27,7 @@ class AddToCartView(View):
         if form.is_valid():
             cd = form.cleaned_data
             self.cart.add(product=self.product, quantity=cd['quantity'], update_quantity=cd['update'])
-        return redirect('cart:detail')
+        return redirect(CART_REDIRECT_URL)
 
     def get(self, *args, **kwargs):
         self.cart.add(self.product)
@@ -32,7 +36,7 @@ class AddToCartView(View):
 
 class CartDetailView(TemplateView):
     template_name = 'cart/cart_detail.html'
-    extra_context = {'title': 'Shop | Cart'}
+    extra_context = {'title': _('Shop | Cart')}
 
     def get(self, *args, **kwargs):
         context = self.get_context_data(**kwargs)
@@ -50,10 +54,10 @@ class RemoveFromCartView(View):
         content_type = ContentType.objects.get(model=ct_model)
         product = content_type.model_class().objects.get(slug=product_slug)
         cart.remove(product)
-        return redirect('cart:detail')
+        return redirect(CART_REDIRECT_URL)
 
 
 def clear_cart(request):
     cart = Cart(request)
     cart.clear()
-    return redirect('cart:detail')
+    return redirect(CART_REDIRECT_URL)
