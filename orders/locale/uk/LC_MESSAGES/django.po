@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-29 15:03+0200\n"
+"POT-Creation-Date: 2023-10-29 15:26+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -95,27 +95,22 @@ msgstr "Головна"
 #: orders/templates/orders/order/order_details.html:18
 #: orders/templates/orders/payments/cancel.html:17
 #: orders/templates/orders/payments/success.html:17
-#, fuzzy
-#| msgid "Order"
 msgid "Orders"
 msgstr "Замовлення"
 
 #: orders/templates/admin/orders/order/order_details.html:10
 #: orders/templates/admin/orders/order/order_details.html:15
-#, fuzzy, python-format
-#| msgid "Order details"
+#, python-format
 msgid "Order %(order.id)s"
-msgstr "Деталі замовлення"
+msgstr "Замовлення %(order.id)s"
 
 #: orders/templates/admin/orders/order/order_details.html:18
 msgid "Print order"
 msgstr "Друкувати замовлення"
 
 #: orders/templates/admin/orders/order/order_details.html:22
-#, fuzzy
-#| msgid "Order list"
 msgid "Order info"
-msgstr "Список замовлень"
+msgstr "Інформація про замовлення"
 
 #: orders/templates/admin/orders/order/order_details.html:40
 msgid "Total amount"
@@ -127,10 +122,8 @@ msgid "Status"
 msgstr "Статус"
 
 #: orders/templates/admin/orders/order/order_details.html:45
-#, fuzzy
-#| msgid "Payment"
 msgid "Pending payment"
-msgstr "Оплата"
+msgstr "Очікування платежу"
 
 #: orders/templates/admin/orders/order/order_details.html:51
 msgid "Items bought"
@@ -179,10 +172,8 @@ msgid "Cart"
 msgstr "Кошик"
 
 #: orders/templates/orders/order/order_create.html:50
-#, fuzzy
-#| msgid "Order details"
 msgid "Details"
-msgstr "Деталі замовлення"
+msgstr "Деталі"
 
 #: orders/templates/orders/order/order_create.html:61
 #: orders/templates/orders/order/order_summary.html:43
@@ -250,6 +241,10 @@ msgstr "Продовжити покупки"
 msgid "Apply Discount Code"
 msgstr "Промокод"
 
+#: orders/templates/orders/order/order_summary.html:11
+msgid "Enter discount code"
+msgstr "Введіть код знижки"
+
 #: orders/templates/orders/order/order_summary.html:12
 msgid "Apply Discount"
 msgstr "Використати"
@@ -260,19 +255,15 @@ msgstr "Сума замовлення"
 
 #: orders/templates/orders/order/order_summary.html:41
 msgid "Subtotal"
-msgstr "Всього"
+msgstr "Проміжний підсумок"
 
 #: orders/templates/orders/order/order_summary.html:45
-#, fuzzy
-#| msgid "Account"
 msgid "Discount"
-msgstr "Аккаунт"
+msgstr "Знижка"
 
 #: orders/templates/orders/order/order_summary.html:48
-#, fuzzy
-#| msgid "Order"
 msgid "Order Total"
-msgstr "Замовлення"
+msgstr "Загальна вартість"
 
 #: orders/templates/orders/order/user_orders.html:11
 #: orders/templates/orders/order/user_orders.html:19
