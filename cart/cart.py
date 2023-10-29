@@ -3,6 +3,8 @@ import copy
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 
+from cart.forms import AddToCartForm
+
 
 class Cart:
     def __init__(self, request):
@@ -45,15 +47,17 @@ class Cart:
         return sum(quantity)
 
     def __iter__(self):
-        model_names = self.cart_data.keys()
+        cart_data = copy.deepcopy(self.cart_data)
+        model_names = cart_data.keys()
         for model_name in model_names:
-            product_ids = self.cart_data[model_name].keys()
+            product_ids = cart_data[model_name].keys()
             ct_type = ContentType.objects.get(model=model_name)
             products = ct_type.model_class().objects.filter(id__in=product_ids)
             for product in products:
-                item = self.cart_data[model_name][str(product.id)]
+                item = cart_data[model_name][str(product.id)]
                 item['product'] = product
                 item['total_price'] = item['price'] * item['quantity']
+                item['update_quantity_form'] = AddToCartForm(initial={'quantity': item['quantity'], 'update': True})
                 yield item
 
     def get_total_price(self):

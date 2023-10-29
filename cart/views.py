@@ -38,14 +38,6 @@ class CartDetailView(TemplateView):
     template_name = 'cart/cart_detail.html'
     extra_context = {'title': _('Shop | Cart')}
 
-    def get(self, *args, **kwargs):
-        context = self.get_context_data(**kwargs)
-        cart = Cart(self.request)
-        for item in cart:
-            item['update_quantity_form'] = AddToCartForm(initial={'quantity': item['quantity'], 'update': True})
-        context['cart'] = cart
-        return self.render_to_response(context)
-
 
 class RemoveFromCartView(View):
     def get(self, request, *args, **kwargs):
