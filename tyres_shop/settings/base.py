@@ -158,6 +158,7 @@ LOCALE_PATHS = [
     os.path.join(BASE_DIR, 'customers', 'locale'),
     os.path.join(BASE_DIR, 'orders', 'locale'),
     os.path.join(BASE_DIR, 'cart', 'locale'),
+    os.path.join(BASE_DIR, 'favorites', 'locale'),
 ]
 
 # Static files (CSS, JavaScript, Images)

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-29 17:59+0200\n"
+"POT-Creation-Date: 2023-10-30 01:24+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -50,8 +50,8 @@ msgstr "Видалити"
 
 #: cart/templates/cart/cart_detail.html:84
 msgid "<h3>Your Cart is Empty</h3> <p>Add something to make me happy :)</p>"
-msgstr "<h3>Ваш кошик порожній</h3> <p>Додайте щось, це зробить мене щасливим :)</p>"
-
+msgstr ""
+"<h3>Ваш кошик порожній</h3> <p>Додайте щось, це зробить мене щасливим :)</p>"
 
 #: cart/templates/cart/cart_detail.html:93
 msgid "Continue Shopping"
@@ -89,6 +89,6 @@ msgstr "Сума замовлення:"
 msgid "Proceed to Checkout"
 msgstr "Перейти до оформлення"
 
-#: cart/views.py:36
+#: cart/views.py:39
 msgid "Shop | Cart"
 msgstr "Shop | Кошик"

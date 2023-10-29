@@ -1,9 +1,9 @@
-
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import Avg, Count
 from django.http import JsonResponse
 from django.views import View
-from django.views.generic import TemplateView, ListView
+from django.views.generic import ListView
+from django.utils.translation import gettext_lazy as _
 
 from favorites.utils import Favorite
 
@@ -54,7 +54,7 @@ class FavoritesView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Shop|Favorites'
+        context['title'] = _('Shop|Favorites')
         return context
 
 

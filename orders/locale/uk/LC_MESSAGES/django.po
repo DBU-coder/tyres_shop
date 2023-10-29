@@ -251,7 +251,7 @@ msgstr "Використати"
 
 #: orders/templates/orders/order/order_summary.html:18
 msgid "Order summary"
-msgstr "Сума замовлення"
+msgstr "Підсумок замовлення"
 
 #: orders/templates/orders/order/order_summary.html:41
 msgid "Subtotal"
