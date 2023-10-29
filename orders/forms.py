@@ -1,4 +1,5 @@
 from django import forms
+from django.utils.translation import gettext_lazy as _
 
 from .models import Order, Delivery
 
@@ -38,7 +39,7 @@ class OrderDeliveryMethodForm(forms.ModelForm):
     delivery = forms.ModelChoiceField(
         queryset=Delivery.objects.all(),
         empty_label=None,
-        label='Choose method',
+        label=_('Choose method'),
         widget=forms.RadioSelect()
     )
 

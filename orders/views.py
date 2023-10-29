@@ -59,7 +59,7 @@ class OrderCreateView(SessionWizardView):
                                      price=item['price'],
                                      quantity=item['quantity'])
         cart.clear()
-        # Create a checkout session and redirect the user to Stripe's checkout page
+        # Create a checkout session and redirect the user to Stripe's checkout page.
         checkout_session = stripe.checkout.Session.create(
             payment_method_types=["card"],
             line_items=order.stripe_products(),

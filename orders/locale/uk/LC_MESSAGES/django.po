@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-28 03:48+0300\n"
+"POT-Creation-Date: 2023-10-29 15:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,6 +18,146 @@ msgstr ""
 "11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
 "100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
 "(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+
+#: orders/forms.py:42
+msgid "Choose method"
+msgstr "Вибрати спосіб"
+
+#: orders/models.py:10
+#: orders/templates/admin/orders/order/order_details.html:28
+msgid "Customer"
+msgstr "Покупець"
+
+#: orders/models.py:11
+msgid "First name"
+msgstr "Ім'я"
+
+#: orders/models.py:12
+msgid "Last name"
+msgstr "Прізвище"
+
+#: orders/models.py:14
+msgid "Phone"
+msgstr "Телефон"
+
+#: orders/models.py:15
+msgid "Country"
+msgstr "Країна"
+
+#: orders/models.py:16
+msgid "Zip"
+msgstr "Індекс"
+
+#: orders/models.py:17
+#: orders/templates/admin/orders/order/order_details.html:36
+#: orders/templates/orders/order/order_create.html:56
+msgid "Address"
+msgstr "Адреса"
+
+#: orders/models.py:18
+#: orders/templates/admin/orders/order/order_details.html:24
+msgid "Created"
+msgstr "Створено"
+
+#: orders/models.py:19
+#: orders/templates/admin/orders/order/order_details.html:45
+#: orders/templates/orders/order/user_orders.html:58
+msgid "Paid"
+msgstr "Оплачено"
+
+#: orders/models.py:62
+msgid "Method"
+msgstr "Метод"
+
+#: orders/models.py:63
+msgid "Cost"
+msgstr "Вартість"
+
+#: orders/models.py:66
+msgid "Deliveries"
+msgstr "Способи доставки"
+
+#: orders/templates/admin/orders/order/order_details.html:4
+#, python-format
+msgid "Order %(order.id)s %(block.super)s"
+msgstr "Замовлення %(order.id)s %(block.super)s"
+
+#: orders/templates/admin/orders/order/order_details.html:8
+#: orders/templates/orders/order/order_create.html:20
+#: orders/templates/orders/order/order_details.html:16
+#: orders/templates/orders/order/user_orders.html:15
+#: orders/templates/orders/payments/cancel.html:15
+#: orders/templates/orders/payments/success.html:15
+msgid "Home"
+msgstr "Головна"
+
+#: orders/templates/admin/orders/order/order_details.html:9
+#: orders/templates/orders/order/order_details.html:18
+#: orders/templates/orders/payments/cancel.html:17
+#: orders/templates/orders/payments/success.html:17
+#, fuzzy
+#| msgid "Order"
+msgid "Orders"
+msgstr "Замовлення"
+
+#: orders/templates/admin/orders/order/order_details.html:10
+#: orders/templates/admin/orders/order/order_details.html:15
+#, fuzzy, python-format
+#| msgid "Order details"
+msgid "Order %(order.id)s"
+msgstr "Деталі замовлення"
+
+#: orders/templates/admin/orders/order/order_details.html:18
+msgid "Print order"
+msgstr "Друкувати замовлення"
+
+#: orders/templates/admin/orders/order/order_details.html:22
+#, fuzzy
+#| msgid "Order list"
+msgid "Order info"
+msgstr "Список замовлень"
+
+#: orders/templates/admin/orders/order/order_details.html:40
+msgid "Total amount"
+msgstr "Загальна кількість"
+
+#: orders/templates/admin/orders/order/order_details.html:44
+#: orders/templates/orders/order/user_orders.html:46
+msgid "Status"
+msgstr "Статус"
+
+#: orders/templates/admin/orders/order/order_details.html:45
+#, fuzzy
+#| msgid "Payment"
+msgid "Pending payment"
+msgstr "Оплата"
+
+#: orders/templates/admin/orders/order/order_details.html:51
+msgid "Items bought"
+msgstr "Придбані товари"
+
+#: orders/templates/admin/orders/order/order_details.html:54
+msgid "No.#"
+msgstr "Номер №"
+
+#: orders/templates/admin/orders/order/order_details.html:55
+msgid "Product"
+msgstr "Товар"
+
+#: orders/templates/admin/orders/order/order_details.html:56
+#: orders/templates/orders/order/order_details.html:50
+msgid "Price"
+msgstr "Ціна"
+
+#: orders/templates/admin/orders/order/order_details.html:57
+msgid "Quantity"
+msgstr "Кількість"
+
+#: orders/templates/admin/orders/order/order_details.html:58
+#: orders/templates/admin/orders/order/order_details.html:72
+#: orders/templates/orders/order/user_orders.html:47
+msgid "Total"
+msgstr "Всього"
 
 #: orders/templates/orders/order/confirm_delete.html:11
 #, python-format
@@ -33,14 +173,6 @@ msgstr "Видалити"
 msgid "Checkout"
 msgstr "Оформлення"
 
-#: orders/templates/orders/order/order_create.html:20
-#: orders/templates/orders/order/order_details.html:16
-#: orders/templates/orders/order/user_orders.html:15
-#: orders/templates/orders/payments/cancel.html:15
-#: orders/templates/orders/payments/success.html:15
-msgid "Home"
-msgstr "Головна"
-
 #: orders/templates/orders/order/order_create.html:22
 #: orders/templates/orders/order/order_create.html:45
 msgid "Cart"
@@ -51,10 +183,6 @@ msgstr "Кошик"
 #| msgid "Order details"
 msgid "Details"
 msgstr "Деталі замовлення"
-
-#: orders/templates/orders/order/order_create.html:56
-msgid "Address"
-msgstr "Адреса"
 
 #: orders/templates/orders/order/order_create.html:61
 #: orders/templates/orders/order/order_summary.html:43
@@ -106,21 +234,9 @@ msgstr "ОПЛАТА"
 msgid "Order details"
 msgstr "Деталі замовлення"
 
-#: orders/templates/orders/order/order_details.html:18
-#: orders/templates/orders/payments/cancel.html:17
-#: orders/templates/orders/payments/success.html:17
-#, fuzzy
-#| msgid "Order"
-msgid "Orders"
-msgstr "Замовлення"
-
 #: orders/templates/orders/order/order_details.html:48
 msgid "Diameter"
 msgstr "Діаметр"
-
-#: orders/templates/orders/order/order_details.html:50
-msgid "Price"
-msgstr "Ціна"
 
 #: orders/templates/orders/order/order_details.html:50
 msgid "pcs."
@@ -177,21 +293,9 @@ msgstr "Замовлення"
 msgid "Date"
 msgstr "Дата"
 
-#: orders/templates/orders/order/user_orders.html:46
-msgid "Status"
-msgstr "Статус"
-
-#: orders/templates/orders/order/user_orders.html:47
-msgid "Total"
-msgstr "Всього"
-
 #: orders/templates/orders/order/user_orders.html:48
 msgid "Actions"
 msgstr "Дії"
-
-#: orders/templates/orders/order/user_orders.html:58
-msgid "Paid"
-msgstr "Оплачено"
 
 #: orders/templates/orders/order/user_orders.html:60
 msgid "Unpaid"
@@ -236,8 +340,8 @@ msgid ""
 "<h2 class=\"h4 pb-3\">Something went wrong:(</h2> <p class=\"fs-sm "
 "mb-2\">Your payment is failed. Please try again...</p>"
 msgstr ""
-"<h2 class=\"h4 pb-3\">Щось пішло не так:(</h2> <p class=\"fs-sm "
-"mb-2\">Ваша оплата не вдалася. Будь ласка спробуйте ще раз...</p>"
+"<h2 class=\"h4 pb-3\">Щось пішло не так:(</h2> <p class=\"fs-sm mb-2\">Ваша "
+"оплата не вдалася. Будь ласка спробуйте ще раз...</p>"
 
 #: orders/templates/orders/payments/cancel.html:36
 #: orders/templates/orders/payments/success.html:40
@@ -258,11 +362,12 @@ msgid ""
 "<u>You can now:</u> </p>"
 msgstr ""
 "<h2 class=\"h4 pb-3\">Дякуємо за замовлення!</h2> <p class=\"fs-sm "
-"mb-2\">Ваше замовлення отримано і буде оброблене як можно швидше."
-"</p> <p class=\"fs-sm mb-2\">Впевніться що ви занотували номер замовлення, "
-"ось він <span class=\"fw-medium\">34VB5540K83.</span> </p> <p class=\"fs-"
-"sm\">Вам буде надіслано листа з підтвердженням вашого замовлення. "
-"<u>Зараз ви можете:</u> </p>"
+"mb-2\">Ваше замовлення отримано і буде оброблене як можно швидше.</p> <p "
+"class=\"fs-sm mb-2\">Впевніться що ви занотували номер замовлення, ось він "
+"<span class=\"fw-medium\">34VB5540K83.</span> </p> <p class=\"fs-sm\">Вам "
+"буде надіслано листа з підтвердженням вашого замовлення. <u>Зараз ви можете:"
+"</u> </p>"
+
 #: orders/templates/orders/payments/success.html:41
 msgid "Order list"
 msgstr "Список замовлень"
