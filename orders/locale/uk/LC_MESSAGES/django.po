@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-29 15:26+0200\n"
+"POT-Creation-Date: 2023-10-30 03:50+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -221,6 +221,10 @@ msgid "PAYMENT"
 msgstr "ОПЛАТА"
 
 #: orders/templates/orders/order/order_details.html:11
+#: orders/templates/orders/order/user_orders.html:44
+msgid "Order"
+msgstr "Замовлення"
+
 #: orders/templates/orders/order/order_details.html:20
 msgid "Order details"
 msgstr "Деталі замовлення"
@@ -275,10 +279,6 @@ msgstr "Мої замовлення"
 #: orders/templates/orders/order/user_orders.html:30
 msgid "Account"
 msgstr "Аккаунт"
-
-#: orders/templates/orders/order/user_orders.html:44
-msgid "Order"
-msgstr "Замовлення"
 
 #: orders/templates/orders/order/user_orders.html:45
 msgid "Date"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-28 02:38+0300\n"
+"POT-Creation-Date: 2023-10-30 03:49+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -994,10 +994,10 @@ msgstr ""
 "входу\n"
 "%(site_name)s. На завершення заповніть таку форму:"
 
-#: tyres_shop/settings/base.py:149
+#: tyres_shop/settings/base.py:150
 msgid "English"
 msgstr "Англійська"
 
-#: tyres_shop/settings/base.py:150
+#: tyres_shop/settings/base.py:151
 msgid "Ukrainian"
 msgstr "Українська"

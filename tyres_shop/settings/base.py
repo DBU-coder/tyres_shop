@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     'ratings.apps.RatingsConfig',
     'orders.apps.OrdersConfig',
     'favorites.apps.FavoritesConfig',
+    'coupons.apps.CouponsConfig',
 ]
 
 MIDDLEWARE = [
@@ -159,6 +160,7 @@ LOCALE_PATHS = [
     os.path.join(BASE_DIR, 'orders', 'locale'),
     os.path.join(BASE_DIR, 'cart', 'locale'),
     os.path.join(BASE_DIR, 'favorites', 'locale'),
+    os.path.join(BASE_DIR, 'coupons', 'locale'),
 ]
 
 # Static files (CSS, JavaScript, Images)
