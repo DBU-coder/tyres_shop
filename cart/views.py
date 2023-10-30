@@ -6,7 +6,7 @@ from django.utils.translation import gettext_lazy as _
 
 from cart.cart import Cart
 from cart.forms import AddToCartForm
-
+from coupons.forms import CouponApplyForm
 
 CART_REDIRECT_URL = 'cart:detail'
 
@@ -37,6 +37,11 @@ class AddToCartView(View):
 class CartDetailView(TemplateView):
     template_name = 'cart/cart_detail.html'
     extra_context = {'title': _('Shop | Cart')}
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['coupon_form'] = CouponApplyForm()
+        return context
 
 
 class RemoveFromCartView(View):

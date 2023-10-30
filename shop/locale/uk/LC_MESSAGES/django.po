@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-30 03:49+0200\n"
+"POT-Creation-Date: 2023-10-30 15:06+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,6 +18,10 @@ msgstr ""
 "11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
 "100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
 "(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+
+#: shop/apps.py:8
+msgid "Shop"
+msgstr "Магазин"
 
 #: shop/filters.py:11
 msgid "Sort by rating:high to low"
@@ -39,7 +43,7 @@ msgstr "Сортувати за ціною: за зростанням"
 msgid "Sort by price:high to low"
 msgstr "Сортувати за ціною: за спаданням"
 
-#: shop/filters.py:19
+#: shop/filters.py:19 shop/models.py:113
 msgid "Price"
 msgstr "Ціна"
 
@@ -47,7 +51,7 @@ msgstr "Ціна"
 msgid "Brands"
 msgstr "Бренди"
 
-#: shop/filters.py:27
+#: shop/filters.py:27 shop/models.py:172 shop/models.py:195
 msgid "Diameter"
 msgstr "Діаметр"
 
@@ -63,7 +67,7 @@ msgstr "Сортування за замовчуванням"
 msgid "Vehicle"
 msgstr "Транспорт"
 
-#: shop/filters.py:60
+#: shop/filters.py:60 shop/models.py:171
 msgid "Season"
 msgstr "Сезон"
 
@@ -71,77 +75,179 @@ msgstr "Сезон"
 msgid "All tyres"
 msgstr "Всі типи"
 
-#: shop/filters.py:73
+#: shop/filters.py:73 shop/models.py:198
 msgid "Type"
 msgstr "Тип"
 
-#: shop/models.py:65
-msgid "categories"
-msgstr "категорії"
+#: shop/models.py:65 shop/models.py:119
+msgid "Category"
+msgstr "Категорія"
 
-#: shop/models.py:94
+#: shop/models.py:66
+msgid "Categories"
+msgstr "Категорії"
+
+#: shop/models.py:68 shop/models.py:108
+msgid "Name"
+msgstr "Назва"
+
+#: shop/models.py:69 shop/models.py:109
+msgid "Slug"
+msgstr "Слаг"
+
+#: shop/models.py:82
+msgid "Image"
+msgstr "Зображення"
+
+#: shop/models.py:92
+msgid "Gallery"
+msgstr "Галерея"
+
+#: shop/models.py:93
+msgid "Galleries"
+msgstr "Галереї"
+
+#: shop/models.py:98
 msgid "out stock"
 msgstr "нема в наявності"
 
-#: shop/models.py:95
+#: shop/models.py:99
 msgid "in stock"
 msgstr "в наявності"
 
-#: shop/models.py:96
+#: shop/models.py:100
 msgid "running out"
 msgstr "закінчується"
 
-#: shop/models.py:97
+#: shop/models.py:101
 msgid "coming soon"
 msgstr "незабаром"
 
 #: shop/models.py:107
+msgid "sku"
+msgstr "Артикул"
+
+#: shop/models.py:110
+msgid "Brand"
+msgstr "Бренд"
+
+#: shop/models.py:111
 msgid "Country"
 msgstr "Країна"
 
-#: shop/models.py:108 shop/templates/shop/product_detail.html:153
+#: shop/models.py:112 shop/templates/shop/product_detail.html:153
 msgid "Description"
 msgstr "Опис"
 
-#: shop/models.py:112
+#: shop/models.py:115
+msgid "Status"
+msgstr "Статус"
+
+#: shop/models.py:116
 msgid "Stock quantity"
 msgstr "Залишок"
 
-#: shop/models.py:149
+#: shop/models.py:117
+msgid "Created"
+msgstr "Створено"
+
+#: shop/models.py:153
+msgid "Tyre"
+msgstr "Шина"
+
+#: shop/models.py:154 shop/templates/shop/index.html:136
+#: templates/base.html:144
+msgid "Tyres"
+msgstr "Шини"
+
+#: shop/models.py:157
 msgid "Motorcycle"
 msgstr "Мотоцикл"
 
-#: shop/models.py:150
+#: shop/models.py:158
 msgid "Car"
 msgstr "Легковик"
 
-#: shop/models.py:151
+#: shop/models.py:159
 msgid "Truck"
 msgstr "Вантажівка"
 
-#: shop/models.py:152
+#: shop/models.py:160
 msgid "Special transports"
 msgstr "Спец транспорт"
 
-#: shop/models.py:156
+#: shop/models.py:164
 msgid "All season"
 msgstr "Всесезонна"
 
-#: shop/models.py:157
+#: shop/models.py:165
 msgid "Summer"
 msgstr "Літня"
 
-#: shop/models.py:158
+#: shop/models.py:166
 msgid "Winter"
 msgstr "Зимова"
 
+#: shop/models.py:170
+msgid "Profile"
+msgstr "Профіль"
+
+#: shop/models.py:173 shop/models.py:197
+msgid "Width"
+msgstr "Ширина"
+
+#: shop/models.py:174
+msgid "Load index"
+msgstr "Індекс навантаження"
+
+#: shop/models.py:175
+msgid "Speed index"
+msgstr "Індекс швидкості"
+
+#: shop/models.py:176
+msgid "Spikes"
+msgstr "Шипи"
+
 #: shop/models.py:177
+msgid "Weight"
+msgstr "Вага"
+
+#: shop/models.py:185
+msgid "Wheel"
+msgstr "Диск"
+
+#: shop/models.py:186 shop/templates/shop/index.html:152
+#: templates/base.html:145
+msgid "Wheels"
+msgstr "Диски"
+
+#: shop/models.py:189
 msgid "Alloy"
 msgstr "Легкосплавні"
 
-#: shop/models.py:178
+#: shop/models.py:190
 msgid "Steel"
 msgstr "Сталеві"
+
+#: shop/models.py:193
+msgid "Model"
+msgstr "Модель"
+
+#: shop/models.py:200
+msgid "Color"
+msgstr "Колір"
+
+#: shop/models.py:213
+msgid "Date"
+msgstr "Дата"
+
+#: shop/models.py:214
+msgid "Sales quantity"
+msgstr "Продана кількість"
+
+#: shop/models.py:220
+msgid "Product statistics"
+msgstr "Продуктова статистика"
 
 #: shop/templates/shop/about_us.html:11 shop/templates/shop/about_us.html:18
 msgid "About Us"
@@ -236,18 +342,10 @@ msgstr "100%% гарантія повернення коштів"
 msgid "Awesome Support for 24/7 Days"
 msgstr "Чудова підтримка 24/7"
 
-#: shop/templates/shop/index.html:136 templates/base.html:144
-msgid "Tyres"
-msgstr "Шини"
-
 #: shop/templates/shop/index.html:138 shop/templates/shop/index.html:154
 #: shop/templates/shop/index.html:170
 msgid "SHOP NOW"
 msgstr "КУПИТИ ЗАРАЗ"
-
-#: shop/templates/shop/index.html:152 templates/base.html:145
-msgid "Wheels"
-msgstr "Диски"
 
 #: shop/templates/shop/index.html:168
 msgid "Tools"
@@ -554,7 +652,7 @@ msgstr "У випадку якщо ви забули, ваше ім'я кори�
 #: templates/account/email/password_reset_key_subject.txt:3
 #: templates/account/email/unknown_account_subject.txt:3
 msgid "Password Reset E-mail"
-msgstr ""
+msgstr "Лист для скидання паролю"
 
 #: templates/account/email/unknown_account_message.txt:4
 #, python-format

@@ -2,13 +2,11 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-28 00:53+0300\n"
+"POT-Creation-Date: 2023-10-30 14:38+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,6 +18,10 @@ msgstr ""
 "11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
 "100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
 "(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+
+#: customers/apps.py:8 customers/models.py:13
+msgid "Customers"
+msgstr "Покупці"
 
 #: customers/forms.py:15 customers/forms.py:60
 msgid "Email"
@@ -45,7 +47,7 @@ msgstr "Ім'я"
 msgid "Last name"
 msgstr "Прізвище"
 
-#: customers/forms.py:81
+#: customers/forms.py:81 customers/models.py:18
 msgid "Address"
 msgstr "Адреса"
 
@@ -72,6 +74,14 @@ msgstr ""
 #: customers/manager.py:34
 msgid "Superuser must have is_superuser=True."
 msgstr ""
+
+#: customers/models.py:12
+msgid "Customer"
+msgstr "Покупець"
+
+#: customers/models.py:17
+msgid "Telephone number"
+msgstr "Номер телефону"
 
 #: customers/templates/customers/customer_details.html:11
 #: customers/templates/customers/customer_details.html:20

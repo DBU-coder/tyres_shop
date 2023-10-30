@@ -99,24 +99,23 @@
                             <div class="col-12 col-xl-4">
                                 <div class="checkout-form p-3 bg-light">
                                     <div class="card rounded-0 border bg-transparent shadow-none">
-                                        <div class="card-body">
-                                            <p class="fs-5">{% trans 'Discount Code' %}</p>
+                                        <form action="{% url 'coupons:apply' %}" method="POST" class="card-body">{% csrf_token %}
+                                            <p class="fs-5">{{ coupon_form.code.label }}</p>
                                             <div class="input-group">
-                                                <input type="text" class="form-control rounded-0"
-                                                       placeholder="{% trans 'Enter discount code' %}">
-                                                <button class="btn btn-dark btn-ecomm" type="button">{% trans 'Apply Discount' %}
+                                                {{ coupon_form.code }}
+                                                <button class="btn btn-dark btn-ecomm" type="submit">{% trans 'Apply Discount' %}
                                                 </button>
                                             </div>
-                                        </div>
+                                        </form>
                                     </div>
                                     <div class="card rounded-0 border bg-transparent mb-0 shadow-none">
                                         <div class="card-body">
                                             <p class="mb-2">{% trans 'Subtotal:' %} <span class="float-end">${{ cart.get_total_price }}</span>
                                             </p>
-                                            <p class="mb-0">{% trans 'Discount:' %} <span class="float-end">--</span>
+                                            <p class="mb-0">{% trans 'Discount:' %} <span class="float-end">{% if cart.coupon %}{{ cart.coupon }} - ${{ cart.get_discount }}{% else %}--{% endif %}</span>
                                             </p>
                                             <div class="my-3 border-top"></div>
-                                            <h5 class="mb-0">{% trans 'Order Total:' %} <span class="float-end">${{ cart.get_total_price }}</span></h5>
+                                            <h5 class="mb-0">{% trans 'Order Total:' %} <span class="float-end">${{ cart.get_total_price_after_discount }}</span></h5>
                                             <div class="my-4"></div>
                                             <div class="d-grid"><a href="{% url 'orders:order_create' %}" class="btn btn-dark btn-ecomm">{% trans 'Proceed to Checkout' %}</a>
                                             </div>

@@ -21,6 +21,8 @@ class Order(models.Model):
 
     class Meta:
         ordering = ('-created',)
+        verbose_name = _('Order')
+        verbose_name_plural = _('Orders')
 
     def __str__(self):
         return f'Order {self.id}'
@@ -63,6 +65,7 @@ class Delivery(models.Model):
     cost = models.PositiveSmallIntegerField(_('Cost'), default=0)
 
     class Meta:
+        verbose_name = _('Delivery')
         verbose_name_plural = _('Deliveries')
 
     def __str__(self):

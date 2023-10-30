@@ -62,10 +62,11 @@ class HomepageProduct:
 
 class Category(models.Model):
     class Meta:
-        verbose_name_plural = _('categories')
+        verbose_name = _("Category")
+        verbose_name_plural = _('Categories')
 
-    name = models.CharField(max_length=100)
-    slug = models.SlugField(max_length=100, unique=True)
+    name = models.CharField(max_length=100, verbose_name=_('Name'))
+    slug = models.SlugField(max_length=100, unique=True, verbose_name=_('Slug'))
 
     def __str__(self):
         return self.name
@@ -78,6 +79,7 @@ class Gallery(models.Model):
         size=[300, 400],
         crop=['middle', 'center'],
         upload_to=user_directory_path,
+        verbose_name=_('Image')
     )
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
@@ -87,6 +89,8 @@ class Gallery(models.Model):
         indexes = [
             models.Index(fields=["content_type", "object_id"]),
         ]
+        verbose_name = _("Gallery")
+        verbose_name_plural = _("Galleries")
 
 
 class BaseProduct(models.Model):
@@ -100,19 +104,19 @@ class BaseProduct(models.Model):
     class Meta:
         abstract = True
 
-    sku = models.CharField(max_length=10, unique=True)
-    name = models.CharField(max_length=100, unique=True)
-    slug = models.SlugField(max_length=100, unique=True)
-    brand = models.CharField(max_length=100)
+    sku = models.CharField(_('sku'), max_length=10, unique=True)
+    name = models.CharField(_('Name'), max_length=100, unique=True)
+    slug = models.SlugField(_('Slug'), max_length=100, unique=True)
+    brand = models.CharField(_('Brand'), max_length=100)
     country = models.CharField(_('Country'), max_length=50, blank=True)
     description = models.TextField(_('Description'), blank=True)
-    price = models.IntegerField()
+    price = models.IntegerField(_('Price'))
     stripe_product_price_id = models.CharField(max_length=128, blank=True)
-    status = models.PositiveSmallIntegerField(default=0, choices=STATUS_CHOICES)
+    status = models.PositiveSmallIntegerField(_('Status'), default=0, choices=STATUS_CHOICES)
     stock_qty = models.IntegerField(_('Stock quantity'), default=0)
-    created = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField(_('Created'), auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name=_('Category'))
     gallery = GenericRelation(Gallery, related_query_name='product')
     ratings = GenericRelation(Rating, related_query_name='product')
     order_items = GenericRelation(OrderItem, related_query_name='product')
@@ -145,6 +149,10 @@ class BaseProduct(models.Model):
 
 
 class Tyre(BaseProduct):
+    class Meta:
+        verbose_name = _('Tyre')
+        verbose_name_plural = _('Tyres')
+
     VEHICLE_CHOICES = (
         (1, _('Motorcycle')),
         (2, _('Car')),
@@ -159,36 +167,40 @@ class Tyre(BaseProduct):
     )
 
     vehicle_type = models.PositiveSmallIntegerField('Vehicle type', choices=VEHICLE_CHOICES)
-    profile = models.DecimalField(max_digits=4, decimal_places=1)
-    season = models.PositiveSmallIntegerField(choices=SEASON_CHOICES)
-    diameter = models.PositiveSmallIntegerField()
-    width = models.PositiveSmallIntegerField()
-    load_index = models.PositiveSmallIntegerField(null=True, blank=True)
-    speed_index = models.CharField(max_length=3, blank=True)
-    spikes = models.BooleanField(default=False)
-    weight = models.DecimalField(max_digits=4, decimal_places=1, null=True, blank=True)
+    profile = models.DecimalField(_('Profile'), max_digits=4, decimal_places=1)
+    season = models.PositiveSmallIntegerField(_('Season'), choices=SEASON_CHOICES)
+    diameter = models.PositiveSmallIntegerField(_('Diameter'))
+    width = models.PositiveSmallIntegerField(_('Width'))
+    load_index = models.PositiveSmallIntegerField(_('Load index'), null=True, blank=True)
+    speed_index = models.CharField(_('Speed index'), max_length=3, blank=True)
+    spikes = models.BooleanField(_('Spikes'), default=False)
+    weight = models.DecimalField(_('Weight'), max_digits=4, decimal_places=1, null=True, blank=True)
 
     def __str__(self):
-        return f'Tire: {self.name}'
+        return self.name
 
 
 class Wheel(BaseProduct):
+    class Meta:
+        verbose_name = _('Wheel')
+        verbose_name_plural = _('Wheels')
+
     TYPE_CHOICES = (
         (1, _('Alloy')),
         (2, _('Steel')),
     )
 
-    model = models.CharField(max_length=100, blank=True)
+    model = models.CharField(_('Model'), max_length=100, blank=True)
     et = models.PositiveSmallIntegerField(blank=True, null=True)
-    diameter = models.PositiveSmallIntegerField()
+    diameter = models.PositiveSmallIntegerField(_('Diameter'), )
     pcd = models.CharField(max_length=20, blank=True)
-    width = models.DecimalField(max_digits=4, decimal_places=2)
-    type = models.PositiveSmallIntegerField(choices=TYPE_CHOICES)
+    width = models.DecimalField(_('Width'), max_digits=4, decimal_places=2)
+    type = models.PositiveSmallIntegerField(_('Type'), choices=TYPE_CHOICES)
     dia = models.DecimalField(max_digits=4, decimal_places=2, blank=True, null=True)
-    color = models.CharField(max_length=50, blank=True)
+    color = models.CharField(_('Color'), max_length=50, blank=True)
 
     def __str__(self):
-        return f'Wheel: {self.name}'
+        return self.name
 
 
 class ProductStatistic(models.Model):
@@ -198,13 +210,14 @@ class ProductStatistic(models.Model):
                                      )
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
-    date = models.DateField(default=timezone.now)
-    sales_quantity = models.PositiveIntegerField(default=0)
+    date = models.DateField(_('Date'), default=timezone.now)
+    sales_quantity = models.PositiveIntegerField(_('Sales quantity'), default=0)
 
     class Meta:
         indexes = [
             models.Index(fields=["content_type", "object_id"]),
         ]
+        verbose_name_plural = _('Product statistics')
 
     def __str__(self):
         return f'{self.content_object.name} sales: {self.sales_quantity}'

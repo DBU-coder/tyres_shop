@@ -22,6 +22,7 @@ urlpatterns += i18n_patterns(
     path('orders/', include('orders.urls', namespace='orders')),
     path('cart/', include('cart.urls', namespace='cart')),
     path('favorites/', include('favorites.urls', namespace='favorites')),
+    path('coupons/', include('coupons.urls', namespace='coupons')),
     prefix_default_language=False
 )
 
