@@ -10,7 +10,7 @@ class CouponApplyView(View):
 
     def post(self, request, *args, **kwargs):
         now = timezone.now()
-        form = CouponApplyForm(self.request.POST)
+        form = CouponApplyForm(request.POST)
         if form.is_valid():
             code = form.cleaned_data['code']
             try:
@@ -20,7 +20,7 @@ class CouponApplyView(View):
                     valid_to__gte=now,
                     active=True
                 )
-                self.request.session['coupon_id'] = coupon.id
+                request.session['coupon_id'] = coupon.id
             except Coupon.DoesNotExist:
-                self.request.session['coupon_id'] = None
-        return redirect('cart:detail')
+                request.session['coupon_id'] = None
+        return redirect(request.META.get('HTTP_REFERER'))

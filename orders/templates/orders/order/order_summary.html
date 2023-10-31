@@ -5,12 +5,12 @@
             <div class="card-body">
                 <div class="card rounded-0 border bg-transparent shadow-none">
                     <div class="card-body">
-                        <p class="fs-5">{% trans 'Apply Discount Code' %}</p>
-                        <div class="input-group">
-                            <input type="text" class="form-control rounded-0"
-                                   placeholder="{% trans 'Enter discount code' %}">
-                            <button class="btn btn-dark btn-ecomm" type="button">{% trans 'Apply Discount' %}</button>
-                        </div>
+                        <p class="fs-5">{{ coupon_form.code.label }}</p>
+                        <form action="{% url 'coupons:apply' %}" method="POST" class="input-group">
+                            {% csrf_token %}
+                            {{ coupon_form.code }}
+                            <button class="btn btn-dark btn-ecomm" type="submit">{% trans 'Apply Discount' %}</button>
+                        </form>
                     </div>
                 </div>
                 <div class="card rounded-0 border bg-transparent shadow-none">
@@ -42,10 +42,10 @@
                         </p>
                         <p class="mb-2">{% trans 'Shipping' %}: <span class="float-end">--</span>
                         </p>
-                        <p class="mb-0">{% trans 'Discount' %}: <span class="float-end">--</span>
+                        <p class="mb-0">{% trans 'Discount' %}: <span class="float-end">{% if cart.coupon %}{{ cart.coupon }} - ${{ cart.get_discount }}{% else %}--{% endif %}</span>
                         </p>
                         <div class="my-3 border-top"></div>
-                        <h5 class="mb-0">{% trans 'Order Total' %}: <span class="float-end">${{ cart.get_total_price }}</span>
+                        <h5 class="mb-0">{% trans 'Order Total' %}: <span class="float-end">${{ cart.get_total_price_after_discount }}</span>
                         </h5>
                     </div>
                 </div>

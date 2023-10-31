@@ -14,6 +14,7 @@ from django.views.generic import ListView, TemplateView, DeleteView
 from formtools.wizard.views import SessionWizardView
 
 from cart.cart import Cart
+from coupons.forms import CouponApplyForm
 from customers.models import Customer
 from orders.forms import OrderCreateForm, OrderAddressForm, OrderDeliveryMethodForm
 from orders.models import Order, OrderItem
@@ -40,19 +41,23 @@ class OrderCreateView(SessionWizardView):
 
     def get_context_data(self, form, **kwargs):
         context = super().get_context_data(form, **kwargs)
+        context['coupon_form'] = CouponApplyForm()
         context['title'] = 'Shop|Checkout'
         return context
 
     def done(self, form_list, **kwargs):
+        cart = Cart(self.request)
         order = form_list[0].save(commit=False)
         order.customer = Customer.objects.get(pk=self.request.user.pk)
         order.country = form_list[1].cleaned_data['country']
         order.zip = form_list[1].cleaned_data['zip']
         order.address = form_list[1].cleaned_data['address']
         order.delivery = form_list[-1].cleaned_data['delivery']
+        if cart.coupon:
+            order.coupon = cart.coupon
+            order.discount = cart.coupon.discount
         order.save()
 
-        cart = Cart(self.request)
         for item in cart:
             OrderItem.objects.create(order=order,
                                      content_object=item['product'],
@@ -60,14 +65,23 @@ class OrderCreateView(SessionWizardView):
                                      quantity=item['quantity'])
         cart.clear()
         # Create a checkout session and redirect the user to Stripe's checkout page.
-        checkout_session = stripe.checkout.Session.create(
-            payment_method_types=["card"],
-            line_items=order.stripe_products(),
-            metadata={'order_id': order.id},
-            mode="payment",
-            success_url=f'{settings.DOMAIN_NAME}{reverse("orders:success")}',
-            cancel_url=f'{settings.DOMAIN_NAME}{reverse("orders:cancel")}',
-        )
+        session_data = {
+            'payment_method_types': ['card'],
+            'metadata': {'order_id': order.id},
+            'mode': 'payment',
+            'line_items': order.stripe_products(),
+            'success_url': f'{settings.DOMAIN_NAME}{reverse("orders:success")}',
+            'cancel_url': f'{settings.DOMAIN_NAME}{reverse("orders:cancel")}',
+        }
+        if order.coupon:
+            stripe_coupon = stripe.Coupon.create(
+                name=order.coupon,
+                percent_off=order.discount,
+                duration='once')
+            session_data['discounts'] = [{
+                'coupon': stripe_coupon.id
+            }]
+        checkout_session = stripe.checkout.Session.create(**session_data)
         return HttpResponseRedirect(checkout_session.url, status=HTTPStatus.SEE_OTHER)
 
 
