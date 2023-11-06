@@ -60,7 +60,7 @@
                     </ul>
                     <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
                         <input name="next" type="hidden" value="{{ redirect_to }}">
-                        <select name="language" onchange="form.submit();">
+                        <select name="language" class="form-select-sm border-0" onchange="form.submit();">
                             {% get_current_language as LANGUAGE_CODE %}
                             {% get_available_languages as LANGUAGES %}
                             {% get_language_info_list for LANGUAGES as languages %}
@@ -80,32 +80,6 @@
                                 <li><a class="dropdown-item" href="#">EUR</a>
                                 </li>
                             </ul>
-                        </li>
-
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="#"
-                               data-bs-toggle="dropdown">
-                                <div class="lang d-flex gap-1">
-                                    <div><i class="flag-icon flag-icon-gb"></i>
-                                    </div>
-                                    <div><span>ENG</span>
-                                    </div>
-                                </div>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-lg-end">
-                                <a class="dropdown-item d-flex allign-items-center" href="javascript:;"> <i
-                                        class="flag-icon flag-icon-de me-2"></i><span>German</span>
-                                </a> <a class="dropdown-item d-flex allign-items-center" href="javascript:;"><i
-                                    class="flag-icon flag-icon-fr me-2"></i><span>French</span></a>
-                                <a class="dropdown-item d-flex allign-items-center" href="javascript:;"><i
-                                        class="flag-icon flag-icon-um me-2"></i><span>English</span></a>
-                                <a class="dropdown-item d-flex allign-items-center" href="javascript:;"><i
-                                        class="flag-icon flag-icon-in me-2"></i><span>Hindi</span></a>
-                                <a class="dropdown-item d-flex allign-items-center" href="javascript:;"><i
-                                        class="flag-icon flag-icon-cn me-2"></i><span>Chinese</span></a>
-                                <a class="dropdown-item d-flex allign-items-center" href="javascript:;"><i
-                                        class="flag-icon flag-icon-ae me-2"></i><span>Arabic</span></a>
-                            </div>
                         </li>
                     </ul>
                     <ul class="navbar-nav social-link ms-lg-2 ms-auto">
@@ -262,65 +236,40 @@
                 <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-4">
                     <div class="col">
                         <div class="footer-section1 mb-3">
-                            <h6 class="mb-3 text-uppercase">Contact Info</h6>
+                            <h6 class="mb-3 text-uppercase">{% trans 'Contact Info' %}</h6>
                             <div class="address mb-3">
-                                <p class="mb-0 text-uppercase">Address</p>
-                                <p class="mb-0 font-12">123 Street Name, City, Australia</p>
+                                <p class="mb-0 text-uppercase">{% trans 'Address' %}</p>
+                                <p class="mb-0 font-12">36 Khreshchatyk street, Kyiv, Ukraine</p>
                             </div>
                             <div class="phone mb-3">
-                                <p class="mb-0 text-uppercase">Phone</p>
-                                <p class="mb-0 font-13">Toll Free (123) 472-796</p>
-                                <p class="mb-0 font-13">Mobile : +91-9910XXXX</p>
+                                <p class="mb-0 text-uppercase">{% trans 'Phone' %}</p>
+                                <p class="mb-0 font-13">{% trans 'Toll Free' %} (123) 472-796</p>
+                                <p class="mb-0 font-13">{% trans 'Mobile' %} : +91-9910XXXX</p>
                             </div>
                             <div class="email mb-3">
                                 <p class="mb-0 text-uppercase">Email</p>
                                 <p class="mb-0 font-13">mail@example.com</p>
                             </div>
                             <div class="working-days mb-3">
-                                <p class="mb-0 text-uppercase">WORKING DAYS</p>
-                                <p class="mb-0 font-13">Mon - FRI / 9:30 AM - 6:30 PM</p>
+                                <p class="mb-0 text-uppercase">{% trans 'WORKING DAYS' %}</p>
+                                <p class="mb-0 font-13">{% trans 'Mon - Fri / 9:30 AM - 6:30 PM' %}</p>
                             </div>
                         </div>
                     </div>
                     <div class="col">
                         <div class="footer-section2 mb-3">
-                            <h6 class="mb-3 text-uppercase">Shop Categories</h6>
+                            <h6 class="mb-3 text-uppercase">{% trans 'Categories' %}</h6>
                             <ul class="list-unstyled">
-                                <li class="mb-1"><a href="javascript:;"><i class='bx bx-chevron-right'></i> Jeans</a>
-                                </li>
-                                <li class="mb-1"><a href="javascript:;"><i class='bx bx-chevron-right'></i> T-Shirts</a>
-                                </li>
-                                <li class="mb-1"><a href="javascript:;"><i class='bx bx-chevron-right'></i> Sports</a>
-                                </li>
-                                <li class="mb-1"><a href="javascript:;"><i class='bx bx-chevron-right'></i> Shirts &
-                                    Tops</a>
-                                </li>
-                                <li class="mb-1"><a href="javascript:;"><i class='bx bx-chevron-right'></i> Clogs &
-                                    Mules</a>
-                                </li>
-                                <li class="mb-1"><a href="javascript:;"><i class='bx bx-chevron-right'></i>
-                                    Sunglasses</a>
-                                </li>
-                                <li class="mb-1"><a href="javascript:;"><i class='bx bx-chevron-right'></i> Bags &
-                                    Wallets</a>
-                                </li>
-                                <li class="mb-1"><a href="javascript:;"><i class='bx bx-chevron-right'></i> Sneakers &
-                                    Athletic</a>
-                                </li>
-                                <li class="mb-1"><a href="javascript:;"><i class='bx bx-chevron-right'></i>
-                                    Electronis</a>
-                                </li>
-                                <li class="mb-1"><a href="javascript:;"><i class='bx bx-chevron-right'></i>
-                                    Furniture</a>
-                                </li>
+                                <li class="mb-1"><a href="javascript:;"><i class='bx bx-chevron-right'></i> Jeans</a></li>
                             </ul>
                         </div>
                     </div>
                     <div class="col">
                         <div class="footer-section3 mb-3">
-                            <h6 class="mb-3 text-uppercase">Popular Tags</h6>
-                            <div class="tags-box"><a href="javascript:;" class="tag-link">Cloths</a>
-                                <a href="javascript:;" class="tag-link">Electronis</a>
+                            <h6 class="mb-3 text-uppercase">{% trans 'Popular Tags' %}</h6>
+                            <div class="tags-box">
+                                <a href="javascript:;" class="tag-link">Cloths</a>
+                                <a href="javascript:;" class="tag-link">Electroniс</a>
                                 <a href="javascript:;" class="tag-link">Furniture</a>
                                 <a href="javascript:;" class="tag-link">Sports</a>
                                 <a href="javascript:;" class="tag-link">Men Wear</a>
@@ -338,17 +287,18 @@
                     </div>
                     <div class="col">
                         <div class="footer-section4 mb-3">
-                            <h6 class="mb-3 text-uppercase">Stay informed</h6>
+                            <h6 class="mb-3 text-uppercase">{% trans 'Stay informed' %}</h6>
                             <div class="subscribe">
-                                <input type="text" class="form-control radius-30" placeholder="Enter Your Email"/>
+                                <input type="text" class="form-control radius-30" placeholder="{% trans 'Enter Your Email' %}"/>
                                 <div class="mt-2 d-grid"><a href="javascript:;"
-                                                            class="btn btn-dark btn-ecomm radius-30">Subscribe</a>
+                                                            class="btn btn-dark btn-ecomm radius-30">{% trans 'Subscribe' %}</a>
                                 </div>
-                                <p class="mt-2 mb-0 font-13">Subscribe to our newsletter to receive early discount
-                                    offers, updates and new products info.</p>
+                                <p class="mt-2 mb-0 font-13">
+                                    {% trans 'Subscribe to our newsletter to receive early discount offers, updates and new products info.' %}
+                                </p>
                             </div>
                             <div class="download-app mt-3">
-                                <h6 class="mb-3 text-uppercase">Download our app</h6>
+                                <h6 class="mb-3 text-uppercase">{% trans 'Download our app' %}</h6>
                                 <div class="d-flex align-items-center gap-2">
                                     <a href="javascript:;">
                                         <img src="{% static 'assets/images/icons/apple-store.png' %}" class=""
@@ -367,7 +317,7 @@
                 <hr/>
                 <div class="row row-cols-1 row-cols-md-2 align-items-center">
                     <div class="col">
-                        <p class="mb-0">Copyright © 2021. All right reserved.</p>
+                        <p class="mb-0">Copyright © 2023. All right reserved.</p>
                     </div>
                     <div class="col text-end">
                         <div class="payment-icon">

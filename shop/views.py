@@ -8,7 +8,7 @@ from django.utils.translation import gettext_lazy as _
 from enhanced_cbv.views import ListFilteredView
 
 from cart.forms import AddToCartForm
-from shop.filters import TyreFilter, WheelFilter, BaseFilter
+from shop.filters import TyreFilter, WheelFilter
 from shop.models import HomepageProduct, Tyre, Wheel
 
 

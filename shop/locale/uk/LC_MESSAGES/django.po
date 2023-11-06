@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-30 15:06+0200\n"
+"POT-Creation-Date: 2023-11-06 18:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -47,7 +47,7 @@ msgstr "Сортувати за ціною: за спаданням"
 msgid "Price"
 msgstr "Ціна"
 
-#: shop/filters.py:23 shop/templates/shop/index.html:609
+#: shop/filters.py:23 shop/templates/shop/index.html:617
 msgid "Brands"
 msgstr "Бренди"
 
@@ -83,7 +83,7 @@ msgstr "Тип"
 msgid "Category"
 msgstr "Категорія"
 
-#: shop/models.py:66
+#: shop/models.py:66 templates/base.html:261
 msgid "Categories"
 msgstr "Категорії"
 
@@ -136,6 +136,7 @@ msgid "Country"
 msgstr "Країна"
 
 #: shop/models.py:112 shop/templates/shop/product_detail.html:153
+#: templates/modal.html:22
 msgid "Description"
 msgstr "Опис"
 
@@ -156,7 +157,7 @@ msgid "Tyre"
 msgstr "Шина"
 
 #: shop/models.py:154 shop/templates/shop/index.html:136
-#: templates/base.html:144
+#: templates/base.html:118
 msgid "Tyres"
 msgstr "Шини"
 
@@ -217,7 +218,7 @@ msgid "Wheel"
 msgstr "Диск"
 
 #: shop/models.py:186 shop/templates/shop/index.html:152
-#: templates/base.html:145
+#: templates/base.html:119
 msgid "Wheels"
 msgstr "Диски"
 
@@ -291,22 +292,22 @@ msgstr "Попередня"
 msgid "Next"
 msgstr "Наступна"
 
-#: shop/templates/shop/category_products.html:52
+#: shop/templates/shop/category_products.html:48
 msgid "Show:"
 msgstr "Відображати по:"
 
-#: shop/templates/shop/category_products.html:100
+#: shop/templates/shop/category_products.html:96
 msgid "Out of stock"
 msgstr "немає в наявності"
 
-#: shop/templates/shop/category_products.html:113
-#: shop/templates/shop/index.html:234 shop/templates/shop/index.html:297
-#: shop/templates/shop/product_detail.html:109
+#: shop/templates/shop/category_products.html:109
+#: shop/templates/shop/index.html:238 shop/templates/shop/index.html:305
+#: shop/templates/shop/product_detail.html:109 templates/modal.html:43
 msgid "Add to Cart"
 msgstr "Додати до Кошика"
 
-#: shop/templates/shop/category_products.html:118
-#: shop/templates/shop/index.html:237 shop/templates/shop/index.html:300
+#: shop/templates/shop/category_products.html:114
+#: shop/templates/shop/index.html:241 shop/templates/shop/index.html:308
 msgid "Quick View"
 msgstr "Швидкий перегляд"
 
@@ -359,35 +360,35 @@ msgstr "ПОПУЛЯРНІ ТОВАРИ"
 msgid "More Products"
 msgstr "Більше товарів"
 
-#: shop/templates/shop/index.html:255
+#: shop/templates/shop/index.html:259
 msgid "New Arrivals"
 msgstr "Нові надходження"
 
-#: shop/templates/shop/index.html:256
+#: shop/templates/shop/index.html:260
 msgid "View All"
 msgstr "Дивитись всі"
 
-#: shop/templates/shop/index.html:387
+#: shop/templates/shop/index.html:395
 msgid "Fast shipping"
 msgstr "Швидка доставка"
 
-#: shop/templates/shop/index.html:397
+#: shop/templates/shop/index.html:405
 msgid "Secure payment"
 msgstr "Безпечна оплата"
 
-#: shop/templates/shop/index.html:407
+#: shop/templates/shop/index.html:415
 msgid "Free returns"
 msgstr "Безкоштовне повернення"
 
-#: shop/templates/shop/index.html:417
+#: shop/templates/shop/index.html:425
 msgid "Customer Support"
 msgstr "Підтримка покупців"
 
-#: shop/templates/shop/index.html:432
+#: shop/templates/shop/index.html:440
 msgid "Latest News"
 msgstr "Останні новини"
 
-#: shop/templates/shop/index.html:433
+#: shop/templates/shop/index.html:441
 msgid "View All News"
 msgstr "Дивитись всі новини"
 
@@ -408,11 +409,12 @@ msgstr[3] "%(product_rev)s відгуків"
 msgid "Description :"
 msgstr "Опис :"
 
-#: shop/templates/shop/product_detail.html:85
+#: shop/templates/shop/product_detail.html:85 templates/modal.html:26
 msgid "Prod.SKU"
 msgstr "Артикул"
 
 #: shop/templates/shop/product_detail.html:87 shop/templatetags/shop_tags.py:8
+#: templates/modal.html:28
 msgid "Delivery"
 msgstr "Доставка"
 
@@ -424,7 +426,7 @@ msgstr "Україна, США і Європа"
 msgid "Out of stock."
 msgstr "Немає в наявності"
 
-#: shop/templates/shop/product_detail.html:113
+#: shop/templates/shop/product_detail.html:113 templates/modal.html:45
 msgid "Add to Wishlist"
 msgstr "Додати до Бажаного"
 
@@ -946,45 +948,105 @@ msgstr "Блог"
 msgid "Help"
 msgstr "Допомога"
 
-#: templates/base.html:140
+#: templates/base.html:114
 msgid "Search for Products"
 msgstr "Пошук товарів"
 
-#: templates/base.html:143
+#: templates/base.html:117
 msgid "All Categories"
 msgstr "Всі категорії"
 
-#: templates/base.html:155
+#: templates/base.html:129
 msgid "CALL US NOW"
 msgstr "ПОДЗВОНИ НАМ"
 
-#: templates/base.html:193
+#: templates/base.html:167
 msgid "ITEMS"
 msgstr "ТОВАРИ"
 
-#: templates/base.html:195
+#: templates/base.html:169
 msgid "VIEW CART"
 msgstr "ПЕРЕГДЯНУТИ КОШИК"
 
-#: templates/base.html:223
+#: templates/base.html:197
 msgid "Your cart is empty."
 msgstr "Ваш кошик порожній."
 
-#: templates/base.html:230
+#: templates/base.html:204
 msgid "TOTAL"
 msgstr "ВСЬОГО"
 
-#: templates/base.html:236
+#: templates/base.html:210
 msgid "CHECKOUT"
 msgstr "ОФОРМИТИ"
 
-#: templates/base.html:239
+#: templates/base.html:213
 msgid "LET'S SHOPPING"
 msgstr "ЗА ПОКУПКАМИ"
+
+#: templates/base.html:239
+msgid "Contact Info"
+msgstr "Контакти"
+
+#: templates/base.html:241
+msgid "Address"
+msgstr "Адреса"
+
+#: templates/base.html:245
+msgid "Phone"
+msgstr "Телефон"
+
+#: templates/base.html:246
+msgid "Toll Free"
+msgstr "Безкоштовно"
+
+#: templates/base.html:247
+msgid "Mobile"
+msgstr "Мобільні"
+
+#: templates/base.html:254
+msgid "WORKING DAYS"
+msgstr "РОБОЧІ ДНІ"
+
+#: templates/base.html:255
+msgid "Mon - Fri / 9:30 AM - 6:30 PM"
+msgstr "Пн - Пт / 9:30 - 18:30"
+
+#: templates/base.html:269
+msgid "Popular Tags"
+msgstr "Популярні теги"
+
+#: templates/base.html:290
+msgid "Stay informed"
+msgstr "Будь в курсі"
+
+#: templates/base.html:292
+msgid "Enter Your Email"
+msgstr "Введіть свою електронну адресу"
+
+#: templates/base.html:294
+msgid "Subscribe"
+msgstr "Підписатись"
+
+#: templates/base.html:297
+msgid ""
+"Subscribe to our newsletter to receive early discount offers, updates and "
+"new products info."
+msgstr "Підпишіться на нашу розсилку, щоб отримувати ранні пропозиції знижок, оновлення та інформацію про нові продукти."
+
+#: templates/base.html:301
+msgid "Download our app"
+msgstr "Завантажити застосунок"
 
 #: templates/menu.html:7
 msgid "Navigation"
 msgstr "Навігація"
+
+#: templates/modal.html:18
+#, fuzzy
+#| msgid "Price"
+msgid "Price:"
+msgstr "Ціна"
 
 #: templates/openid/login.html:9
 msgid "OpenID Sign In"
@@ -1015,7 +1077,7 @@ msgstr ""
 #: templates/socialaccount/connections.html:43
 msgid ""
 "You currently have no social network accounts connected to this account."
-msgstr ""
+msgstr "Зараз у вас немає облікових записів соціальних мереж, підключених до цього облікового запису."
 
 #: templates/socialaccount/connections.html:46
 msgid "Add a 3rd Party Account"

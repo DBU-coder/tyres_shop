@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-30 01:24+0200\n"
+"POT-Creation-Date: 2023-11-06 18:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -61,31 +61,23 @@ msgstr "Продовжити покупки"
 msgid "Clear Cart"
 msgstr "Очистити кошик"
 
-#: cart/templates/cart/cart_detail.html:103
-msgid "Discount Code"
-msgstr "Промокод"
-
 #: cart/templates/cart/cart_detail.html:106
-msgid "Enter discount code"
-msgstr "Промокод"
-
-#: cart/templates/cart/cart_detail.html:107
 msgid "Apply Discount"
 msgstr "Використати"
 
-#: cart/templates/cart/cart_detail.html:114
+#: cart/templates/cart/cart_detail.html:113
 msgid "Subtotal:"
 msgstr "Проміжна сума:"
 
-#: cart/templates/cart/cart_detail.html:116
+#: cart/templates/cart/cart_detail.html:115
 msgid "Discount:"
 msgstr "Знижка:"
 
-#: cart/templates/cart/cart_detail.html:119
+#: cart/templates/cart/cart_detail.html:118
 msgid "Order Total:"
 msgstr "Сума замовлення:"
 
-#: cart/templates/cart/cart_detail.html:121
+#: cart/templates/cart/cart_detail.html:120
 msgid "Proceed to Checkout"
 msgstr "Перейти до оформлення"
 
