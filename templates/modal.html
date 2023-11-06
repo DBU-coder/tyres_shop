@@ -1,4 +1,4 @@
-{% load static %}
+{% load static i18n %}
     <!--start quick view product-->
     <!-- Modal -->
     <div class="modal fade" id="QuickViewProduct">
@@ -15,17 +15,17 @@
                                 <h3 class="mt-3 mt-lg-0 mb-0 modal-title"></h3>
                                 <hr>
                                 <div class="d-flex align-items-center mt-3 gap-2">
-                                    <h5 class="mb-0 text-light-3">Price:</h5>
+                                    <h5 class="mb-0 text-light-3">{% trans 'Price:' %}</h5>
                                     <h4 class="mb-0 modal-price"></h4>
                                 </div>
                                 <div class="mt-3">
-                                    <h6>Discription :</h6>
+                                    <h6>{% trans 'Description' %} :</h6>
                                     <p class="mb-0 modal-desc"></p>
                                 </div>
                                 <dl class="row mt-3">
-                                    <dt class="col-sm-3">Product id</dt>
+                                    <dt class="col-sm-3">{% trans 'Prod.SKU' %} :</dt>
                                     <dd class="col-sm-9 modal-sku"></dd>
-                                    <dt class="col-sm-3">Delivery</dt>
+                                    <dt class="col-sm-3">{% trans 'Delivery' %} :</dt>
                                     <dd class="col-sm-9">Ukraine, USA, and Europe</dd>
                                 </dl>
                                 <hr>
@@ -40,9 +40,9 @@
                                     </div>
                                 </div>
                                 <div class="d-flex gap-2 mt-3 form-buttons">
-                                    <button name="btn" form="addToCartForm" type="submit" class="btn btn-primary btn-ecomm"><i class="bx bxs-cart-add"></i>Add to Cart</button>
+                                    <button name="btn" form="addToCartForm" type="submit" class="btn btn-primary btn-ecomm"><i class="bx bxs-cart-add"></i>{% trans 'Add to Cart' %}</button>
                                     <a href="javascript:;" class="btn btn-light btn-ecomm"><i
-                                            class="bx bx-heart"></i>Add to Wishlist</a>
+                                            class="bx bx-heart"></i>{% trans 'Add to Wishlist' %}</a>
                                 </div>
 
                             </div>

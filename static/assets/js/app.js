@@ -237,13 +237,13 @@ a.forEach((el) => {
 
 // Carousel for modal
 function createCarousel(links) {
-    $('.image-zoom-section').html('<div id="modal_carousel" class="product-gallery owl-carousel owl-theme border mb-3 p-3" data-slider-id="1"></div><div class="owl-thumbs d-flex justify-content-center" data-slider-id="1"></div>');
-
-    for (let i = 0; i < links.length; i++) {
-        $(".owl-carousel").append('<div class="item"><img src="' + links[i].textContent + '" alt="" /></div>');
-        $(".owl-thumbs").append('<button class="owl-thumb-item"><img src="' + links[i].textContent + '" alt="" /></button>');
-    }
+    $('.image-zoom-section').html('<div id="modal_carousel" class="product-gallery owl-carousel owl-theme border mb-3 p-3" data-slider-id="1"></div><div id="modal_thumbs" class="owl-thumbs d-flex justify-content-center" data-slider-id="1"></div>');
     let owl = $("#modal_carousel");
+    let thumbs = $("#modal_thumbs");
+    for (let i = 0; i < links.length; i++) {
+        owl.append('<div class="item"><img src="' + links[i].textContent + '" alt="" /></div>');
+        thumbs.append('<button class="owl-thumb-item"><img src="' + links[i].textContent + '" alt="" /></button>');
+    }
     owl.owlCarousel({
         loop: true,
         margin: 10,
