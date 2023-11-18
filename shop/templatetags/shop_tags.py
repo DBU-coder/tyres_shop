@@ -16,8 +16,8 @@ register = template.Library()
 @register.simple_tag()
 def get_main_image(product):
     try:
-        first_gallery_obj = product.gallery.all()[0]
-        return first_gallery_obj.image
+        first_gallery_obj = product.images.all()[0]
+        return first_gallery_obj
     except IndexError:
         return None
 
@@ -35,7 +35,6 @@ def get_menu():
 def show_rating(product):
     data = {
         'product_id': product.id,
-        'product_model': product.model_name,
         'rating': round(product.avg_rating, 1) if product.avg_rating else 0,
         'users_count': product.users_count if product.users_count else 0
     }

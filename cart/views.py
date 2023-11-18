@@ -7,6 +7,7 @@ from django.utils.translation import gettext_lazy as _
 from cart.cart import Cart
 from cart.forms import AddToCartForm
 from coupons.forms import CouponApplyForm
+from shop.models import Product
 
 CART_REDIRECT_URL = 'cart:detail'
 
@@ -17,9 +18,7 @@ class AddToCartView(View):
 
     def dispatch(self, request, *args, **kwargs):
         self.cart = Cart(self.request)
-        ct_model, product_slug = kwargs.get('ct_model'), kwargs.get('slug')
-        content_type = ContentType.objects.get(model=ct_model)
-        self.product = content_type.model_class().objects.get(slug=product_slug)
+        self.product = Product.objects.get(slug=self.kwargs['slug'])
         return super().dispatch(request, *args, **kwargs)
 
     def post(self, *args, **kwargs):

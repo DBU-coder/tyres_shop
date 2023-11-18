@@ -5,12 +5,14 @@ from django.urls import path, include
 from django.conf.urls.i18n import i18n_patterns
 
 from orders.views import StripeWebhookView
+from shop.views import get_specifications
 
 
 urlpatterns = [
     path("__debug__/", include("debug_toolbar.urls")),
     path('ratings/', include('ratings.urls', namespace='ratings')),
     path('webhooks/stripe/', StripeWebhookView.as_view(), name='stripe_webhook'),
+    path('get_specifications/<int:product_type_id>/', get_specifications, name='get_specifications'),
 ]
 
 urlpatterns += i18n_patterns(

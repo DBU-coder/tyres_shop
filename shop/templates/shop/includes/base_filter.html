@@ -1,0 +1,32 @@
+{% load i18n %}
+
+<div class="product-brands">
+    <h6 class="text-uppercase mb-3">{{ filter.form.brand.label }}</h6>
+    <ul class="list-unstyled mb-0 categories-list">
+        {% for brand in filter.form.brand %}
+            <li>
+                <div class="form-check">
+                    {{ brand }}
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+    <button type="submit" class="btn btn-dark btn-sm text-uppercase rounded-0 font-13 fw-500">
+        {% trans 'Filter' %}
+    </button>
+</div>
+<hr>
+
+<div class="price-range">
+    <h6 class="text-uppercase mb-3">{{ filter.form.price.label }}</h6>
+{#    <div class="my-4" id="slider"></div>#}
+        {{ filter.form.price }}
+    <div class="d-flex align-items-center">
+        <button type="submit" class="btn btn-dark btn-sm text-uppercase rounded-0 font-13 fw-500">
+            {% trans 'Filter' %}
+        </button>
+        <div class="ms-auto">
+
+        </div>
+    </div>
+</div>

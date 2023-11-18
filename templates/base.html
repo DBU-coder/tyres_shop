@@ -21,8 +21,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link href="{% static 'assets/css/app.css' %}" rel="stylesheet">
     <link href="{% static 'assets/css/icons.css' %}" rel="stylesheet">
-    {% block head %}
-    {% endblock %}
+    {% block head %}{% endblock %}
 
     <title>{% if title %}{{ title }}{% else %}Shop{% endif %}</title>
 
@@ -183,10 +182,10 @@
                                                                     <div class="cart-product-cancel position-absolute">
                                                                         <i class='bx bx-x'></i>
                                                                     </div>
-                                                                    {% get_main_image product as image %}
+                                                                    {% get_main_image product as image_obj %}
                                                                     <div class="cart-product">
-                                                                        <img src="{{ image.url }}" class=""
-                                                                             alt="product image">
+                                                                        <img src="{{ image_obj.image.url }}" class=""
+                                                                             alt="{{ image_obj.alt_text }}">
                                                                     </div>
                                                                 </div>
                                                             </div>

@@ -100,7 +100,7 @@ msgid "Image"
 msgstr "Зображення"
 
 #: shop/models.py:92
-msgid "Gallery"
+msgid "ProductImage"
 msgstr "Галерея"
 
 #: shop/models.py:93

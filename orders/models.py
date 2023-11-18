@@ -8,6 +8,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 
 from customers.models import Customer
 from coupons.models import Coupon
+from shop.models import Product
 
 
 class Order(models.Model):
@@ -63,14 +64,12 @@ class Order(models.Model):
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-    object_id = models.PositiveIntegerField()
-    content_object = GenericForeignKey('content_type', 'object_id')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
     price = models.IntegerField()
     quantity = models.PositiveIntegerField(default=1)
 
     def __str__(self):
-        return f'OrderItem: {self.id}'
+        return self.id
 
     def get_cost(self):
         return self.price * self.quantity

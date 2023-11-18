@@ -1,0 +1,33 @@
+<div class="my-4" id="{{ widget.attrs.id }}"></div>
+{% for subwidget in widget.subwidgets %}
+    {% include subwidget.template_name with widget=subwidget %}
+{% endfor %}
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const slider = document.getElementById('{{ widget.attrs.id }}');
+    const minInput = document.getElementById('{{ widget.subwidgets.0.attrs.id }}');
+    const maxInput = document.getElementById('{{ widget.subwidgets.1.attrs.id }}');
+
+    noUiSlider.create(slider, {
+        start: [{{ value.0|default:min_value }}, {{ value.1|default:max_value }}],
+        connect: true,
+        range: {
+            'min': {{ min_value }},
+            'max': {{ max_value }}
+        },
+        step: {{ step }}
+    });
+
+    slider.noUiSlider.on('update', function (values, handle) {
+        let value = values[handle];
+
+        if (handle === 0) {
+            minInput.value = value;
+        } else {
+            maxInput.value = value;
+        }
+    });
+});
+</script>
+

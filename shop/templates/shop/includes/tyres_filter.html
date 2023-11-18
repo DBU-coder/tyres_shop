@@ -1,0 +1,40 @@
+{% load i18n %}
+<hr>
+<div class="product-categories">
+    <h6 class="text-uppercase mb-3">{{ filter.form.vehicle.label }}</h6>
+    {{ filter.form.vehicle }}
+</div>
+<hr>
+<div class="size-range">
+    <h6 class="text-uppercase mb-3">{{ filter.form.season.label }}</h6>
+    <ul class="list-unstyled mb-0 categories-list">
+        {% for season in filter.form.season %}
+            <li>
+                <div class="form-check">
+                    {{ season }}
+                    <label class="form-check-label"
+                           for="{{ season.id_for_label }}">{{ season.label }}</label>
+                </div>
+            </li>
+        {% endfor %}
+        <button type="submit" class="btn btn-dark btn-sm text-uppercase rounded-0 font-13 fw-500">
+            {% trans 'Filter' %}
+        </button>
+    </ul>
+</div>
+<hr>
+<div class="size-range">
+    <h6 class="text-uppercase mb-3">{{ filter.form.diameter.label }}</h6>
+    <ul class="list-unstyled mb-0 categories-list">
+        {% for diameter in filter.form.diameter %}
+            <li>
+                <div class="form-check">
+                    {{ diameter }}
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+    <button type="submit" class="btn btn-dark btn-sm text-uppercase rounded-0 font-13 fw-500">
+        {% trans 'Filter' %}
+    </button>
+</div>

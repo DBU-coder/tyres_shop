@@ -1,26 +1,23 @@
 import stripe
 
 from django.conf import settings
-from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
-from django.db.models import Sum, Avg, Count
+from django.db.models import Sum, Avg, Count, UniqueConstraint, Q
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from django_resized import ResizedImageField
 
-from orders.models import OrderItem
-from ratings.models import Rating
-
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
 def user_directory_path(instance, filename):
-    model_name = instance.content_type.model
-    product_id = instance.object_id
-    return f'images/products/{model_name}/{product_id}/{filename}'
+    """Setting path to upload product images"""
+    product_type = instance.product.product_type.name
+    product_name = instance.product.name
+    return f'images/products/{product_type}/{product_name}/{filename}'
 
 
 class HomepageProductsManager(models.Manager):
@@ -30,8 +27,8 @@ class HomepageProductsManager(models.Manager):
         products = []
         content_type_models = ContentType.objects.filter(model__in=args)
         for ct_model in content_type_models:
-            model_products = ct_model.model_class().objects.select_related('category').prefetch_related('gallery')\
-                             .order_by('-created')[:10]
+            model_products = ct_model.model_class().objects.select_related('category').prefetch_related('gallery') \
+                                 .order_by('-created')[:10]
             products.extend(model_products)
         return products
 
@@ -65,78 +62,100 @@ class Category(models.Model):
         verbose_name = _("Category")
         verbose_name_plural = _('Categories')
 
-    name = models.CharField(max_length=100, verbose_name=_('Name'))
-    slug = models.SlugField(max_length=100, unique=True, verbose_name=_('Slug'))
+    name = models.CharField(_('Name'), max_length=100)
+    slug = models.SlugField(_('Slug'), max_length=100, unique=True)
+    is_active = models.BooleanField(_('Is Active'), default=True)
 
     def __str__(self):
         return self.name
 
 
-class Gallery(models.Model):
-    """ Table for upload multiple images"""
+class ProductType(models.Model):
+    """
+    ProductType Table will provide a list of the different types
+    of products that are for sale.
+    """
 
-    image = ResizedImageField(
-        size=[300, 400],
-        crop=['middle', 'center'],
-        upload_to=user_directory_path,
-        verbose_name=_('Image')
-    )
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-    object_id = models.PositiveIntegerField()
-    content_object = GenericForeignKey('content_type', 'object_id')
+    name = models.CharField(_("Type name"), help_text=_("Required"), max_length=255, unique=True)
+    is_active = models.BooleanField(_('Is Active'), default=True)
 
     class Meta:
-        indexes = [
-            models.Index(fields=["content_type", "object_id"]),
-        ]
-        verbose_name = _("Gallery")
-        verbose_name_plural = _("Galleries")
+        verbose_name = _("Product Type")
+        verbose_name_plural = _("Product Types")
+
+    def __str__(self):
+        return self.name
 
 
-class BaseProduct(models.Model):
+class ProductSpecification(models.Model):
+    """
+    The Product Specification Table contains product
+    specification or features for the product types.
+    """
+
+    product_type = models.ForeignKey(ProductType, on_delete=models.RESTRICT)
+    name = models.CharField(verbose_name=_("Name"), help_text=_("Required"), max_length=255)
+
+    class Meta:
+        verbose_name = _("Product Specification")
+        verbose_name_plural = _("Product Specifications")
+        unique_together = ("product_type", "name")
+
+    def __str__(self):
+        return self.name
+
+
+class Product(models.Model):
+    """The Product table containing all product items."""
+
     STATUS_CHOICES = (
         (0, _('out stock')),
         (1, _('in stock')),
         (2, _('running out')),
         (3, _('coming soon')),
     )
-
-    class Meta:
-        abstract = True
-
-    sku = models.CharField(_('sku'), max_length=10, unique=True)
+    product_type = models.ForeignKey(ProductType, on_delete=models.RESTRICT, verbose_name=_('Product Type'))
+    specification = models.ManyToManyField(ProductSpecification, through='ProductSpecificationValue')
+    category = models.ForeignKey(Category, on_delete=models.RESTRICT, verbose_name=_('Category'))
     name = models.CharField(_('Name'), max_length=100, unique=True)
-    slug = models.SlugField(_('Slug'), max_length=100, unique=True)
+    sku = models.CharField(_('sku'), max_length=10, unique=True)
+    slug = models.SlugField(_('Slug'), max_length=100, unique=True, help_text=_('The field is filled in automatically'))
     brand = models.CharField(_('Brand'), max_length=100)
     country = models.CharField(_('Country'), max_length=50, blank=True)
     description = models.TextField(_('Description'), blank=True)
-    price = models.IntegerField(_('Price'))
-    stripe_product_price_id = models.CharField(max_length=128, blank=True)
+    price = models.DecimalField(
+        verbose_name=_('Price'),
+        error_messages={
+            "name": {
+                "max_length": _("The price must be between 0 and 9999.99."),
+            },
+        },
+        max_digits=6,
+        decimal_places=2
+    )
+    stripe_product_price_id = models.CharField(
+        max_length=128,
+        blank=True,
+        help_text=_('The field is filled in automatically')
+    )
     status = models.PositiveSmallIntegerField(_('Status'), default=0, choices=STATUS_CHOICES)
-    stock_qty = models.IntegerField(_('Stock quantity'), default=0)
-    created = models.DateTimeField(_('Created'), auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name=_('Category'))
-    gallery = GenericRelation(Gallery, related_query_name='product')
-    ratings = GenericRelation(Rating, related_query_name='product')
-    order_items = GenericRelation(OrderItem, related_query_name='product')
-    statistics = GenericRelation('ProductStatistic', related_query_name='product')
+    created = models.DateTimeField(_('Created'), auto_now_add=True, editable=False)
+    updated = models.DateTimeField(_('Updated'), auto_now=True)
+    is_active = models.BooleanField(_('Is Active'), default=True, help_text=_('Change product visibility'))
+
+    def __str__(self):
+        return self.name
 
     def get_absolute_url(self):
-        return reverse('shop:product_detail', kwargs={'ct_model': self._meta.model_name, 'slug': self.slug})
-
-    @property
-    def model_name(self):
-        return self._meta.model_name
+        return reverse('shop:product_detail', kwargs={'slug': self.slug})
 
     def create_stripe_product_price(self):
         stripe_product = stripe.Product.create(
-            name=self.name,
-            images=[f'{settings.DOMAIN_NAME}/{gallery.image.url}' for gallery in self.gallery.all()]
+            name=self.name
         )
         stripe_product_price = stripe.Price.create(
             product=stripe_product['id'],
-            unit_amount=(self.price * 100),
+            unit_amount=int(self.price * 100),
             currency='usd'
         )
         return stripe_product_price
@@ -148,76 +167,61 @@ class BaseProduct(models.Model):
         super().save(force_insert=False, force_update=False, using=None, update_fields=None)
 
 
-class Tyre(BaseProduct):
+class ProductSpecificationValue(models.Model):
+    """
+    The Product Specification Value table holds each of the
+    products individual specification or bespoke features.
+    """
+
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="spec")
+    specification = models.ForeignKey(ProductSpecification, on_delete=models.RESTRICT)
+    value = models.CharField(
+        verbose_name=_("value"),
+        help_text=_("Product specification value (maximum of 255 characters"),
+        max_length=255,
+    )
+
     class Meta:
-        verbose_name = _('Tyre')
-        verbose_name_plural = _('Tyres')
-
-    VEHICLE_CHOICES = (
-        (1, _('Motorcycle')),
-        (2, _('Car')),
-        (3, _('Truck')),
-        (4, _('Special transports')),
-    )
-
-    SEASON_CHOICES = (
-        (1, _('All season')),
-        (2, _('Summer')),
-        (3, _('Winter')),
-    )
-
-    vehicle_type = models.PositiveSmallIntegerField('Vehicle type', choices=VEHICLE_CHOICES)
-    profile = models.DecimalField(_('Profile'), max_digits=4, decimal_places=1)
-    season = models.PositiveSmallIntegerField(_('Season'), choices=SEASON_CHOICES)
-    diameter = models.PositiveSmallIntegerField(_('Diameter'))
-    width = models.PositiveSmallIntegerField(_('Width'))
-    load_index = models.PositiveSmallIntegerField(_('Load index'), null=True, blank=True)
-    speed_index = models.CharField(_('Speed index'), max_length=3, blank=True)
-    spikes = models.BooleanField(_('Spikes'), default=False)
-    weight = models.DecimalField(_('Weight'), max_digits=4, decimal_places=1, null=True, blank=True)
+        verbose_name = _("Product Specification Value")
+        verbose_name_plural = _("Product Specification Values")
+        unique_together = ("specification", "product", "value")
 
     def __str__(self):
-        return self.name
+        return self.value
 
 
-class Wheel(BaseProduct):
+class ProductImage(models.Model):
+    """The Product Image table."""
+
     class Meta:
-        verbose_name = _('Wheel')
-        verbose_name_plural = _('Wheels')
+        verbose_name = _('Product Image')
+        verbose_name_plural = _('Product images')
 
-    TYPE_CHOICES = (
-        (1, _('Alloy')),
-        (2, _('Steel')),
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')
+    image = ResizedImageField(
+        size=[300, 400],
+        crop=['middle', 'center'],
+        upload_to=user_directory_path,
+        verbose_name=_('Image')
     )
-
-    model = models.CharField(_('Model'), max_length=100, blank=True)
-    et = models.PositiveSmallIntegerField(blank=True, null=True)
-    diameter = models.PositiveSmallIntegerField(_('Diameter'), )
-    pcd = models.CharField(max_length=20, blank=True)
-    width = models.DecimalField(_('Width'), max_digits=4, decimal_places=2)
-    type = models.PositiveSmallIntegerField(_('Type'), choices=TYPE_CHOICES)
-    dia = models.DecimalField(max_digits=4, decimal_places=2, blank=True, null=True)
-    color = models.CharField(_('Color'), max_length=50, blank=True)
-
-    def __str__(self):
-        return self.name
+    alt_text = models.CharField(
+        verbose_name=_("Alternative text"),
+        help_text=_("Please add alternative text"),
+        max_length=255,
+        blank=True,
+    )
 
 
 class ProductStatistic(models.Model):
-    content_type = models.ForeignKey(ContentType,
-                                     on_delete=models.CASCADE,
-                                     limit_choices_to={'model__in': ('tyre', 'wheel')}
-                                     )
-    object_id = models.PositiveIntegerField()
-    content_object = GenericForeignKey('content_type', 'object_id')
+    """
+    Contains information about quantity of purchases for each product.
+    """
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='statistics')
     date = models.DateField(_('Date'), default=timezone.now)
-    sales_quantity = models.PositiveIntegerField(_('Sales quantity'), default=0)
+    purchases_quantity = models.PositiveIntegerField(_('Purchases quantity'), default=0)
 
     class Meta:
-        indexes = [
-            models.Index(fields=["content_type", "object_id"]),
-        ]
         verbose_name_plural = _('Product statistics')
 
     def __str__(self):
-        return f'{self.content_object.name} sales: {self.sales_quantity}'
+        return f'{self.product.name} sales: {self.purchases_quantity}'

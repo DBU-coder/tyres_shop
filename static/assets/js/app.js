@@ -201,7 +201,6 @@ function initRatings() {
                     mode: 'same-origin',
                     body: JSON.stringify({
                         user_rating: value,
-                        product_model: rating.dataset.model,
                         product_id: rating.dataset.id
                     }),
                     headers: {

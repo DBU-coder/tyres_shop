@@ -1,21 +1,31 @@
 from modeltranslation.translator import register, TranslationOptions
-from .models import Category, Tyre, Wheel
+from .models import Category, Product, ProductType, ProductSpecification, ProductSpecificationValue
 
 
-@register(Category)
-class CategoryTranslationOptions(TranslationOptions):
+class AbstractTranslationOptions(TranslationOptions):
     fields = ('name',)
 
 
-class AbstractProductTranslationOptions(TranslationOptions):
+@register(Category)
+class CategoryTranslationOptions(AbstractTranslationOptions):
+    pass
+
+
+@register(ProductType)
+class ProductTypeTranslationOptions(AbstractTranslationOptions):
+    pass
+
+
+@register(ProductSpecification)
+class SpecificationTranslationOptions(AbstractTranslationOptions):
+    pass
+
+
+@register(Product)
+class ProductTranslationOptions(TranslationOptions):
     fields = ('country', 'description')
 
 
-@register(Tyre)
-class TyreTranslationOptions(AbstractProductTranslationOptions):
-    pass
-
-
-@register(Wheel)
-class WheelTranslationOptions(AbstractProductTranslationOptions):
-    pass
+@register(ProductSpecificationValue)
+class ProductSpecificationValueTranslationOptions(TranslationOptions):
+    fields = ('value',)

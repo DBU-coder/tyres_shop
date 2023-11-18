@@ -155,7 +155,7 @@ class StripeWebhookView(View):
                 date=timezone.now(),
                 defaults={'content_type': item.content_type, 'object_id': item.object_id, 'date': timezone.now()},
             )
-            obj.sales_quantity += item.quantity
+            obj.purchases_quantity += item.quantity
             obj.save(update_fields=['sales_quantity'])
 
 

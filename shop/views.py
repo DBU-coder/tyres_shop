@@ -2,14 +2,15 @@ from itertools import chain
 
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import Avg, Count, Q
+from django.http import JsonResponse
 from django.views.generic import DetailView, TemplateView, ListView
 from django.utils.translation import gettext_lazy as _
 
 from enhanced_cbv.views import ListFilteredView
 
 from cart.forms import AddToCartForm
-from shop.filters import TyreFilter, WheelFilter
-from shop.models import HomepageProduct, Tyre, Wheel
+from shop.filters import BaseFilter, TyreFilter, WheelFilter
+from shop.models import HomepageProduct, Product, Category, ProductSpecification
 
 
 class IndexTemplateView(TemplateView):
@@ -63,33 +64,33 @@ class SearchView(ListView):
 
 
 class CategoryProductsListView(ListFilteredView):
-    CT_MODELS_MODEL_CLASS = {
-        'tyres': Tyre,
-        'wheels': Wheel
-    }
-
     context_object_name = 'products'
     template_name = 'shop/category_products.html'
+    category_filters = {
+        'tyres': TyreFilter,
+        'wheels': WheelFilter
+    }
 
     def get_filter_set(self):
-        if self.kwargs['cat_name'] == 'tyres':
-            return TyreFilter
-        return WheelFilter
+        return self.category_filters.get(self.kwargs['slug'], BaseFilter)
 
     def get_context_data(self, **kwargs):
+        category = Category.objects.get(slug=self.kwargs['slug'])
         context = super().get_context_data(**kwargs)
         context['paginate_by'] = self.paginate_by
         context['form'] = AddToCartForm
-        context['title'] = f'Category | {self.kwargs.get("cat_name").title()}'
+        context['title'] = f'Category | {category.name}'
+        context['category'] = category
         return context
 
     def get_base_queryset(self):
-        ct_model = self.kwargs.get('cat_name')
-        product_model = self.CT_MODELS_MODEL_CLASS[ct_model]
-        queryset = product_model.objects.select_related('category').prefetch_related('gallery', 'ratings').annotate(
-            avg_rating=Avg('ratings__value'),
-            users_count=Count('ratings__ip')
-        ).only('category', 'ratings', 'gallery', 'name', 'price', 'slug').order_by('id')
+        queryset = Product.objects.filter(category__slug=self.kwargs['slug'], is_active=True).\
+            select_related('category').\
+            prefetch_related('images', 'ratings', 'spec__specification').\
+            annotate(
+                avg_rating=Avg('ratings__value'),
+                users_count=Count('ratings__ip')
+            ).order_by('id')
         return queryset
 
     def get_paginate_by(self, queryset):
@@ -97,24 +98,9 @@ class CategoryProductsListView(ListFilteredView):
 
 
 class ProductDetailView(DetailView):
-    CT_MODELS_MODEL_CLASS = {
-        'tyre': Tyre,
-        'wheel': Wheel
-    }
+    model = Product
     context_object_name = 'product'
     template_name = 'shop/product_detail.html'
-
-    def dispatch(self, request, *args, **kwargs):
-        self.model = self.CT_MODELS_MODEL_CLASS[kwargs['ct_model']]
-        return super().dispatch(request, *args, **kwargs)
-
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        queryset = queryset.select_related('category').prefetch_related('ratings', 'gallery').annotate(
-            avg_rating=Avg('ratings__value'),
-            users_count=Count('ratings__ip')
-        )
-        return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -148,3 +134,14 @@ class ContactsView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['title'] = _('Shop | Contacts')
         return context
+
+
+def get_specifications(request, product_type_id):
+    """
+    Get specifications for a product type and send it to JS.
+    This is necessary to select unique product specifications
+    in the admin panel.
+    """
+    specifications = ProductSpecification.objects.filter(product_type_id=product_type_id)
+    data = [{'id': spec.id, 'name': spec.name} for spec in specifications]
+    return JsonResponse(data, safe=False)

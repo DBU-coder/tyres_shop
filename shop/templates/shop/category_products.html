@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 {% load static shop_tags i18n %}
+{% block head %}
+  {{ filter.form.media }}
+{% endblock %}
 {% block content %}
     <!--start page wrapper -->
     <div class="page-wrapper">
@@ -28,12 +31,26 @@
                 <div class="container">
                 <form>
                     <div class="row">
-                    {% if view.kwargs.cat_name == 'tyres' %}
-                        {% include 'shop/tyres_filter.html' %}
-                    {% else %}
-                        {% include 'shop/wheels_filter.html' %}
-                    {% endif %}
-
+                    <div class="col-12 col-xl-3">
+                        <div class="btn-mobile-filter d-xl-none"><i class='bx bx-slider-alt'></i></div>
+                        <div class="filter-sidebar d-none d-xl-flex">
+                            <div class="card rounded-0 w-100">
+                                <div class="card-body">
+                                    <div class="align-items-center d-flex d-xl-none">
+                                        <h6 class="text-uppercase mb-0">{% trans 'Filter' %}</h6>
+                                        <div class="btn-mobile-filter-close btn-close ms-auto cursor-pointer"></div>
+                                    </div>
+                                    <hr class="d-flex d-xl-none"/>
+                                    {% include 'shop/includes/base_filter.html' %}
+                                    {% if view.kwargs.slug == 'tyres' %}
+                                        {% include 'shop/includes/tyres_filter.html' %}
+                                    {% elif view.kwargs.slug == 'wheels' %}
+                                        {% include 'shop/includes/wheels_filter.html' %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                         <div class="col-12 col-xl-9">
                             <div class="product-wrapper">
                                 <div class="toolbox d-flex align-items-center mb-3 gap-2">
@@ -72,9 +89,9 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    {% get_main_image product as image %}
-                                                    {% if image %}
-                                                        <img src="{{ image.url }}" class="card-img-top" alt="...">
+                                                {% get_main_image product as image_obj %}
+                                                    {% if image_obj %}
+                                                        <img src="{{ image_obj.image.url }}" class="card-img-top" alt="{{ image_obj.alt_text }}">
                                                     {% else %}
                                                         <img src="{% static 'assets/images/products/no_image.png' %}" class="card-img-top" alt="...">
                                                     {% endif %}
@@ -82,7 +99,7 @@
                                                     <div class="card-body">
                                                         <div class="product-info">
                                                             <a href="javascript:;">
-                                                                <p class="product-catergory font-13 mb-1">{{ product.category }}</p>
+                                                                <p class="product-catergory font-13 mb-1">{{ product.category.name }}</p>
                                                             </a>
                                                             <a href="{{ product.get_absolute_url }}">
                                                                 <h6 class="product-name mb-2">{{ product.name }}</h6>
@@ -100,11 +117,11 @@
                                                             </div>
                                                             <div class="product-action mt-2">
                                                                 <div class="modal-info" style="display: none">  <!-- this div will be hidden by default and I use it to store all the info I'll need to display on the modal for each product -->
-                                                                <div class="img-links">{% for gallery in product.gallery.all %}<p>{{ gallery.image.url }}</p>{% empty %}<p>{% static 'assets/images/products/no_image.png' %}</p>{% endfor %}</div><h1>
-                                                                        {{ product.name }}</h1><p>{{ product.description}}</p><p>${{ product.price}}</p><p>{{ product.sku}}</p><p>{% url 'cart:add' ct_model=product.model_name slug=product.slug %}</p>
+                                                                <div class="img-links">{% for image_obj in product.images.all %}<p>{{ image_obj.image.url }}</p>{% empty %}<p>{% static 'assets/images/products/no_image.png' %}</p>{% endfor %}</div><h1>
+                                                                        {{ product.name }}</h1><p>{{ product.description}}</p><p>${{ product.price}}</p><p>{{ product.sku}}</p><p>{% url 'cart:add' product.slug %}</p>
                                                                 </div>
                                                                 <div class="d-grid gap-2">
-                                                                    <a href="{% url 'cart:add' product.model_name product.slug %}"
+                                                                    <a href="{% url 'cart:add' product.slug %}"
                                                                        class="btn btn-dark btn-ecomm {% if product.status == 0 %}disabled{% endif %}"> <i
                                                                             class="bx bxs-cart-add"></i>{% trans 'Add to Cart' %}</a>
                                                                     <a href="javascript:;"
@@ -124,7 +141,7 @@
                                 </div>
                             {% if page_obj.has_other_pages %}
                                 <hr>
-                                {% include 'shop/category_pagination.html' %}
+                                {% include 'shop/includes/category_pagination.html' %}
                             {% endif %}
 
                             </div>
