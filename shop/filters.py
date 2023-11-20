@@ -1,9 +1,10 @@
 import django_filters as filters
 from django import forms
+from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 from django_filters.widgets import LinkWidget, RangeWidget
 
-from .models import ProductSpecificationValue, Product
+from .models import ProductSpecificationValue, Product, Category
 
 
 class PriceRangeSliderWidget(RangeWidget):

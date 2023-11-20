@@ -108,18 +108,10 @@
                         </div>
                     </div>
                     <div class="col col-md order-4 order-md-2">
-
-                            <form class="input-group flex-nowrap px-xl-4" method="get" action="{% url 'shop:search' %}">
-                            <input name="q" type="text" class="form-control w-100" placeholder="{% trans 'Search for Products' %}">
-                            <select name="cat" class="form-select flex-shrink-0" aria-label="Default select example"
-                                    style="width: 10.5rem;">
-                                <option value="all" selected>{% trans 'All Categories' %}</option>
-                                <option value="tyre">{% trans 'Tyres' %}</option>
-                                <option value="wheel">{% trans 'Wheels' %}</option>
-                            </select>
-                            <button type="submit" class="input-group-text cursor-pointer bg-transparent"><i class='bx bx-search'></i></button>
-                            </form>
-
+                        <form class="input-group flex-nowrap px-xl-4" method="get" action="{% url 'shop:search' %}">
+                            {{ search_form }}
+                        <button type="submit" class="input-group-text cursor-pointer bg-transparent"><i class='bx bx-search'></i></button>
+                        </form>
                     </div>
                     <div class="col-4 col-md-auto order-3 d-none d-xl-flex align-items-center">
                         <div class="fs-1 text-white"><i class='bx bx-headphone'></i>

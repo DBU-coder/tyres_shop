@@ -54,7 +54,7 @@
                                                 <div class="col-12 col-lg-3">
                                                     <div class="cart-action text-center">
                                                         <form id="{{ forloop.counter }}"
-                                                              action="{% url 'cart:add' product.model_name product.slug %}"
+                                                              action="{% url 'cart:add' product.slug %}"
                                                               method="POST">
                                                             {% csrf_token %}
                                                             {{ item.update_quantity_form.quantity }}
@@ -69,7 +69,7 @@
                                                             <button form="{{ forloop.counter }}" type="submit"
                                                                     class="btn btn-dark rounded-0 btn-ecomm">
                                                                 <i class='bx bx-refresh'></i></button>
-                                                            <a href="{% url 'cart:remove' product.model_name product.slug %}"
+                                                            <a href="{% url 'cart:remove' product.slug %}"
                                                                class="btn btn-dark rounded-0 btn-ecomm"><i
                                                                     class='bx bx-x-circle'></i> {% trans 'Remove' %}</a>
 
