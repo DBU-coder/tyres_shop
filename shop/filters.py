@@ -1,6 +1,5 @@
 import django_filters as filters
 from django import forms
-from django.forms import HiddenInput
 from django.utils.translation import gettext_lazy as _
 from django_filters.widgets import LinkWidget, RangeWidget
 
@@ -49,6 +48,7 @@ class PriceRangeFilter(filters.RangeFilter):
 
 
 class BaseFilter(filters.FilterSet):
+
     ORDERING_CHOICES = (
         ('-avg_rating', _('Sort by rating:high to low')),
         ('avg_rating', _('Sort by rating:low to high')),
@@ -96,6 +96,7 @@ class BaseFilter(filters.FilterSet):
 
 
 class TyreFilter(BaseFilter):
+
     vehicle = filters.ChoiceFilter(
         label=_('Vehicle'),
         field_name='spec__value',

@@ -23,33 +23,21 @@ def user_directory_path(instance, filename):
 class HomepageProductsManager(models.Manager):
 
     @staticmethod
-    def get_new_products(*args):
-        products = []
-        content_type_models = ContentType.objects.filter(model__in=args)
-        for ct_model in content_type_models:
-            model_products = ct_model.model_class().objects.select_related('category').prefetch_related('gallery') \
-                                 .order_by('-created')[:10]
-            products.extend(model_products)
-        return products
+    def get_new_products(quantity=4):
+        return Product.objects.select_related('category').order_by('-created')[:quantity]
 
     @staticmethod
     def get_popular_products(days=0):
         """Returns popular products in the given days range."""
         popular = ProductStatistic.objects.filter(
             date__range=[timezone.now() - timezone.timedelta(days=days), timezone.now()],
-        ).values(
-            'content_type', 'object_id'
         ).annotate(
-            total_sales=Sum('sales_quantity')
-        ).order_by('-total_sales')
-        popular_products = []
-        for item in popular:
-            ct_model = ContentType.objects.get_for_id(item['content_type'])
-            product = ct_model.model_class().objects.select_related('category').annotate(
+            total_sales=Sum('purchases_quantity')
+        ).order_by('-total_sales').values_list('product_id', flat=True)
+        popular_products = Product.objects.filter(id__in=popular).select_related('category').prefetch_related('ratings').annotate(
                 avg_rating=Avg('ratings__value'),
                 users_count=Count('ratings__ip')
-            ).get(pk=item['object_id'])
-            popular_products.append(product)
+            )
         return popular_products
 
 

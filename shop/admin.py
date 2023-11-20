@@ -35,7 +35,7 @@ class ProductTypeAdmin(TabbedTranslationAdmin):
 
 @admin.register(Product)
 class ProductAdmin(TabbedTranslationAdmin):
-    list_display = ('product_type', 'sku', 'brand', 'name', 'price', 'status')
+    list_display = ('id', 'product_type', 'sku', 'brand', 'name', 'price', 'status')
     list_display_links = ('sku', 'name')
     search_fields = ('sku', 'brand', 'name')
     list_editable = ('status', 'price')

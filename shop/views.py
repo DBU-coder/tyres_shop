@@ -19,7 +19,7 @@ class IndexTemplateView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = _('Shop | Homepage')
-        context['new_products'] = HomepageProduct.objects.get_new_products('tyre', 'wheel')
+        context['new_products'] = HomepageProduct.objects.get_new_products(quantity=10)
         context['popular_products'] = HomepageProduct.objects.get_popular_products(days=7)
         return context
 
@@ -136,7 +136,7 @@ class ContactsView(TemplateView):
         return context
 
 
-def get_specifications(request, product_type_id):
+def get_specifications(_, product_type_id):
     """
     Get specifications for a product type and send it to JS.
     This is necessary to select unique product specifications

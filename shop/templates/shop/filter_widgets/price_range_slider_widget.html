@@ -1,7 +1,10 @@
 <div class="my-4" id="{{ widget.attrs.id }}"></div>
-{% for subwidget in widget.subwidgets %}
+<div class="d-flex flex-row">
+    {% for subwidget in widget.subwidgets %}
     {% include subwidget.template_name with widget=subwidget %}
 {% endfor %}
+</div>
+
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
