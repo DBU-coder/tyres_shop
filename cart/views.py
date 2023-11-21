@@ -46,9 +46,7 @@ class CartDetailView(TemplateView):
 class RemoveFromCartView(View):
     def get(self, request, *args, **kwargs):
         cart = Cart(self.request)
-        ct_model, product_slug = kwargs.get('ct_model'), kwargs.get('slug')
-        content_type = ContentType.objects.get(model=ct_model)
-        product = content_type.model_class().objects.get(slug=product_slug)
+        product = Product.objects.get(slug=kwargs.get('slug'))
         cart.remove(product)
         return redirect(CART_REDIRECT_URL)
 

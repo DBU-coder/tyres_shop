@@ -48,7 +48,7 @@ class Cart:
         cart_data = copy.deepcopy(self.cart_data)
 
         product_ids = cart_data.keys()
-        products = Product.objects.filter(id__in=product_ids)
+        products = Product.objects.prefetch_related('images').filter(id__in=product_ids)
         for product in products:
             item = cart_data[str(product.id)]
             item['product'] = product

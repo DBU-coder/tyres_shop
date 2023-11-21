@@ -1,3 +1,4 @@
+{% load l10n %}
 <div class="my-4" id="{{ widget.attrs.id }}"></div>
 <div class="d-flex flex-row">
     {% for subwidget in widget.subwidgets %}
@@ -13,11 +14,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const maxInput = document.getElementById('{{ widget.subwidgets.1.attrs.id }}');
 
     noUiSlider.create(slider, {
-        start: [{{ value.0|default:min_value }}, {{ value.1|default:max_value }}],
+        start: [{{ widget.subwidgets.0.value|default:min_value|unlocalize }}, {{ widget.subwidgets.1.value|default:max_value|unlocalize }}],
         connect: true,
         range: {
-            'min': {{ min_value }},
-            'max': {{ max_value }}
+            'min': {{ min_value|unlocalize }},
+            'max': {{ max_value|unlocalize }}
         },
         step: {{ step }}
     });

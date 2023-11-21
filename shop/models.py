@@ -1,9 +1,8 @@
 import stripe
 
 from django.conf import settings
-from django.contrib.contenttypes.models import ContentType
 from django.db import models
-from django.db.models import Sum, Avg, Count, UniqueConstraint, Q
+from django.db.models import Sum, Avg, Count
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _

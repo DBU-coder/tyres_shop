@@ -117,8 +117,6 @@ class ProductDetailView(DetailView):
         return queryset
 
 
-
-
 class DeliveryView(TemplateView):
     template_name = 'shop/delivery_detail.html'
 

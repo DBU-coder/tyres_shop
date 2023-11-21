@@ -4,7 +4,8 @@ from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 from django_filters.widgets import LinkWidget, RangeWidget
 
-from .models import ProductSpecificationValue, Product, Category
+from .models import ProductSpecificationValue, ProductSpecification
+from modeltranslation.utils import get_translation_fields, get_language
 
 
 class PriceRangeSliderWidget(RangeWidget):
@@ -79,9 +80,7 @@ class BaseFilter(filters.FilterSet):
         )]
 
     def filter_by_order(self, queryset, name, value):
-        """
-        Order queryset by user choice.
-        """
+        """Order queryset by user choice."""
         return queryset.order_by(value)
 
     def get_spec_value_choices(self, spec_name: str):
@@ -90,10 +89,12 @@ class BaseFilter(filters.FilterSet):
         values for a given specification name.
         """
         spec_values = ProductSpecificationValue.objects.filter(
-            specification__name__iexact=spec_name,
+            specification__name_en__iexact=spec_name,
             product__in=self.queryset,
-        ).values_list('value', flat=True).distinct('value')
+        ).values_list('value', flat=True).order_by().distinct('value_en')
+        print(spec_name, spec_values)
         return [(s, s.title()) for s in sorted(spec_values)]
+
 
 
 class TyreFilter(BaseFilter):
