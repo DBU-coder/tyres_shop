@@ -33,14 +33,14 @@
                             <div class="col-12 col-xl-12">
                                 <div class="shop-cart-list mb-3 p-3">
                                     {% for item in order %}
-                                        {% with product=item.content_object %}
+                                        {% with product=item.product %}
                                             <div class="row align-items-center g-3">
                                                 <div class="col-12 col-lg-6">
                                                     <div class="d-lg-flex align-items-center gap-2">
                                                         <div class="cart-img text-center text-lg-start">
-                                                            {% get_main_image product as image %}
+                                                            {% get_main_image product as image_obj %}
                                                         <a href="{{ product.get_absolute_url }}">
-                                                            <img src="{{ image.url }}" width="130" alt="">
+                                                            <img src="{{ image_obj.image.url }}" width="130" alt="{{ image_obj.alt_text }}">
                                                         </a>
                                                         </div>
                                                         <div class="cart-detail text-center text-lg-start">

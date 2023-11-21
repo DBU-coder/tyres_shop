@@ -42,14 +42,14 @@ class Order(models.Model):
         return sum(item.quantity for item in self.items.all())
 
     def stripe_products(self):
-        products = self.items.all()
+        order_items = self.items.all()
         line_items = []
-        for product in products:
-            item = {
-                'price': product.content_object.stripe_product_price_id,
-                'quantity': product.quantity
+        for item in order_items:
+            line_item = {
+                'price': item.product.stripe_product_price_id,
+                'quantity': item.quantity
             }
-            line_items.append(item)
+            line_items.append(line_item)
         return line_items
 
     def get_total_cost_before_discount(self):

@@ -60,7 +60,7 @@ class OrderCreateView(SessionWizardView):
 
         for item in cart:
             OrderItem.objects.create(order=order,
-                                     content_object=item['product'],
+                                     product=item['product'],
                                      price=item['price'],
                                      quantity=item['quantity'])
         cart.clear()

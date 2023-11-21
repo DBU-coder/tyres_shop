@@ -34,11 +34,12 @@
                             <div class="row g-0">
                                 <div class="col-12 col-lg-5">
                                     <div class="image-zoom-section">
+                                    {% with gallery=product.images.all %}
                                         <div class="product-gallery owl-carousel owl-theme border mb-3 p-3"
                                              data-slider-id="1">
-                                            {% for gallery in product.gallery.all %}
+                                            {% for image_obj in gallery %}
                                                 <div class="item">
-                                                    <img src="{{ gallery.image.url }}" class="img-fluid" alt="">
+                                                    <img src="{{ image_obj.image.url }}" class="img-fluid" alt="{{ image_obj.alt_text }}">
                                                 </div>
                                                 {% empty %}
                                                 <div class="item">
@@ -48,13 +49,13 @@
                                         </div>
 
                                         <div class="owl-thumbs d-flex justify-content-center" data-slider-id="1">
-                                            {% for gallery in product.gallery.all %}
+                                            {% for image_obj in gallery %}
                                                 <button class="owl-thumb-item">
-                                                    <img src="{{ gallery.image.url }}" class="" alt="">
+                                                    <img src="{{ image_obj.image.url }}" class="" alt="{{ image_obj.alt_text }}">
                                                 </button>
                                             {% endfor %}
                                         </div>
-
+                                    {% endwith %}
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-7">
