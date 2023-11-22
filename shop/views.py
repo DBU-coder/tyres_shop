@@ -1,6 +1,8 @@
 from django.db.models import Avg, Count, Q
 from django.http import JsonResponse
+from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
+from django.views.decorators.vary import vary_on_headers
 from django.views.generic import DetailView, TemplateView, ListView
 from enhanced_cbv.views import ListFilteredView
 

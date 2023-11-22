@@ -1,6 +1,7 @@
 import stripe
 
 from django.conf import settings
+from django.core.cache import cache
 from django.db import models
 from django.db.models import Sum, Avg, Count
 from django.urls import reverse
@@ -23,7 +24,15 @@ class HomepageProductsManager(models.Manager):
 
     @staticmethod
     def get_new_products(quantity=4):
-        return Product.objects.select_related('category').order_by('-created')[:quantity]
+        new_products = Product.objects. \
+                           select_related('category'). \
+                           prefetch_related('images'). \
+                           order_by('-created')[:quantity]
+        return cache.get_or_set(
+            key='new_products',
+            timeout=300,
+            default=new_products
+        )
 
     @staticmethod
     def get_popular_products(days=0):
@@ -33,11 +42,19 @@ class HomepageProductsManager(models.Manager):
         ).annotate(
             total_sales=Sum('purchases_quantity')
         ).order_by('-total_sales').values_list('product_id', flat=True)
-        popular_products = Product.objects.filter(id__in=popular).select_related('category').prefetch_related('ratings').annotate(
+        popular_products = Product.objects. \
+            filter(id__in=popular). \
+            select_related('category'). \
+            prefetch_related('ratings'). \
+            annotate(
                 avg_rating=Avg('ratings__value'),
                 users_count=Count('ratings__ip')
             )
-        return popular_products
+        return cache.get_or_set(
+            key='popular_products',
+            timeout=300,
+            default=popular_products
+        )
 
 
 class HomepageProduct:

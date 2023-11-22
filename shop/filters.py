@@ -1,11 +1,12 @@
 import django_filters as filters
 from django import forms
+from django.core.cache import cache
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 from django_filters.widgets import LinkWidget, RangeWidget
 
 from .models import ProductSpecificationValue, ProductSpecification
-from modeltranslation.utils import get_translation_fields, get_language
+from modeltranslation.utils import get_language
 
 
 class PriceRangeSliderWidget(RangeWidget):
@@ -88,12 +89,17 @@ class BaseFilter(filters.FilterSet):
         Returns a list of tuples with unique
         values for a given specification name.
         """
-        spec_values = ProductSpecificationValue.objects.filter(
-            specification__name_en__iexact=spec_name,
-            product__in=self.queryset,
-        ).values_list('value', flat=True).order_by().distinct('value_en')
-        return [(s, s.title()) for s in sorted(spec_values)]
-
+        language_prefix = get_language()
+        cache_key = f'choices_{spec_name}_{language_prefix}'
+        choices = cache.get(cache_key)
+        if not choices:
+            spec_values = ProductSpecificationValue.objects.filter(
+                specification__name_en__iexact=spec_name,
+                product__in=self.queryset,
+            ).values_list('value', flat=True).order_by().distinct('value_en')
+            choices = [(s, s.title()) for s in sorted(spec_values)]
+            cache.set(cache_key, choices, 300)
+        return choices
 
 
 class TyreFilter(BaseFilter):

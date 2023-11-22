@@ -150,13 +150,12 @@ class StripeWebhookView(View):
     def set_sales_quantity(self):
         for item in self.order.items.all():
             obj, _ = ProductStatistic.objects.get_or_create(
-                content_type=item.content_type,
-                object_id=item.object_id,
+                product=item.product,
                 date=timezone.now(),
-                defaults={'content_type': item.content_type, 'object_id': item.object_id, 'date': timezone.now()},
+                defaults={'product': item.product, 'date': timezone.now()},
             )
             obj.purchases_quantity += item.quantity
-            obj.save(update_fields=['sales_quantity'])
+            obj.save(update_fields=['purchases_quantity'])
 
 
 class SuccessView(TemplateView):
