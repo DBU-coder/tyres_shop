@@ -7,21 +7,18 @@ class Favorite:
         self.session = request.session
         favorites = self.session.get(settings.FAVORITES_SESSION_ID)
         if not favorites:
-            favorites = self.session[settings.FAVORITES_SESSION_ID] = dict()
+            favorites = self.session[settings.FAVORITES_SESSION_ID] = list()
         self.favorite_items = favorites
+        print(self.favorite_items)
 
-    def add(self, product_type: str, product_id: int):
-        ids = self.favorite_items.setdefault(product_type, [])
-        if product_id not in ids:
-            ids.append(product_id)
+    def add(self, product_id: int):
+        if product_id not in self.favorite_items:
+            self.favorite_items.append(product_id)
             self.save()
 
-    def remove(self, product_type: str, product_id: int):
-        ids = self.favorite_items[product_type]
-        if product_id in ids:
-            ids.remove(product_id)
-            if len(ids) == 0:
-                del self.favorite_items[product_type]
+    def remove(self, product_id: int):
+        if product_id in self.favorite_items:
+            self.favorite_items.remove(product_id)
             self.save()
 
     def clear(self):

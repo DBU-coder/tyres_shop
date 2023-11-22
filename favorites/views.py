@@ -6,16 +6,15 @@ from django.views.generic import ListView
 from django.utils.translation import gettext_lazy as _
 
 from favorites.utils import Favorite
+from shop.models import Product
 
 
 class AddToFavoritesView(View):
     def post(self, request, *args, **kwargs):
-        product_type = request.POST.get('type')
         product_id = request.POST.get('id')
         favorites = Favorite(request)
-        favorites.add(product_type, product_id)
+        favorites.add(product_id)
         response_data = {
-            'type': request.POST.get('type'),
             'id': request.POST.get('id'),
         }
         return JsonResponse(data=response_data)
@@ -23,12 +22,10 @@ class AddToFavoritesView(View):
 
 class RemoveFromFavoritesView(View):
     def post(self, request, *args, **kwargs):
-        product_type = request.POST.get('type')
         product_id = request.POST.get('id')
         favorites = Favorite(request)
-        favorites.remove(product_type, product_id)
+        favorites.remove(product_id)
         response_data = {
-            'type': request.POST.get('type'),
             'id': request.POST.get('id'),
         }
         return JsonResponse(data=response_data)
@@ -40,16 +37,11 @@ class FavoritesView(ListView):
 
     def get_queryset(self):
         favorites = self.request.session.get('favorites')
-        queryset = []
-        if favorites:
-            for key, value in favorites.items():
-                ct_model = ContentType.objects.get(model=key)
-                products = ct_model.model_class().objects.filter(id__in=value).\
-                    select_related('category').prefetch_related('gallery', 'ratings').annotate(
-                    avg_rating=Avg('ratings__value'),
-                    users_count=Count('ratings__ip')
-                ).only('category', 'ratings', 'gallery', 'name', 'price', 'slug', 'status')
-                queryset.extend(products)
+        queryset = Product.objects.filter(id__in=favorites). \
+            select_related('category').prefetch_related('images', 'ratings').annotate(
+            avg_rating=Avg('ratings__value'),
+            users_count=Count('ratings__ip')
+        ).only('category', 'ratings', 'images', 'name', 'price', 'slug', 'status')
         return queryset
 
     def get_context_data(self, **kwargs):

@@ -18,7 +18,6 @@ class IndexTemplateView(TemplateView):
         context['title'] = _('Shop | Homepage')
         context['new_products'] = HomepageProduct.objects.get_new_products(quantity=10)
         context['popular_products'] = HomepageProduct.objects.get_popular_products(days=7)
-        context['search_form'] = SearchForm()
         return context
 
 
@@ -29,7 +28,6 @@ class SearchView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = _('Search result')
-        context['search_form'] = SearchForm()
         return context
 
     def get_queryset(self, **kwargs):
@@ -79,7 +77,6 @@ class CategoryProductsListView(ListFilteredView):
         context['form'] = AddToCartForm
         context['title'] = f'Category | {category.name}'
         context['category'] = category
-        context['search_form'] = SearchForm()
         return context
 
     def get_base_queryset(self):
@@ -104,7 +101,6 @@ class ProductDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context['form'] = AddToCartForm
         context['title'] = f'Shop | {self.object.name}'
-        context['search_form'] = SearchForm()
         return context
 
     def get_queryset(self):
@@ -123,7 +119,6 @@ class DeliveryView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = _('Shop | Delivery')
-        context['search_form'] = SearchForm()
         return context
 
 
@@ -133,7 +128,6 @@ class AboutView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = _('Shop | AboutUs')
-        context['search_form'] = SearchForm()
         return context
 
 
@@ -143,7 +137,6 @@ class ContactsView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = _('Shop | Contacts')
-        context['search_form'] = SearchForm()
         return context
 
 

@@ -13,10 +13,10 @@
 							<div class="ms-auto">
 								<nav aria-label="breadcrumb">
 									<ol class="breadcrumb mb-0 p-0">
-										<li class="breadcrumb-item"><a href="{% url 'shop:index' %}"><i class="bx bx-home-alt"></i> {% trans 'Home' %}</a>
-										</li>
-										<li class="breadcrumb-item"><a href="{% url 'customers:profile' user.id %}">{% trans 'Account' %}</a>
-										</li>
+										<li class="breadcrumb-item"><a href="{% url 'shop:index' %}"><i class="bx bx-home-alt"></i> {% trans 'Home' %}</a></li>
+                                        {% if user.is_authenticated %}
+										<li class="breadcrumb-item"><a href="{% url 'customers:profile' user.id %}">{% trans 'Account' %}</a></li>
+                                        {% endif %}
 										<li class="breadcrumb-item active" aria-current="page">{% trans 'Wishlist' %}</li>
 									</ol>
 								</nav>
@@ -34,9 +34,9 @@
 								<div class="col">
 									<div class="card rounded-0 product-card">
 										<a href="{{ product.get_absolute_url }}">
-                                            {% get_main_image product as image %}
-                                                    {% if image %}
-                                                        <img src="{{ image.url }}" class="card-img-top" alt="...">
+                                            {% get_main_image product as image_obj %}
+                                                    {% if image_obj %}
+                                                        <img src="{{ image_obj.image.url }}" class="card-img-top" alt="{{ image_obj.alt_text }}">
                                                     {% else %}
                                                         <img src="{% static 'assets/images/products/no_image.png' %}" class="card-img-top" alt="...">
                                                     {% endif %}
@@ -62,8 +62,8 @@
 												</div>
 												<div class="product-action mt-2">
 													<div class="d-grid gap-2">
-														<a href="{% url 'cart:add' product.model_name product.slug %}" class="btn btn-white btn-ecomm">	<i class='bx bxs-cart-add'></i>{% trans 'Add to Cart' %}</a>
-														<div data-type="{{ product.model_name }}" data-id="{{ product.id }}" class="remove-from-favorites btn btn-light btn-ecomm"><i class='bx bx-heart'></i>{% trans 'Remove From Wishlist' %}</div>
+														<a href="{% url 'cart:add' product.slug %}" class="btn btn-white btn-ecomm">	<i class='bx bxs-cart-add'></i>{% trans 'Add to Cart' %}</a>
+														<div data-id="{{ product.id }}" class="remove-from-favorites btn btn-light btn-ecomm"><i class='bx bx-heart'></i>{% trans 'Remove From Wishlist' %}</div>
 													</div>
 												</div>
 											</div>

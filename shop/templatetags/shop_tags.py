@@ -2,6 +2,7 @@ from django import template
 from django.core.cache import cache
 from django.utils.translation import gettext_lazy as _
 
+from shop.forms import SearchForm
 from shop.models import Category
 
 menu = [
@@ -11,6 +12,11 @@ menu = [
 ]
 
 register = template.Library()
+
+
+@register.inclusion_tag('search_form.html')
+def search_form():
+    return {'search_form': SearchForm()}
 
 
 @register.simple_tag()

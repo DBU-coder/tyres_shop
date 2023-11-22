@@ -24,7 +24,6 @@ function addToFavorites() {
     $('.add-to-favorites').each((index, el) => {
         $(el).on('click', function (e) {
             e.preventDefault();
-            const type = $(el).data('type');
             const id = $(el).data('id');
             if ($(this).hasClass('added')) {
                 $.ajax({
@@ -35,7 +34,6 @@ function addToFavorites() {
                         'X-CSRFToken': csrftoken,
                     },
                     data: {
-                        type: type,
                         id: id
                     },
                     success: (data) => {
@@ -52,7 +50,6 @@ function addToFavorites() {
                         'X-CSRFToken': csrftoken,
                     },
                     data: {
-                        type: type,
                         id: id
                     },
                     success: (data) => {
@@ -70,9 +67,8 @@ function get_session_favorites() {
         if (json !== null) {
             for (let key in json) {
                 $('.add-to-favorites').each((index, el) => {
-                    const type = $(el).data('type');
                     const id = $(el).data('id');
-                    if (type === key && json[key].includes(String(id))) {
+                    if (json[key].includes(String(id))) {
                         $(el).addClass('added');
                         $(el).html('<i class="bx bxs-heart"></i>');
                     }
@@ -86,7 +82,6 @@ function remove_favorites_from_session() {
     $('.remove-from-favorites').each((index, el) => {
         $(el).on('click', function (e) {
             e.preventDefault();
-            const type = $(el).data('type');
             const id = $(el).data('id');
             $.ajax({
                 url: '/favorites/remove/',
@@ -96,7 +91,6 @@ function remove_favorites_from_session() {
                     'X-CSRFToken': csrftoken,
                 },
                 data: {
-                    type: type,
                     id: id
                 },
                 success: (data) => {

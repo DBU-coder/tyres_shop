@@ -92,7 +92,6 @@ class BaseFilter(filters.FilterSet):
             specification__name_en__iexact=spec_name,
             product__in=self.queryset,
         ).values_list('value', flat=True).order_by().distinct('value_en')
-        print(spec_name, spec_values)
         return [(s, s.title()) for s in sorted(spec_values)]
 
 
