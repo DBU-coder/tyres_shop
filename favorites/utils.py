@@ -9,7 +9,9 @@ class Favorite:
         if not favorites:
             favorites = self.session[settings.FAVORITES_SESSION_ID] = list()
         self.favorite_items = favorites
-        print(self.favorite_items)
+
+    def __len__(self):
+        return len(self.favorite_items)
 
     def add(self, product_id: int):
         if product_id not in self.favorite_items:
@@ -27,5 +29,3 @@ class Favorite:
 
     def save(self):
         self.session.modified = True
-
-

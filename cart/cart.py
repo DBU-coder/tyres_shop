@@ -2,7 +2,7 @@ import copy
 from decimal import Decimal
 
 from django.conf import settings
-from django.contrib.contenttypes.models import ContentType
+from django.core.cache import cache
 
 from cart.forms import AddToCartForm
 from coupons.models import Coupon
@@ -10,6 +10,8 @@ from shop.models import Product
 
 
 class Cart:
+    CACHE_KEY = 'cart_products'
+
     def __init__(self, request):
         self.session = request.session
         cart = self.session.get(settings.CART_SESSION_ID)
@@ -26,12 +28,14 @@ class Cart:
             self.cart_data[product_id]['quantity'] = quantity
         else:
             self.cart_data[product_id]['quantity'] += quantity
+        cache.delete(self.CACHE_KEY)
         self.save()
 
     def remove(self, product):
         product_id = str(product.id)
         if product_id in self.cart_data:
             del self.cart_data[product_id]
+            cache.delete(self.CACHE_KEY)
             self.save()
 
     def clear(self):
@@ -46,9 +50,12 @@ class Cart:
 
     def __iter__(self):
         cart_data = copy.deepcopy(self.cart_data)
-
-        product_ids = cart_data.keys()
-        products = Product.objects.prefetch_related('images').filter(id__in=product_ids)
+        product_ids = list(cart_data.keys())
+        products = cache.get_or_set(
+            key=self.CACHE_KEY,
+            timeout=300,
+            default=Product.objects.prefetch_related('images').filter(id__in=product_ids)
+        )
         for product in products:
             item = cart_data[str(product.id)]
             item['product'] = product

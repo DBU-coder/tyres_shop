@@ -1,7 +1,7 @@
 import django_filters as filters
 from django import forms
 from django.core.cache import cache
-from django.db.models import Q
+from django.db.models import Q, Min, Max
 from django.utils.translation import gettext_lazy as _
 from django_filters.widgets import LinkWidget, RangeWidget
 
@@ -39,9 +39,9 @@ class PriceRangeSliderWidget(RangeWidget):
 class PriceRangeFilter(filters.RangeFilter):
     def __init__(self, products, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        price_values = [p.price for p in products]
-        min_value = min(price_values)
-        max_value = max(price_values)
+        qs = products.aggregate(Min('price', default=0), Max('price', default=0))
+        min_value = qs['price__min']
+        max_value = qs['price__max']
         self.extra['widget'] = PriceRangeSliderWidget(
             min_value=min_value,
             max_value=max_value,
