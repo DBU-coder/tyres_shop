@@ -22,7 +22,7 @@ class SetRatingView(View):
             ip = self.request.META.get('REMOTE_ADDR')
         return ip
 
-    # @method_decorator(login_required)
+    @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
         request_data = json.loads(request.body)
         product = Product.objects.get(id=request_data['product_id'])

@@ -6,47 +6,31 @@ from django.urls import reverse
 
 from customers.models import Customer
 from ratings.models import Rating
-from shop.models import Category, Wheel
+from shop.models import Product
 
 
 class TestRatingsViews(TestCase):
-    url_name = 'ratings:set_rating'
+    fixtures = ['shop/fixtures/shop_data_fixtures.json']
 
     @classmethod
     def setUpTestData(cls):
         Customer.objects.create(email='test_user1@example.com', password='Test9PassworD')
-        Category.objects.create(name='Wheels', slug='wheels')
-        Wheel.objects.create(
-            sku='02548WR',
-            name='Test Wheel product 1 V.1',
-            slug='test-wheel-product-1-v1',
-            brand='Wheel brand',
-            price=1200,
-            status=1,
-            category=Category.objects.get(name='Wheels'),
-            stock_qty=10,
-            diameter=19,
-            width=45.5,
-            type=1,
-            stripe_product_price_id='test_fake_stripe_id12345'
-        )
 
     def setUp(self):
         self.user = Customer.objects.first()
-        self.wheel_product = Wheel.objects.first()
+        self.product = Product.objects.first()
         Rating.objects.create(
             ip='125.86.0.1',
-            content_object=self.wheel_product,
+            product=self.product,
             value=3
         )
         self.test_data = {
             'user_rating': 1,
-            'product_model': 'wheel',
-            'product_id': self.wheel_product.id
+            'product_id': self.product.id
         }
 
     def test_access(self):
-        response = self.client.post(reverse(self.url_name),
+        response = self.client.post(reverse('ratings:set_rating'),
                                     data=json.dumps(self.test_data),
                                     content_type='application/json',
                                     )
@@ -54,10 +38,10 @@ class TestRatingsViews(TestCase):
 
     def test_set_rating(self):
         self.client.force_login(self.user)
-        response = self.client.post(reverse(self.url_name),
+        response = self.client.post(reverse('ratings:set_rating'),
                                     data=json.dumps(self.test_data),
                                     content_type='application/json',
                                     )
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        rating = self.wheel_product.ratings.last()
+        rating = self.product.ratings.last()
         self.assertEqual(rating.value, 1)

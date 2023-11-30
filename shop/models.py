@@ -37,19 +37,15 @@ class HomepageProductsManager(models.Manager):
     @staticmethod
     def get_popular_products(days=0):
         """Returns popular products in the given days range."""
-        popular = ProductStatistic.objects.filter(
-            date__range=[timezone.now() - timezone.timedelta(days=days), timezone.now()],
-        ).annotate(
-            total_sales=Sum('purchases_quantity')
-        ).order_by('-total_sales').values_list('product_id', flat=True)
         popular_products = Product.objects. \
-            filter(id__in=popular). \
+            filter(statistics__date__range=[timezone.now() - timezone.timedelta(days=days), timezone.now()]). \
             select_related('category'). \
             prefetch_related('ratings'). \
             annotate(
                 avg_rating=Avg('ratings__value'),
-                users_count=Count('ratings__ip')
-            )
+                users_count=Count('ratings__ip'),
+                total_purchases=Sum('statistics__purchases_quantity')
+            ).order_by('-total_purchases')
         return cache.get_or_set(
             key='popular_products',
             timeout=300,
