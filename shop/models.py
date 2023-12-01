@@ -177,7 +177,7 @@ class ProductSpecificationValue(models.Model):
     specification = models.ForeignKey(ProductSpecification, on_delete=models.RESTRICT)
     value = models.CharField(
         verbose_name=_("value"),
-        help_text=_("Product specification value (maximum of 255 characters"),
+        help_text=_("Product specification value (maximum of 255 characters)"),
         max_length=255,
     )
 

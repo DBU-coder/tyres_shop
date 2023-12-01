@@ -24,14 +24,12 @@ msgid "Coupons"
 msgstr "Купони"
 
 #: coupons/forms.py:7
-#, fuzzy
-#| msgid "Discount amount"
 msgid "Discount Code"
-msgstr "Розмір знижки"
+msgstr "Промокод"
 
 #: coupons/forms.py:8
 msgid "Enter discount code"
-msgstr ""
+msgstr "Введіть код знижки"
 
 #: coupons/models.py:8
 msgid "Coupon"

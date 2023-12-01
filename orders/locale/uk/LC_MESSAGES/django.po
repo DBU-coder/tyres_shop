@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-06 18:35+0200\n"
+"POT-Creation-Date: 2023-12-01 15:17+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
 "(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
 
-#: orders/apps.py:8 orders/models.py:31
+#: orders/apps.py:8 orders/models.py:32
 #: orders/templates/admin/orders/order/order_details.html:9
 #: orders/templates/orders/order/order_details.html:18
 #: orders/templates/orders/payments/cancel.html:17
@@ -31,66 +31,66 @@ msgstr "Замовлення"
 msgid "Choose method"
 msgstr "Вибрати спосіб"
 
-#: orders/models.py:14
+#: orders/models.py:15
 #: orders/templates/admin/orders/order/order_details.html:28
 msgid "Customer"
 msgstr "Покупець"
 
-#: orders/models.py:15
+#: orders/models.py:16
 msgid "First name"
 msgstr "Ім'я"
 
-#: orders/models.py:16
+#: orders/models.py:17
 msgid "Last name"
 msgstr "Прізвище"
 
-#: orders/models.py:18
+#: orders/models.py:19
 msgid "Phone"
 msgstr "Телефон"
 
-#: orders/models.py:19
+#: orders/models.py:20
 msgid "Country"
 msgstr "Країна"
 
-#: orders/models.py:20
+#: orders/models.py:21
 msgid "Zip"
 msgstr "Індекс"
 
-#: orders/models.py:21
+#: orders/models.py:22
 #: orders/templates/admin/orders/order/order_details.html:36
 #: orders/templates/orders/order/order_create.html:56
 msgid "Address"
 msgstr "Адреса"
 
-#: orders/models.py:22
+#: orders/models.py:23
 #: orders/templates/admin/orders/order/order_details.html:24
 msgid "Created"
 msgstr "Створено"
 
-#: orders/models.py:23
+#: orders/models.py:24
 #: orders/templates/admin/orders/order/order_details.html:45
 #: orders/templates/orders/order/user_orders.html:58
 msgid "Paid"
 msgstr "Оплачено"
 
-#: orders/models.py:30 orders/templates/orders/order/order_details.html:11
+#: orders/models.py:31 orders/templates/orders/order/order_details.html:11
 #: orders/templates/orders/order/user_orders.html:44
 msgid "Order"
 msgstr "Замовлення"
 
-#: orders/models.py:80
+#: orders/models.py:79
 msgid "Method"
 msgstr "Метод"
 
-#: orders/models.py:81
+#: orders/models.py:80
 msgid "Cost"
 msgstr "Вартість"
 
-#: orders/models.py:84
+#: orders/models.py:83
 msgid "Delivery"
 msgstr "Спосіб доставки"
 
-#: orders/models.py:85
+#: orders/models.py:84
 msgid "Deliveries"
 msgstr "Способи доставки"
 
@@ -360,4 +360,3 @@ msgstr ""
 #: orders/templates/orders/payments/success.html:41
 msgid "Order list"
 msgstr "Список замовлень"
-
